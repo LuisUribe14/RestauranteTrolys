@@ -4,6 +4,9 @@
 
 package com.mycompany.restaurantepersistencia;
 
+import conexion.Conexion;
+import javax.persistence.EntityManager;
+
 /**
  *
  * @author multaslokas33
@@ -11,6 +14,14 @@ package com.mycompany.restaurantepersistencia;
 public class RestaurantePersistencia {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        EntityManager em = Conexion.crearConexion();
+        if (em != null) {
+            System.out.println("Conexión exitosa a la base de datos.");
+            em.close();
+        } else {
+            System.out.println("Error al conectar a la base de datos.");
+        }
+
+        Conexion.cerrar();
     }
 }
