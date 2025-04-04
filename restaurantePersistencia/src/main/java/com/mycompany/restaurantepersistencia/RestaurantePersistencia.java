@@ -16,21 +16,21 @@ import javax.persistence.EntityManager;
 public class RestaurantePersistencia {
 
     public static void main(String[] args) {
-        EntityManager em = Conexion.crearConexion();
-        if (em != null) {
-            System.out.println("Conexión exitosa a la base de datos.");
-
-            ingredienteDao dao = ingredienteDao.getInstancia();
-            ingredienteNuevoDTO dto = new ingredienteNuevoDTO(
-                    "Harina",
-                    unidadMedida.Miligramos,
-                    25
-            );
-            em.close();
-        } else {
-            System.out.println("Error al conectar a la base de datos.");
-        }
-
-        Conexion.cerrar();
+//        EntityManager em = Conexion.crearConexion();
+//        if (em != null) {
+//            System.out.println("Conexión exitosa a la base de datos.");
+//
+//            ingredienteDao dao = ingredienteDao.getInstancia();
+//            ingredienteNuevoDTO dto = new ingredienteNuevoDTO(
+//                    "Harina",
+//                    unidadMedida.Miligramos,
+//                    25
+//            );
+//            em.close();
+//        } else {
+//            System.out.println("Error al conectar a la base de datos.");
+//        }
+//
+//        Conexion.cerrar();
     }
 }

@@ -4,7 +4,6 @@
 package com.mycompany.restaurantepresentacion;
 
 import DAOs.ingredienteDao;
-import DTOs.ingredienteNuevoDTO;
 import entidades.Ingrediente;
 import enums.unidadMedida;
 import exception.PersistenciaException;
@@ -19,7 +18,7 @@ public class RestaurantePresentacion {
         ingredienteDao ingredienteDAO = ingredienteDao.getInstancia();
 
         
-        Ingrediente ingrediente = new Ingrediente("Harina", unidadMedida.Gramos, 3);
+        Ingrediente ingrediente = new Ingrediente("papas", unidadMedida.PIEZAS, 3);
         ingredienteDAO.agregarIngrediente(ingrediente);
     }
 }

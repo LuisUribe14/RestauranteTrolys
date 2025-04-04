@@ -9,5 +9,5 @@ package enums;
  * @author multaslokas33
  */
 public enum unidadMedida {
-    Gramos, Miligramos, Piezas;
+    GRAMOS, MILIGRAMOS, PIEZAS;
 }

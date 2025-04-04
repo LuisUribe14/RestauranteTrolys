@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,8 @@ public class Ingrediente implements Serializable {
     
     @Column(name = "nombre", nullable = false, length = 200)
     private String nombre;
+    
+    @Enumerated(EnumType.STRING)
     @Column(name = "unidad_medida", nullable = false, length = 10)
     private unidadMedida unidadMedida;
     @Column(name = "stock", nullable = false)
