@@ -8,6 +8,8 @@
     <modules>
         <module>restauranteDominio</module>
         <module>restaurantePersistencia</module>
+        <module>restauranteNegocio</module>
+        <module>restaurantePresentacion</module>
     </modules>
     <dependencies>
         <dependency>
