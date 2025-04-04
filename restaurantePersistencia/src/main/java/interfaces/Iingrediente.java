@@ -5,6 +5,7 @@
 package interfaces;
 
 import entidades.Ingrediente;
+import enums.unidadMedida;
 import exception.PersistenciaException;
 
 /**
@@ -13,4 +14,6 @@ import exception.PersistenciaException;
  */
 public interface Iingrediente  {
     public void agregarIngrediente(Ingrediente ingredeinte) throws PersistenciaException;
+    
+     public boolean existeIngrediente(String nombre, unidadMedida unidadMedida);
 }

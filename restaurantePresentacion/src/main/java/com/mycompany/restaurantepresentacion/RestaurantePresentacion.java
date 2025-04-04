@@ -3,6 +3,7 @@
  */
 package com.mycompany.restaurantepresentacion;
 
+import BOs.ingredienteBO;
 import DAOs.ingredienteDao;
 import entidades.Ingrediente;
 import enums.unidadMedida;
@@ -15,10 +16,10 @@ import exception.PersistenciaException;
 public class RestaurantePresentacion {
 
     public static void main(String[] args) throws PersistenciaException {
-        ingredienteDao ingredienteDAO = ingredienteDao.getInstancia();
+        ingredienteBO ingredientebo = ingredienteBO.getInstancia();
 
         
         Ingrediente ingrediente = new Ingrediente("papas", unidadMedida.PIEZAS, 3);
-        ingredienteDAO.agregarIngrediente(ingrediente);
+        ingredientebo.agregarIngrediente(ingrediente);
     }
 }
