@@ -12,8 +12,13 @@ import exception.PersistenciaException;
  *
  * @author chris
  */
-public interface Iingrediente  {
+public interface Iingrediente {
+
     public void agregarIngrediente(Ingrediente ingredeinte) throws PersistenciaException;
+
+    public boolean existeIngrediente(String nombre, unidadMedida unidadMedida);
+
+    public void actualizarIngrediente(Ingrediente ingrediente) throws PersistenciaException;
     
-     public boolean existeIngrediente(String nombre, unidadMedida unidadMedida);
+    public Ingrediente obtenerIngrediente(String nombre, unidadMedida unidadMedida) throws PersistenciaException;
 }

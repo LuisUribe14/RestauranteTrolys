@@ -17,9 +17,24 @@ public class RestaurantePresentacion {
 
     public static void main(String[] args) throws PersistenciaException {
         ingredienteBO ingredientebo = ingredienteBO.getInstancia();
-
         
-        Ingrediente ingrediente = new Ingrediente("papas", unidadMedida.PIEZAS, 3);
-        ingredientebo.agregarIngrediente(ingrediente);
+        ingredienteDao ingredienteDAO = ingredienteDao.getInstancia();
+
+        try {
+            // Buscar ingrediente en la BD por nombre y unidad de medida
+            Ingrediente ingrediente = ingredienteDAO.obtenerIngrediente("papas", unidadMedida.GRAMOS);
+
+            if (ingrediente == null) {
+                System.out.println("Ingrediente no encontrado en la base de datos.");
+                return;
+            }
+
+            // Descontar stock del ingrediente encontrado
+            ingredientebo.descontarStock(ingrediente, 2);
+            System.out.println("Stock actualizado: " + ingrediente.getStock());
+
+        } catch (PersistenciaException e) {
+            System.out.println("Error al obtener el ingrediente: " + e.getMessage());
+        }
     }
 }

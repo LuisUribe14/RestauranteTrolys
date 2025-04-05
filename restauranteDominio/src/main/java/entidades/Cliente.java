@@ -16,6 +16,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -37,11 +39,13 @@ public class Cliente implements Serializable {
     private String apellidoPaterno;
     @Column(name = "apellido_materno", length = 150)
     private String apellidoMaterno;
-    @Column(name = "telefono", nullable = false, length = 20)
+    @Column(name = "telefono", nullable = false)
     private String telefono;
     @Column(name = "correo", length = 255)
     private String correo;
+    
     @Column(name = "fecha_registro", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
     
     @OneToMany(mappedBy = "cliente")
