@@ -5,6 +5,7 @@
 package entidades;
 
 import enums.estadoProducto;
+import enums.tipoProducto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -33,36 +34,31 @@ public class Producto implements Serializable {
     @Column(name = "precio", nullable = false)
     private Double precio;
     @Column(name = "tipo", nullable = false, length = 100)
-    private String tipo;
+    private tipoProducto tipo;
     @Column(name = "estado", nullable = false, length = 100)
     private estadoProducto estado;
 
     @OneToMany(mappedBy = "producto")
     private List<ProductoIngrediente> ingredientes;
 
-    @OneToMany(mappedBy = "producto")
-    private List<ComandaProducto> comandas;
-
     public Producto() {
     }
 
-    public Producto(Long id, String nombre, Double precio, String tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes, List<ComandaProducto> comandas) {
+    public Producto(Long id, String nombre, Double precio, tipoProducto tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = ingredientes;
-        this.comandas = comandas;
     }
 
-    public Producto(String nombre, Double precio, String tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes, List<ComandaProducto> comandas) {
+    public Producto(String nombre, Double precio, tipoProducto tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = ingredientes;
-        this.comandas = comandas;
     }
 
     public estadoProducto getEstado() {
@@ -89,11 +85,11 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
-    public String getTipo() {
+    public tipoProducto getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(tipoProducto tipo) {
         this.tipo = tipo;
     }
 
@@ -103,14 +99,6 @@ public class Producto implements Serializable {
 
     public void setIngredientes(List<ProductoIngrediente> ingredientes) {
         this.ingredientes = ingredientes;
-    }
-
-    public List<ComandaProducto> getComandas() {
-        return comandas;
-    }
-
-    public void setComandas(List<ComandaProducto> comandas) {
-        this.comandas = comandas;
     }
 
     public Long getId() {
@@ -143,7 +131,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", estado=" + estado + ", ingredientes=" + ingredientes + ", comandas=" + comandas + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", estado=" + estado + ", ingredientes=" + ingredientes + '}';
     }
 
 }

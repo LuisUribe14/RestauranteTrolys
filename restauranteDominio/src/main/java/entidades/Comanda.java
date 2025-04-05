@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,10 +35,14 @@ public class Comanda implements Serializable {
 
     @Column(name = "folio", unique = true, nullable = false, length = 50)
     private String folio;
+    
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false, length = 50)
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaYHora;
+    @Column(name = "total_Venta", nullable = false)
+    private Double totalVenta;
     
     @OneToMany(mappedBy = "comanda")
     private List<ComandaProducto> productos;
@@ -52,20 +58,22 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(Long id, String folio, estadoComanda estado, LocalDateTime fechaYHora, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(Long id, String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.id = id;
         this.folio = folio;
         this.estado = estado;
         this.fechaYHora = fechaYHora;
+        this.totalVenta = totalVenta;
         this.productos = productos;
         this.cliente = cliente;
         this.mesa = mesa;
     }
 
-    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.estado = estado;
         this.fechaYHora = fechaYHora;
+        this.totalVenta = totalVenta;
         this.productos = productos;
         this.cliente = cliente;
         this.mesa = mesa;
@@ -127,6 +135,14 @@ public class Comanda implements Serializable {
         this.id = id;
     }
 
+    public Double getTotalVenta() {
+        return totalVenta;
+    }
+
+    public void setTotalVenta(Double totalVenta) {
+        this.totalVenta = totalVenta;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -149,7 +165,7 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return "Comanda{" + "id=" + id + ", folio=" + folio + ", estado=" + estado + ", fechaYHora=" + fechaYHora + ", productos=" + productos + ", cliente=" + cliente + ", mesa=" + mesa + '}';
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", estado=" + estado + ", fechaYHora=" + fechaYHora + ", totalVenta=" + totalVenta + ", productos=" + productos + ", cliente=" + cliente + ", mesa=" + mesa + '}';
     }
-
+    
 }

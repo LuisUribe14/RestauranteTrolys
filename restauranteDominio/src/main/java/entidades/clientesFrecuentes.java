@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -24,12 +25,12 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "cliente_id")
 public class clientesFrecuentes extends Cliente {
 
-    @Column(name = "cantidad_visitas", nullable = false)
-    private int visitas;
-    @Column(name = "puntos", nullable = false)
-    private int puntos;
-    @Column(name = "total_gastado", nullable = false)
-    private double totalGastado;
+    @Transient
+    private Integer visitas;
+    @Transient
+    private Integer puntos;
+    @Transient
+    private Double totalGastado;
 
     public clientesFrecuentes() {
     }
@@ -40,15 +41,15 @@ public class clientesFrecuentes extends Cliente {
         this.totalGastado = totalGastado;
     }
 
-    public clientesFrecuentes(int visitas, int puntos, double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, List<Comanda> comandas) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+    public clientesFrecuentes(int visitas, int puntos, double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
 
-    public clientesFrecuentes(int visitas, int puntos, double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, List<Comanda> comandas) {
-        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+    public clientesFrecuentes(int visitas, int puntos, double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
@@ -58,25 +59,25 @@ public class clientesFrecuentes extends Cliente {
         return visitas;
     }
 
-    public void setVisitas(int visitas) {
-        this.visitas = visitas;
-    }
+//    public void setVisitas(int visitas) {
+//        this.visitas = visitas;
+//    }
 
     public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
-    }
+//    public void setPuntos(int puntos) {
+//        this.puntos = puntos;
+//    }
 
     public double getTotalGastado() {
         return totalGastado;
     }
 
-    public void setTotalGastado(double totalGastado) {
-        this.totalGastado = totalGastado;
-    }
+//    public void setTotalGastado(double totalGastado) {
+//        this.totalGastado = totalGastado;
+//    }
 
     @Override
     public String toString() {

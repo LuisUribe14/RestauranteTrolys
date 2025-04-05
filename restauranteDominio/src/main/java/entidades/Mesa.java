@@ -30,21 +30,16 @@ public class Mesa implements Serializable {
     @Column(name = "numero", unique = true, nullable = false)
     private Integer numero;
 
-    @OneToMany(mappedBy = "mesa")
-    private List<Comanda> comandas;
-
     public Mesa() {
     }
 
-    public Mesa(Long id, Integer numero, List<Comanda> comandas) {
+    public Mesa(Long id, Integer numero) {
         this.id = id;
         this.numero = numero;
-        this.comandas = comandas;
     }
 
-    public Mesa(Integer numero, List<Comanda> comandas) {
+    public Mesa(Integer numero) {
         this.numero = numero;
-        this.comandas = comandas;
     }
 
     public Integer getNumero() {
@@ -53,14 +48,6 @@ public class Mesa implements Serializable {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
-    }
-
-    public List<Comanda> getComandas() {
-        return comandas;
-    }
-
-    public void setComandas(List<Comanda> comandas) {
-        this.comandas = comandas;
     }
 
     public Long getId() {
@@ -93,7 +80,7 @@ public class Mesa implements Serializable {
 
     @Override
     public String toString() {
-        return "Mesa{" + "id=" + id + ", numero=" + numero + ", comandas=" + comandas + '}';
+        return "Mesa{" + "id=" + id + ", numero=" + numero + ", comandas=" + '}';
     }
 
 }

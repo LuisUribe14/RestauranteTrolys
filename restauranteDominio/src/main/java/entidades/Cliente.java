@@ -47,14 +47,11 @@ public class Cliente implements Serializable {
     @Column(name = "fecha_registro", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
-    
-    @OneToMany(mappedBy = "cliente")
-    private List<Comanda> comandas;
-
+   
     public Cliente() {
     }
 
-    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, List<Comanda> comandas) {
+    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -62,17 +59,15 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.correo = correo;
         this.fechaRegistro = fechaRegistro;
-        this.comandas = comandas;
     }
 
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, List<Comanda> comandas) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.correo = correo;
         this.fechaRegistro = fechaRegistro;
-        this.comandas = comandas;
     }
     
     public Long getId() {
@@ -131,14 +126,6 @@ public class Cliente implements Serializable {
         this.fechaRegistro = fechaRegistro;
     }
     
-    public List<Comanda> getComandas() {
-        return comandas;
-    }
-
-    public void setComandas(List<Comanda> comandas) {
-        this.comandas = comandas;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -161,7 +148,7 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", correo=" + correo + ", fechaRegistro=" + fechaRegistro + ", comandas=" + comandas + '}';
+        return "Cliente{" + "id=" + id + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", telefono=" + telefono + ", correo=" + correo + ", fechaRegistro=" + fechaRegistro + '}';
     }
-   
+    
 }
