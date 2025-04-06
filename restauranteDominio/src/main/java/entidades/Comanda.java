@@ -49,7 +49,7 @@ public class Comanda implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
+    private Cliente cliente; 
 
     @ManyToOne
     @JoinColumn(name = "mesa_id")

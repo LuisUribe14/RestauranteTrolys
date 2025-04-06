@@ -5,9 +5,10 @@
 package DAOs;
 
 import conexion.Conexion;
-import entidades.clientesFrecuentes;
+import entidades.ClienteFrecuente;
 import exception.PersistenciaException;
 import interfaces.IClienteFrecuente;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -31,7 +32,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
-    public void registrarClienteFrecuente(clientesFrecuentes cliente) throws PersistenciaException {
+    public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
 
         try {
@@ -46,58 +47,59 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
                 // y en caso de error revertimos 
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("No se pudo registrar al cliente");
+            throw new PersistenciaException("Error al registrar el cliente frecuente");
         } finally {
             em.close();
         }
+        return cliente;
     }
 
     @Override
-    public List<clientesFrecuentes> buscarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
+    public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String correo, String telefono) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
+        List<ClienteFrecuente> resultados = new ArrayList<>();
+
         try {
-            StringBuilder jpql = new StringBuilder("SELECT c FROM Cliente c WHERE 1=1 ");
+            StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
 
             if (nombre != null && !nombre.trim().isEmpty()) {
-                jpql.append("AND LOWER(CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', c.apellidoMaterno)) LIKE :nombre ");
-            }
-            if (telefono != null && !telefono.trim().isEmpty()) {
-                jpql.append("AND LOWER(c.telefono) LIKE :telefono ");
+                jpql.append(" AND LOWER(CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', COALESCE(c.apellidoMaterno, ''))) LIKE :nombre");
             }
             if (correo != null && !correo.trim().isEmpty()) {
-                jpql.append("AND LOWER(c.correo) LIKE :correo ");
+                jpql.append(" AND LOWER(c.correo) LIKE :correo");
+            }
+            if (telefono != null && !telefono.trim().isEmpty()) {
+                jpql.append(" AND c.telefono LIKE :telefono");
             }
 
-            TypedQuery<clientesFrecuentes> query = em.createQuery(jpql.toString(), clientesFrecuentes.class);
+            TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
 
             if (nombre != null && !nombre.trim().isEmpty()) {
                 query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
             }
-            if (telefono != null && !telefono.trim().isEmpty()) {
-                query.setParameter("telefono", "%" + telefono.toLowerCase() + "%");
-            }
             if (correo != null && !correo.trim().isEmpty()) {
                 query.setParameter("correo", "%" + correo.toLowerCase() + "%");
             }
+            if (telefono != null && !telefono.trim().isEmpty()) {
+                query.setParameter("telefono", "%" + telefono + "%");
+            }
 
-            return query.getResultList();
+            resultados = query.getResultList();
         } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar clientes por campos", e);
+            throw new PersistenciaException("No se encontro ningun cliente con estos datos", e);
         } finally {
             em.close();
         }
+
+        return resultados;
     }
 
     @Override
-    public List<clientesFrecuentes> obtenerTodosLosClientesFrecuentes() throws PersistenciaException {
+    public List<ClienteFrecuente> obtenerTodosLosClientesFrecuentes() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            // creamos una consulta para obtener todos los clientes frecuentes
-            String jpql = "SELECT c FROM clientesFrecuentes c";
-            TypedQuery<clientesFrecuentes> query = em.createQuery(jpql, clientesFrecuentes.class);
-
-            // ejecutamos la consulta para que asi devuelva un resultado
-            return query.getResultList();
+            return em.createQuery("SELECT c FROM ClienteFrecuente c", ClienteFrecuente.class)
+                    .getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener todos los clientes frecuentes", e);
         } finally {
@@ -106,35 +108,54 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
-    public int calcularVisitas(Long clienteId) {
+    public ClienteFrecuente obtenerClienteFrecuentePorId(Long id) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
-        String query = "SELECT COUNT(c) FROM Comanda c WHERE c.cliente.id = :clienteId";
-        Long visitas = em.createQuery(query, Long.class)
-                .setParameter("clienteId", clienteId)
-                .getSingleResult();
-        em.close();
-        return visitas.intValue();
+        try {
+            return em.find(ClienteFrecuente.class, id);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener al cliente frecuente", e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public double calcularTotalGastado(Long clienteId) {
+    public int calcularVisitas(Long clienteId) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
-        //defino la consulta y utilizo el SUM para sumar todos los valores del total de venta de las comandas del cliete
-        String query = "SELECT SUM(c.totalVenta) FROM Comanda c WHERE c.cliente.id = :clienteId";
-        //aqui creo y ejecuto la consulta
-        Double totalGastado = em.createQuery(query, Double.class)
-                .setParameter("clienteId", clienteId)
-                .getSingleResult();
-        em.close();
-        //si el cliente no tiene comandas o no encontramos resultados  retornamos 0.0 como resultado
-        return totalGastado != null ? totalGastado : 0.0;
+        try {
+            String query = "SELECT COUNT(c) FROM Comanda c WHERE c.cliente.id = :clienteId";
+            Long visitas = em.createQuery(query, Long.class)
+                    .setParameter("clienteId", clienteId)
+                    .getSingleResult();
+            return visitas.intValue();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al calcular las visitas del cliente", e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public int calcularPuntos(Long clienteId) {
+    public double calcularTotalGastado(Long clienteId) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String query = "SELECT SUM(c.totalVenta) FROM Comanda c WHERE c.cliente.id = :clienteId";
+            Double totalGastado = em.createQuery(query, Double.class)
+                    .setParameter("clienteId", clienteId)
+                    .getSingleResult();
+            return totalGastado != null ? totalGastado : 0.0;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al calcular el total gastado del cliente", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public int calcularPuntos(Long clienteId) throws PersistenciaException {
         double totalGastado = calcularTotalGastado(clienteId);
         // cada 20 pesos equivalen a 1 punto
-        int puntos = (int) (totalGastado / 20);  
+        int puntos = (int) (totalGastado / 20);
         return puntos;
     }
 }

@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "ClienteFrecuente")
 @PrimaryKeyJoinColumn(name = "cliente_id")
-public class clientesFrecuentes extends Cliente {
+public class ClienteFrecuente extends Cliente {
 
     @Transient
     private Integer visitas;
@@ -32,23 +32,23 @@ public class clientesFrecuentes extends Cliente {
     @Transient
     private Double totalGastado;
 
-    public clientesFrecuentes() {
+    public ClienteFrecuente() {
     }
 
-    public clientesFrecuentes(int visitas, int puntos, double totalGastado) {
+    public ClienteFrecuente(int visitas, int puntos, double totalGastado) {
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
 
-    public clientesFrecuentes(int visitas, int puntos, double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+    public ClienteFrecuente(int visitas, int puntos, double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
         super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
 
-    public clientesFrecuentes(int visitas, int puntos, double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+    public ClienteFrecuente(int visitas, int puntos, double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
         super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
         this.visitas = visitas;
         this.puntos = puntos;

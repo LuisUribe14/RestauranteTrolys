@@ -9,7 +9,7 @@
     <class>entidades.Cliente</class>
     <class>entidades.ComandaProducto</class>
     <class>entidades.Mesa</class>
-    <class>entidades.clientesFrecuentes</class>
+    <class>entidades.ClienteFrecuente</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurantetrolys?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
