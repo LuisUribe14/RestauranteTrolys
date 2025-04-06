@@ -7,6 +7,7 @@ package interfaces;
 import entidades.Ingrediente;
 import enums.unidadMedida;
 import exception.PersistenciaException;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,11 @@ public interface Iingrediente {
     public boolean existeIngrediente(String nombre, unidadMedida unidadMedida);
 
     public void actualizarIngrediente(Ingrediente ingrediente) throws PersistenciaException;
-    
+
     public Ingrediente obtenerIngrediente(String nombre, unidadMedida unidadMedida) throws PersistenciaException;
+
+    public List<Ingrediente> buscarPorNombreOUm(String filtro) throws PersistenciaException;
+
+    public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException;
+
 }
