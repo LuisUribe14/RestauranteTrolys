@@ -13,15 +13,16 @@ import javax.persistence.Persistence;
  * @author multaslokas33
  */
 public class Conexion {
+
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ConexionPU");
 
     public static EntityManager crearConexion() {
-        return emf.createEntityManager(); 
+        return emf.createEntityManager();
     }
 
-    public static void cerrar() {
-        if (emf.isOpen()) {
-            emf.close();
+    public static void cerrarConexion(EntityManager em) {
+        if (em != null && em.isOpen()) {
+            em.close();
         }
     }
 }

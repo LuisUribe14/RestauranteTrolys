@@ -14,23 +14,45 @@ import entidades.ClienteFrecuente;
  */
 public class ClienteFrecuenteMapper {
 
-    public static ClienteFrecuenteDTO toClienteFrecuenteDTO(ClienteFrecuente cliente, Integer visitas, Double totalGastado, Integer puntos) {
-        if (cliente == null) {
+    public static ClienteFrecuenteDTO toDTO(ClienteFrecuente clienteFrecuente) {
+        if (clienteFrecuente == null) {
             return null;
         }
 
-        String nombreCompleto = cliente.getNombre() + " "
-                + cliente.getApellidoPaterno()
-                + (cliente.getApellidoMaterno() != null ? " " + cliente.getApellidoMaterno() : "");
+        String nombreCompleto = clienteFrecuente.getNombreCompleto();
 
         return new ClienteFrecuenteDTO(
-                nombreCompleto,
-                cliente.getTelefono(),
-                cliente.getCorreo(),
-                cliente.getFechaRegistro(),
-                visitas,
-                totalGastado,
-                puntos
+                nombreCompleto, 
+                clienteFrecuente.getTelefono(),
+                clienteFrecuente.getCorreo(),
+                clienteFrecuente.getFechaRegistro(),
+                clienteFrecuente.getVisitas(),
+                clienteFrecuente.getTotalGastado(),
+                clienteFrecuente.getPuntos()
         );
+    }
+    
+    public static ClienteFrecuente toEntity(ClienteFrecuenteDTO dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        ClienteFrecuente clienteFrecuente = new ClienteFrecuente();
+
+        // Aquí asignamos los valores del DTO a la entidad
+        String[] nombreParts = dto.getNombreCompleto().split(" ");
+
+        clienteFrecuente.setNombre(nombreParts[0]);
+        clienteFrecuente.setApellidoPaterno(nombreParts.length > 1 ? nombreParts[1] : "");
+        clienteFrecuente.setApellidoMaterno(nombreParts.length > 2 ? nombreParts[2] : null);
+
+        clienteFrecuente.setTelefono(dto.getTelefono());
+        clienteFrecuente.setCorreo(dto.getCorreo());
+        clienteFrecuente.setFechaRegistro(dto.getFechaRegistro());
+        clienteFrecuente.setVisitas(dto.getVisitas());
+        clienteFrecuente.setTotalGastado(dto.getTotalGastado());
+        clienteFrecuente.setPuntos(dto.getPuntos());
+
+        return clienteFrecuente;
     }
 }

@@ -6,6 +6,7 @@ package entidades;
 
 import enums.estadoComanda;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
@@ -40,7 +41,7 @@ public class Comanda implements Serializable {
     @Column(name = "estado", nullable = false, length = 50)
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
-    private LocalDateTime fechaYHora;
+    private LocalDate fechaYHora;
     @Column(name = "total_Venta", nullable = false)
     private Double totalVenta;
     
@@ -49,7 +50,7 @@ public class Comanda implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private Cliente cliente; 
+    private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "mesa_id")
@@ -58,7 +59,7 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(Long id, String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(Long id, String folio, estadoComanda estado, LocalDate fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.id = id;
         this.folio = folio;
         this.estado = estado;
@@ -69,7 +70,7 @@ public class Comanda implements Serializable {
         this.mesa = mesa;
     }
 
-    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(String folio, estadoComanda estado, LocalDate fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.estado = estado;
         this.fechaYHora = fechaYHora;
@@ -95,11 +96,11 @@ public class Comanda implements Serializable {
         this.estado = estado;
     }
 
-    public LocalDateTime getFechaYHora() {
+    public LocalDate getFechaYHora() {
         return fechaYHora;
     }
 
-    public void setFechaYHora(LocalDateTime fechaYHora) {
+    public void setFechaYHora(LocalDate fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
     

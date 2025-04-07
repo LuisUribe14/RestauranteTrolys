@@ -5,6 +5,7 @@
 package interfaces;
 
 import entidades.ClienteFrecuente;
+import entidades.Comanda;
 import exception.PersistenciaException;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import java.util.List;
  */
 public interface IClienteFrecuente {
     
+    public void registrarComanda(Comanda comanda) throws PersistenciaException;
+    
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException;
     
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String correo, String telefono) throws PersistenciaException;
@@ -22,9 +25,9 @@ public interface IClienteFrecuente {
     
     public List<ClienteFrecuente> obtenerTodosLosClientesFrecuentes() throws PersistenciaException;
     
-    public int calcularVisitas(Long clienteId) throws PersistenciaException;
+    public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException;
     
-    public double calcularTotalGastado(Long clienteId) throws PersistenciaException;
+    public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException;
     
-    public int calcularPuntos(Long clienteId) throws PersistenciaException;
+    public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException;
 }

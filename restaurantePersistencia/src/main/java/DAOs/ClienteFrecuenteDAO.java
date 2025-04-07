@@ -6,6 +6,7 @@ package DAOs;
 
 import conexion.Conexion;
 import entidades.ClienteFrecuente;
+import entidades.Comanda;
 import exception.PersistenciaException;
 import interfaces.IClienteFrecuente;
 import java.util.ArrayList;
@@ -19,22 +20,30 @@ import javax.persistence.TypedQuery;
  */
 public class ClienteFrecuenteDAO implements IClienteFrecuente {
 
-    private static ClienteFrecuenteDAO icd;
-
-    private ClienteFrecuenteDAO() {
-    }
-
-    public static ClienteFrecuenteDAO getInstancia() {
-        if (icd == null) {
-            icd = new ClienteFrecuenteDAO();
+    @Override
+    public void registrarComanda(Comanda comanda) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            // iniciamos la transacción
+            em.getTransaction().begin();
+            // guardamos al cliente en la base de datos
+            em.persist(comanda);
+            // ya nomas confirmamos la transacción
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                // y en caso de error revertimos 
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al registrar la comanda");
+        } finally {
+            Conexion.cerrarConexion(em);
         }
-        return icd;
     }
-
+    
     @Override
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
-
         try {
             // iniciamos la transacción
             em.getTransaction().begin();
@@ -49,7 +58,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             }
             throw new PersistenciaException("Error al registrar el cliente frecuente");
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
         return cliente;
     }
@@ -88,7 +97,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         } catch (Exception e) {
             throw new PersistenciaException("No se encontro ningun cliente con estos datos", e);
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
 
         return resultados;
@@ -103,7 +112,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener todos los clientes frecuentes", e);
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
     }
 
@@ -115,45 +124,45 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener al cliente frecuente", e);
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
     }
 
     @Override
-    public int calcularVisitas(Long clienteId) throws PersistenciaException {
+        public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String query = "SELECT COUNT(c) FROM Comanda c WHERE c.cliente.id = :clienteId";
             Long visitas = em.createQuery(query, Long.class)
-                    .setParameter("clienteId", clienteId)
+                    .setParameter("clienteId", cliente.getId())
                     .getSingleResult();
             return visitas.intValue();
         } catch (Exception e) {
             throw new PersistenciaException("Error al calcular las visitas del cliente", e);
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
     }
 
     @Override
-    public double calcularTotalGastado(Long clienteId) throws PersistenciaException {
+    public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String query = "SELECT SUM(c.totalVenta) FROM Comanda c WHERE c.cliente.id = :clienteId";
             Double totalGastado = em.createQuery(query, Double.class)
-                    .setParameter("clienteId", clienteId)
+                    .setParameter("clienteId", cliente.getId())
                     .getSingleResult();
             return totalGastado != null ? totalGastado : 0.0;
         } catch (Exception e) {
             throw new PersistenciaException("Error al calcular el total gastado del cliente", e);
         } finally {
-            em.close();
+            Conexion.cerrarConexion(em);
         }
     }
 
     @Override
-    public int calcularPuntos(Long clienteId) throws PersistenciaException {
-        double totalGastado = calcularTotalGastado(clienteId);
+    public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException {
+        double totalGastado = calcularTotalGastado(cliente);
         // cada 20 pesos equivalen a 1 punto
         int puntos = (int) (totalGastado / 20);
         return puntos;
