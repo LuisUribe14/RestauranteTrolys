@@ -7,15 +7,13 @@ package DTOs;
 public class ProductoIngredienteNuevoDTO {
     
     private Double cantidadRequerida;
-    private ProductoNuevoDTO producto;
-    private ingredienteNuevoDTO ingrediente;
+    private IngredienteViejoDTO ingrediente;
 
     public ProductoIngredienteNuevoDTO() {
     }
 
-    public ProductoIngredienteNuevoDTO(Double cantidadRequerida, ProductoNuevoDTO producto, ingredienteNuevoDTO ingrediente) {
+    public ProductoIngredienteNuevoDTO(Double cantidadRequerida, IngredienteViejoDTO ingrediente) {
         this.cantidadRequerida = cantidadRequerida;
-        this.producto = producto;
         this.ingrediente = ingrediente;
     }
 
@@ -27,25 +25,17 @@ public class ProductoIngredienteNuevoDTO {
         this.cantidadRequerida = cantidadRequerida;
     }
 
-    public ProductoNuevoDTO getProducto() {
-        return producto;
-    }
-
-    public void setProducto(ProductoNuevoDTO producto) {
-        this.producto = producto;
-    }
-
-    public ingredienteNuevoDTO getIngrediente() {
+    public IngredienteViejoDTO getIngrediente() {
         return ingrediente;
     }
 
-    public void setIngrediente(ingredienteNuevoDTO ingrediente) {
+    public void setIngrediente(IngredienteViejoDTO ingrediente) {
         this.ingrediente = ingrediente;
     }
 
     @Override
     public String toString() {
-        return "ProductoIngredienteNuevoDTO{" + "cantidadRequerida=" + cantidadRequerida + ", producto=" + producto + ", ingrediente=" + ingrediente + '}';
+        return "ProductoIngredienteNuevoDTO{" + "cantidadRequerida=" + cantidadRequerida + ", ingrediente=" + ingrediente + '}';
     }
     
 }

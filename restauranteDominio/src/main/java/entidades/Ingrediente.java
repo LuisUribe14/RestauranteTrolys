@@ -6,6 +6,7 @@ package entidades;
 
 import enums.unidadMedida;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,7 +66,14 @@ public class Ingrediente implements Serializable {
         this.unidadMedida = unidadMedida;
         this.stock = stock;
     }
-    
+
+    public Ingrediente(Long id, String nombre, unidadMedida unidadMedida, Integer stock) {
+        this.id = id;
+        this.nombre = nombre;
+        this.unidadMedida = unidadMedida;
+        this.stock = stock;
+        this.productos = new ArrayList();
+    }
 
     public String getNombre() {
         return nombre;

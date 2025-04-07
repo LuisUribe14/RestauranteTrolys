@@ -1,7 +1,16 @@
 package BOs;
 
 import DAOs.ProductoDAO;
+import DTOs.ProductoIngredienteNuevoDTO;
 import DTOs.ProductoNuevoDTO;
+import entidades.Producto;
+import entidades.ProductoIngrediente;
+import exception.NegocioException;
+import exception.PersistenciaException;
+import java.util.ArrayList;
+import java.util.List;
+import mapper.ProductoIngredienteMapper;
+import mapper.ProductoMapper;
 
 /**
  *
@@ -22,7 +31,46 @@ public class ProductoBO {
         return productoBO;
     }
     
-    public ProductoNuevoDTO registrarProducto(ProductoNuevoDTO productoNuevoDTO) {
-        return null;
+    public boolean registrarProducto(ProductoNuevoDTO productoNuevoDTO) throws NegocioException {
+        if (productoNuevoDTO.getEstado() == null) {
+            throw new NegocioException("El estado no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getIngredientes().isEmpty()) {
+            throw new NegocioException("El Producto tiene que tener ingredientes.");
+        }
+        if (productoNuevoDTO.getNombre() == null) {
+            throw new NegocioException("El nombre no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getPrecio() == null) {
+            throw new NegocioException("El precio no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getTipo() == null) {
+            throw new NegocioException("El tipo no puede estar vacío.");
+        }
+        
+        Producto producto = ProductoMapper.toEntity(productoNuevoDTO);
+        
+        List<ProductoIngredienteNuevoDTO> ingredientesDTO = productoNuevoDTO.getIngredientes();
+        List<ProductoIngrediente> ingredientes = new ArrayList();
+        
+        for (ProductoIngredienteNuevoDTO ingredienteDTO : ingredientesDTO) {
+            ProductoIngrediente ingrediente = ProductoIngredienteMapper.toEntity(ingredienteDTO);
+            ingrediente.setProducto(producto);
+            ingredientes.add(ingrediente);
+        }
+        
+        producto.setIngredientes(ingredientes);
+        
+        try{
+            Producto productoGuardado = ProductoDAO.getInstancia().registrarProducto(producto);
+            
+            if (productoGuardado.getId() == null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al registrar Producto.");
+        }
     }
 }

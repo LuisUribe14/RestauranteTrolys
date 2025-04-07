@@ -5,14 +5,20 @@
 package entidades;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,7 +28,8 @@ import javax.persistence.TemporalType;
  * @author multaslokas33
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name= "tipo_cliente", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "Clientes")
 public class Cliente implements Serializable {
 
@@ -43,29 +50,32 @@ public class Cliente implements Serializable {
     private String correo;
     
     @Column(name = "fecha_registro", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaRegistro;
+    private LocalDate fechaRegistro;
+    
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST)
+    private List<Comanda> comandas;
     
     public Cliente() {
+        this.fechaRegistro = LocalDate.now();
     }
 
-    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
+        this.fechaRegistro = LocalDate.now();
     }
 
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
+        this.fechaRegistro = LocalDate.now();
     }
     
     public Long getId() {
@@ -116,12 +126,24 @@ public class Cliente implements Serializable {
         this.correo = correo;
     }
 
-    public Date getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public List<Comanda> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(List<Comanda> comandas) {
+        this.comandas = comandas;
+    }
+    
+    public String getNombreCompleto(){
+        return (nombre +""+apellidoPaterno+""+(apellidoMaterno != null ? ""+ apellidoMaterno : "")).trim();
     }
     
     @Override

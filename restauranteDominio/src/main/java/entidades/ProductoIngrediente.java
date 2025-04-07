@@ -54,6 +54,11 @@ public class ProductoIngrediente implements Serializable {
         this.ingrediente = ingrediente;
     }
 
+    public ProductoIngrediente(Double cantidadRequerida, Ingrediente ingrediente) {
+        this.cantidadRequerida = cantidadRequerida;
+        this.ingrediente = ingrediente;
+    }
+
     public Long getId() {
         return id;
     }

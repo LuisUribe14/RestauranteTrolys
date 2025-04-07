@@ -4,6 +4,7 @@
  */
 package DTOs;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -11,12 +12,11 @@ import java.util.Date;
  * @author multaslokas33
  */
 public class ClienteFrecuenteDTO {
-    
-    private String nombreCompleto;
+
+    private String nombreCompleto;  
     private String telefono;
     private String correo;
-    private Date fechaRegistro;
-
+    private LocalDate fechaRegistro;
     private Integer visitas;
     private Double totalGastado;
     private Integer puntos;
@@ -24,7 +24,16 @@ public class ClienteFrecuenteDTO {
     public ClienteFrecuenteDTO() {
     }
 
-    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correo, Date fechaRegistro, Integer visitas, Double totalGastado, Integer puntos) {
+    public ClienteFrecuenteDTO(String telefono, String correo, LocalDate fechaRegistro, Integer visitas, Double totalGastado, Integer puntos) {
+        this.telefono = telefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
+        this.visitas = visitas;
+        this.totalGastado = totalGastado;
+        this.puntos = puntos;
+    }
+
+    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correo, LocalDate fechaRegistro, Integer visitas, Double totalGastado, Integer puntos) {
         this.nombreCompleto = nombreCompleto;
         this.telefono = telefono;
         this.correo = correo;
@@ -35,7 +44,7 @@ public class ClienteFrecuenteDTO {
     }
 
     public String getNombreCompleto() {
-        return nombreCompleto;
+        return nombreCompleto != null ? nombreCompleto : "";  
     }
 
     public void setNombreCompleto(String nombreCompleto) {
@@ -58,11 +67,11 @@ public class ClienteFrecuenteDTO {
         this.correo = correo;
     }
 
-    public Date getFechaRegistro() {
+    public LocalDate getFechaRegistro() {
         return fechaRegistro;
     }
 
-    public void setFechaRegistro(Date fechaRegistro) {
+    public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
 
@@ -94,5 +103,5 @@ public class ClienteFrecuenteDTO {
     public String toString() {
         return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correo=" + correo + ", fechaRegistro=" + fechaRegistro + ", visitas=" + visitas + ", totalGastado=" + totalGastado + ", puntos=" + puntos + '}';
     }
-    
 }
+
