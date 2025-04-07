@@ -108,7 +108,7 @@ public class ProductoIngrediente implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductoIngrediente{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", producto=" + producto + ", ingrediente=" + ingrediente + '}';
+        return "ProductoIngrediente{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", producto=" + producto.getId() + ", ingrediente=" + ingrediente.getId() + '}';
     }
     
 }

@@ -7,7 +7,9 @@ package entidades;
 import enums.estadoProducto;
 import enums.tipoProducto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,19 +40,19 @@ public class Producto implements Serializable {
     @Column(name = "estado", nullable = false, length = 100)
     private estadoProducto estado;
 
-    @OneToMany(mappedBy = "producto")
+    @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
     private List<ProductoIngrediente> ingredientes;
 
     public Producto() {
     }
 
-    public Producto(Long id, String nombre, Double precio, tipoProducto tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes) {
+    public Producto(Long id, String nombre, Double precio, tipoProducto tipo, estadoProducto estado) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.tipo = tipo;
         this.estado = estado;
-        this.ingredientes = ingredientes;
+        this.ingredientes = new ArrayList();
     }
 
     public Producto(String nombre, Double precio, tipoProducto tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes) {
@@ -59,6 +61,14 @@ public class Producto implements Serializable {
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = ingredientes;
+    }
+    
+    public Producto(String nombre, Double precio, tipoProducto tipo, estadoProducto estado) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.ingredientes = new ArrayList();
     }
 
     public estadoProducto getEstado() {
