@@ -4,6 +4,7 @@
  */
 package mapper;
 
+import DTOs.IngredienteViejoDTO;
 import DTOs.ingredienteNuevoDTO;
 import entidades.Ingrediente;
 
@@ -20,5 +21,31 @@ public class ingredienteMapper {
         ingrediente.setUnidadMedida(dto.getUnidadMedida());
         ingrediente.setStock(dto.getStock());
         return ingrediente;
+    }
+    
+    // Convierte un IngredienteViejoDTO a Ingrediente
+    public static Ingrediente toEntity(IngredienteViejoDTO ingredienteViejoDTO) {
+        if (ingredienteViejoDTO == null) {
+            return null;
+        }
+        return new Ingrediente(
+                ingredienteViejoDTO.getId(),
+                ingredienteViejoDTO.getNombre(),
+                ingredienteViejoDTO.getUnidadMedida(),
+                ingredienteViejoDTO.getStock()
+        );
+    }
+    
+    // Convierte un Ingrediente a IngredienteViejoDTO
+    public static IngredienteViejoDTO toViejoDTO(Ingrediente ingrediente) {
+        if (ingrediente == null) {
+            return null;
+        }
+        return new IngredienteViejoDTO(
+                ingrediente.getId(),
+                ingrediente.getNombre(),
+                ingrediente.getUnidadMedida(),
+                ingrediente.getStock()
+        );
     }
 }
