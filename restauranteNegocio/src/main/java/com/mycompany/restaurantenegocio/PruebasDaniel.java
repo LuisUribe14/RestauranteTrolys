@@ -34,7 +34,7 @@ public class PruebasDaniel {
 //        ProductoNuevoDTO productoNuevoDTO = new ProductoNuevoDTO("Pizza", 10.00, tipoProducto.PLATILLO, estadoProducto.DISPONIBLE, ingredientesDTO);
 //        ProductoBO.getInstancia().registrarProducto(productoNuevoDTO);
 
-//        ProductoViejoDTO productoViejoDTO = ProductoMapper.toViejoDTO(em.find(Producto.class, 7L));
+//        ProductoViejoDTO productoViejoDTO = ProductoMapper.toViejoDTO(em.find(Producto.class, 2L));
 //        productoViejoDTO.setEstado(estadoProducto.NO_DISPONIBLE);
 //        ProductoBO.getInstancia().actualizarEstado(productoViejoDTO);
 
