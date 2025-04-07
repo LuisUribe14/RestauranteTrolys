@@ -32,7 +32,7 @@ public class ComandaProducto implements Serializable {
     private Integer cantidadRequerida;
     @Column(name = "precio", nullable = false)
     private Double precioProducto;
-    @Column(name = "comentario", nullable = false, length = 200)
+    @Column(name = "comentario", length = 200)
     private String comentario;
     @Transient
     private String totalProducto;

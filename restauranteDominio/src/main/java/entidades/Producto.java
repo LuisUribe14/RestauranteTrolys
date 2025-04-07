@@ -43,6 +43,9 @@ public class Producto implements Serializable {
     @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
     private List<ProductoIngrediente> ingredientes;
 
+    @OneToMany(mappedBy = "producto")
+    private List<ComandaProducto> comandas;
+    
     public Producto() {
     }
 
@@ -53,6 +56,7 @@ public class Producto implements Serializable {
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = new ArrayList();
+        this.comandas = new ArrayList();
     }
 
     public Producto(String nombre, Double precio, tipoProducto tipo, estadoProducto estado, List<ProductoIngrediente> ingredientes) {
@@ -61,6 +65,7 @@ public class Producto implements Serializable {
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = ingredientes;
+        this.comandas = new ArrayList();
     }
     
     public Producto(String nombre, Double precio, tipoProducto tipo, estadoProducto estado) {
@@ -69,6 +74,7 @@ public class Producto implements Serializable {
         this.tipo = tipo;
         this.estado = estado;
         this.ingredientes = new ArrayList();
+        this.comandas = new ArrayList();
     }
 
     public estadoProducto getEstado() {
@@ -111,6 +117,14 @@ public class Producto implements Serializable {
         this.ingredientes = ingredientes;
     }
 
+    public List<ComandaProducto> getComandas() {
+        return comandas;
+    }
+
+    public void setComandas(List<ComandaProducto> comandas) {
+        this.comandas = comandas;
+    }
+
     public Long getId() {
         return id;
     }
@@ -141,7 +155,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", estado=" + estado + ", ingredientes=" + ingredientes + '}';
+        return "Producto{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", tipo=" + tipo + ", estado=" + estado + '}';
     }
 
 }

@@ -39,8 +39,9 @@ public class PruebasDaniel {
 //        
 //        Producto pGuardado = ProductoDAO.getInstancia().registrarProducto(p);
 //        System.out.println("ID: " + pGuardado.getId());
-         Producto p2 = new Producto();
-         System.out.println(p2.getId());
+//         Producto p2 = new Producto();
+//         System.out.println(p2.getId());
+         
     }
     
 }
