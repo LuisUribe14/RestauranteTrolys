@@ -4,6 +4,7 @@
  */
 package DAOs;
 
+import ENcriptador.Encriptador;
 import conexion.Conexion;
 import entidades.ClienteFrecuente;
 import entidades.Comanda;
@@ -40,67 +41,33 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             Conexion.cerrarConexion(em);
         }
     }
-    
+
     @Override
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            // iniciamos la transacción
             em.getTransaction().begin();
-            // guardamos al cliente en la base de datos
+
+            // Encriptamos el teléfono antes de persistir
+            if (cliente.getTelefono() != null && !cliente.getTelefono().isEmpty()) {
+                try {
+                    String telefonoEncriptado = Encriptador.encrypt(cliente.getTelefono());
+                    cliente.setTelefono(telefonoEncriptado);
+                } catch (Exception e) {
+                    throw new PersistenciaException("Error al encriptar el teléfono del cliente.", e);
+                }
+            }
+
             em.persist(cliente);
-            // ya nomas confirmamos la transacción
             em.getTransaction().commit();
+
+            return cliente;
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                // y en caso de error revertimos 
-                em.getTransaction().rollback();
-            }
-            throw new PersistenciaException("Error al registrar el cliente frecuente");
+            em.getTransaction().rollback();
+            throw new PersistenciaException("No se pudo registrar el cliente frecuente.", e);
         } finally {
             Conexion.cerrarConexion(em);
         }
-        return cliente;
-    }
-
-    @Override
-    public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String correo, String telefono) throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
-        List<ClienteFrecuente> resultados = new ArrayList<>();
-
-        try {
-            StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
-
-            if (nombre != null && !nombre.trim().isEmpty()) {
-                jpql.append(" AND LOWER(CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', COALESCE(c.apellidoMaterno, ''))) LIKE :nombre");
-            }
-            if (correo != null && !correo.trim().isEmpty()) {
-                jpql.append(" AND LOWER(c.correo) LIKE :correo");
-            }
-            if (telefono != null && !telefono.trim().isEmpty()) {
-                jpql.append(" AND c.telefono LIKE :telefono");
-            }
-
-            TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
-
-            if (nombre != null && !nombre.trim().isEmpty()) {
-                query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
-            }
-            if (correo != null && !correo.trim().isEmpty()) {
-                query.setParameter("correo", "%" + correo.toLowerCase() + "%");
-            }
-            if (telefono != null && !telefono.trim().isEmpty()) {
-                query.setParameter("telefono", "%" + telefono + "%");
-            }
-
-            resultados = query.getResultList();
-        } catch (Exception e) {
-            throw new PersistenciaException("No se encontro ningun cliente con estos datos", e);
-        } finally {
-            Conexion.cerrarConexion(em);
-        }
-
-        return resultados;
     }
 
     @Override
@@ -129,7 +96,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
-        public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException {
+    public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String query = "SELECT COUNT(c) FROM Comanda c WHERE c.cliente.id = :clienteId";
@@ -167,4 +134,63 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         int puntos = (int) (totalGastado / 20);
         return puntos;
     }
+
+    @Override
+    public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        List<ClienteFrecuente> resultados = new ArrayList<>();
+
+        try {
+            StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                jpql.append(" AND LOWER(CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', COALESCE(c.apellidoMaterno, ''))) LIKE :nombre");
+            }
+            if (correo != null && !correo.trim().isEmpty()) {
+                jpql.append(" AND LOWER(c.correo) LIKE :correo");
+            }
+            if (telefono != null && !telefono.trim().isEmpty()) {
+                jpql.append(" AND c.telefono = :telefono"); // Solo comparación exacta
+            }
+
+            TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
+            }
+            if (correo != null && !correo.trim().isEmpty()) {
+                query.setParameter("correo", "%" + correo.toLowerCase() + "%");
+            }
+            if (telefono != null && !telefono.trim().isEmpty()) {
+                try {
+                    String telefonoEncriptado = Encriptador.encrypt(telefono.trim());
+                    query.setParameter("telefono", telefonoEncriptado);
+                } catch (Exception e) {
+                    throw new PersistenciaException("Error al encriptar el número de teléfono.", e);
+                }
+            }
+
+            resultados = query.getResultList();
+
+            for (ClienteFrecuente cliente : resultados) {
+                try {
+                    cliente.setTelefono(Encriptador.decrypt(cliente.getTelefono()));
+                } catch (Exception e) {
+                    cliente.setTelefono("ERROR");
+                }
+
+                calcularTotalGastado(cliente);
+                calcularVisitas(cliente);
+                calcularPuntos(cliente);
+            }
+
+            return resultados;
+
+        } catch (Exception e) {
+            throw new PersistenciaException("No se encontró ningún cliente con estos datos.", e);
+        } finally {
+            Conexion.cerrarConexion(em);
+        }
+    }
+
 }

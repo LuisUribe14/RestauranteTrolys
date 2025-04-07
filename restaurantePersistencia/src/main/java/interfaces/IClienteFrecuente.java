@@ -19,7 +19,7 @@ public interface IClienteFrecuente {
     
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException;
     
-    public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String correo, String telefono) throws PersistenciaException;
+    public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException;
     
     public ClienteFrecuente obtenerClienteFrecuentePorId(Long id) throws PersistenciaException;
     
