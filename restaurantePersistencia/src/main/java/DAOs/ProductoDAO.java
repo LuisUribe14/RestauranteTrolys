@@ -5,7 +5,9 @@ import entidades.Producto;
 import enums.estadoProducto;
 import exception.PersistenciaException;
 import interfaces.IProductoDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -54,6 +56,20 @@ public class ProductoDAO implements IProductoDAO{
         } catch (Exception e) {
             em.getTransaction().rollback();
             throw new PersistenciaException("Error al actualizar Producto");
+        } finally {
+            Conexion.cerrar();
+        }
+    }
+
+    @Override
+    public List<Producto> obtenerTodos() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT p FROM Producto p";
+            TypedQuery query = em.createQuery(jpql, Producto.class);
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar Productos");
         } finally {
             Conexion.cerrar();
         }

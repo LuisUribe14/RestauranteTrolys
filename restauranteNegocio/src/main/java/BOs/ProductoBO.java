@@ -3,6 +3,7 @@ package BOs;
 import DAOs.ProductoDAO;
 import DTOs.ProductoIngredienteNuevoDTO;
 import DTOs.ProductoNuevoDTO;
+import DTOs.ProductoViejoDTO;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
 import exception.NegocioException;
@@ -71,6 +72,41 @@ public class ProductoBO {
             }
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al registrar Producto.");
+        }
+    }
+    
+    public boolean actualizarEstado(ProductoViejoDTO productoViejoDTO) throws NegocioException {
+        if (productoViejoDTO.getEstado() == null) {
+             throw new NegocioException("Error, el estado no puede estar vacío.");
+        }
+        
+        Producto producto = ProductoMapper.toEntity(productoViejoDTO);
+        
+        try {
+            boolean exito = ProductoDAO.getInstancia().actualizarProducto(producto);
+            
+            if (exito) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al actualizar Estado.");
+        }
+    }
+    
+    public List<ProductoViejoDTO> obtenerTodos() throws NegocioException {
+        try {
+            List<Producto> productos = ProductoDAO.getInstancia().obtenerTodos();
+            List<ProductoViejoDTO> productosDTO = new ArrayList();
+            
+            for (Producto producto : productos) {
+                productosDTO.add(ProductoMapper.toViejoDTO(producto));
+            }
+            
+            return productosDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar los Productos");
         }
     }
 }
