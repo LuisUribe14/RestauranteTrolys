@@ -33,26 +33,26 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         return clienteFrecuenteDAO;
     }
     
-    @Override
-    public void registrarComanda(Comanda comanda) throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            // iniciamos la transacción
-            em.getTransaction().begin();
-            // guardamos al cliente en la base de datos
-            em.persist(comanda);
-            // ya nomas confirmamos la transacción
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                // y en caso de error revertimos 
-                em.getTransaction().rollback();
-            }
-            throw new PersistenciaException("Error al registrar la comanda");
-        } finally {
-            Conexion.cerrarConexion(em);
-        }
-    }
+//    @Override
+//    public void registrarComanda(Comanda comanda) throws PersistenciaException {
+//        EntityManager em = Conexion.crearConexion();
+//        try {
+//            // iniciamos la transacción
+//            em.getTransaction().begin();
+//            // guardamos al cliente en la base de datos
+//            em.persist(comanda);
+//            // ya nomas confirmamos la transacción
+//            em.getTransaction().commit();
+//        } catch (Exception e) {
+//            if (em.getTransaction().isActive()) {
+//                // y en caso de error revertimos 
+//                em.getTransaction().rollback();
+//            }
+//            throw new PersistenciaException("Error al registrar la comanda");
+//        } finally {
+//            Conexion.cerrarConexion(em);
+//        }
+//    }
 
     @Override
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {

@@ -15,7 +15,7 @@ public class ComandaDAO implements IComandaDAO{
 
     private static ComandaDAO comandaDAO;
     
-    private ComandaDAO() {
+    public ComandaDAO() {
     }
     
     public static ComandaDAO getInstancia() {

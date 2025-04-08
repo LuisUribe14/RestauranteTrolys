@@ -4,6 +4,7 @@
 package com.mycompany.restaurantepersistencia;
 
 import DAOs.ClienteFrecuenteDAO;
+import DAOs.ComandaDAO;
 import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import enums.estadoComanda;
@@ -21,6 +22,7 @@ public class RestaurantePersistencia {
     public static void main(String[] args) throws PersistenciaException {
 
         ClienteFrecuenteDAO dao = new ClienteFrecuenteDAO();
+        ComandaDAO d = new ComandaDAO();
 
         ClienteFrecuente cliente1 = new ClienteFrecuente();
         cliente1.setNombre("crit");
@@ -52,7 +54,7 @@ public class RestaurantePersistencia {
         comanda.setCliente(cliente1);
 
         try {
-            dao.registrarComanda(comanda);
+            d.registrarComanda(comanda);
             System.out.println("Comanda Registrada");
         } catch (PersistenciaException e) {
             System.out.println("Error al registrar la comanda: " + e.getMessage());
