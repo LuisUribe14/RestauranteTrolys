@@ -15,8 +15,6 @@ import java.util.List;
  */
 public interface IClienteFrecuente {
     
-    public void registrarComanda(Comanda comanda) throws PersistenciaException;
-    
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException;
     
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException;
