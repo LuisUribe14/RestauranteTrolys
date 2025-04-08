@@ -35,7 +35,7 @@ public class ComandaProducto implements Serializable {
     @Column(name = "comentario", length = 200)
     private String comentario;
     @Transient
-    private String totalProducto;
+    private Double totalProducto;
 
     @ManyToOne
     @JoinColumn(name = "comanda_id")
@@ -48,7 +48,7 @@ public class ComandaProducto implements Serializable {
     public ComandaProducto() {
     }
 
-    public ComandaProducto(Long id, Integer cantidadRequerida, Double precioProducto, String comentario, String totalProducto, Comanda comanda, Producto producto) {
+    public ComandaProducto(Long id, Integer cantidadRequerida, Double precioProducto, String comentario, Double totalProducto, Comanda comanda, Producto producto) {
         this.id = id;
         this.cantidadRequerida = cantidadRequerida;
         this.precioProducto = precioProducto;
@@ -58,7 +58,7 @@ public class ComandaProducto implements Serializable {
         this.producto = producto;
     }
 
-    public ComandaProducto(Integer cantidadRequerida, Double precioProducto, String comentario, String totalProducto, Comanda comanda, Producto producto) {
+    public ComandaProducto(Integer cantidadRequerida, Double precioProducto, String comentario, Double totalProducto, Comanda comanda, Producto producto) {
         this.cantidadRequerida = cantidadRequerida;
         this.precioProducto = precioProducto;
         this.comentario = comentario;
@@ -115,11 +115,11 @@ public class ComandaProducto implements Serializable {
         this.id = id;
     }
 
-    public String getTotalProducto() {
+    public Double getTotalProducto() {
         return totalProducto;
     }
 
-    public void setTotalProducto(String totalProducto) {
+    public void setTotalProducto(Double totalProducto) {
         this.totalProducto = totalProducto;
     }
 
@@ -145,7 +145,7 @@ public class ComandaProducto implements Serializable {
 
     @Override
     public String toString() {
-        return "ComandaProducto{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", precioProducto=" + precioProducto + ", comentario=" + comentario + ", totalProducto=" + totalProducto + ", comanda=" + comanda + ", producto=" + producto + '}';
+        return "ComandaProducto{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", precioProducto=" + precioProducto + ", comentario=" + comentario + '}';
     }
     
 }

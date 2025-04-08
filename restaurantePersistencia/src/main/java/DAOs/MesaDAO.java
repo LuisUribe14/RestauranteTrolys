@@ -19,7 +19,7 @@ public class MesaDAO implements IMesaDAO{
     
     public static MesaDAO getInstancia() {
         if (mesaDAO == null) {
-            return new MesaDAO();
+            mesaDAO = new MesaDAO();
         }
         return mesaDAO;
     }
