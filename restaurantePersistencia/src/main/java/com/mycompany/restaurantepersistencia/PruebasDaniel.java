@@ -37,10 +37,12 @@ public class PruebasDaniel {
         p.getIngredientes().add(pi);
         p.getIngredientes().add(pi2);
 //        
-        Producto pGuardado = ProductoDAO.getInstancia().registrarProducto(p);
-        System.out.println("ID: " + pGuardado.getId());
+//        Producto pGuardado = ProductoDAO.getInstancia().registrarProducto(p);
+//        System.out.println("ID: " + pGuardado.getId());
 //         Producto p2 = new Producto();
 //         System.out.println(p2.getId());
+       
+        System.out.println(ProductoDAO.getInstancia().obtenerProductosDisponibles());
          
     }
     

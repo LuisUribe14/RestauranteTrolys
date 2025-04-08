@@ -2,7 +2,7 @@ package DAOs;
 
 import conexion.Conexion;
 import entidades.Producto;
-import enums.estadoProducto;
+import static enums.estadoProducto.DISPONIBLE;
 import exception.PersistenciaException;
 import interfaces.IProductoDAO;
 import java.util.List;
@@ -62,11 +62,13 @@ public class ProductoDAO implements IProductoDAO{
     }
 
     @Override
-    public List<Producto> obtenerTodos() throws PersistenciaException {
+    public List<Producto> obtenerProductosDisponibles() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            String jpql = "SELECT p FROM Producto p";
+            String jpql = "SELECT p FROM Producto p WHERE p.estado = :estado";
             TypedQuery query = em.createQuery(jpql, Producto.class);
+            query.setParameter("estado", DISPONIBLE);
+            
             return query.getResultList();
         } catch(Exception e) {
             throw new PersistenciaException("Error al consultar Productos");
