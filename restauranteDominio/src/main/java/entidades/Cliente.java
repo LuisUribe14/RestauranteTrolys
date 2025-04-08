@@ -69,7 +69,7 @@ public class Cliente implements Serializable {
         this.fechaRegistro = LocalDate.now();
         this.comandas = comandas;
     }
-
+// estamos probando esto profe es que mi compañero cris no le sale mi commit
     public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;

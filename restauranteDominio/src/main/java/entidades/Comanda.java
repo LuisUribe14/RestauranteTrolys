@@ -8,7 +8,9 @@ import enums.estadoComanda;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -41,11 +44,11 @@ public class Comanda implements Serializable {
     @Column(name = "estado", nullable = false, length = 50)
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
-    private LocalDate fechaYHora;
-    @Column(name = "total_Venta", nullable = false)
+    private LocalDateTime fechaYHora;
+    @Column(name = "total_venta", nullable = false)
     private Double totalVenta;
     
-    @OneToMany(mappedBy = "comanda")
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST})
     private List<ComandaProducto> productos;
 
     @ManyToOne
@@ -59,7 +62,7 @@ public class Comanda implements Serializable {
     public Comanda() {
     }
 
-    public Comanda(Long id, String folio, estadoComanda estado, LocalDate fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(Long id, String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.id = id;
         this.folio = folio;
         this.estado = estado;
@@ -70,7 +73,7 @@ public class Comanda implements Serializable {
         this.mesa = mesa;
     }
 
-    public Comanda(String folio, estadoComanda estado, LocalDate fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
+    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, List<ComandaProducto> productos, Cliente cliente, Mesa mesa) {
         this.folio = folio;
         this.estado = estado;
         this.fechaYHora = fechaYHora;
@@ -78,6 +81,10 @@ public class Comanda implements Serializable {
         this.productos = productos;
         this.cliente = cliente;
         this.mesa = mesa;
+    }
+
+    public Comanda(estadoComanda estado) {
+        this.estado = estado;
     }
 
     public String getFolio() {
@@ -96,11 +103,11 @@ public class Comanda implements Serializable {
         this.estado = estado;
     }
 
-    public LocalDate getFechaYHora() {
+    public LocalDateTime getFechaYHora() {
         return fechaYHora;
     }
 
-    public void setFechaYHora(LocalDate fechaYHora) {
+    public void setFechaYHora(LocalDateTime fechaYHora) {
         this.fechaYHora = fechaYHora;
     }
     

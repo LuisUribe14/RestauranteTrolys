@@ -9,6 +9,7 @@ import entidades.Comanda;
 import enums.estadoComanda;
 import exception.PersistenciaException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -45,7 +46,7 @@ public class RestaurantePersistencia {
 
         Comanda comanda = new Comanda();
         comanda.setEstado(estadoComanda.ENTREGADO);
-        comanda.setFechaYHora(LocalDate.now());
+        comanda.setFechaYHora(LocalDateTime.now());
         comanda.setTotalVenta(100.0);
         comanda.setFolio("AB1");
         comanda.setCliente(cliente1);
