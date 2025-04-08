@@ -59,7 +59,7 @@ public class Cliente implements Serializable {
         this.fechaRegistro = LocalDate.now();
     }
 
-    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
+    public Cliente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -67,15 +67,17 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.correo = correo;
         this.fechaRegistro = LocalDate.now();
+        this.comandas = comandas;
     }
 
-    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
+    public Cliente(String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.telefono = telefono;
         this.correo = correo;
-        this.fechaRegistro = LocalDate.now();
+        this.fechaRegistro = fechaRegistro;
+        this.comandas = comandas;
     }
     
     public Long getId() {

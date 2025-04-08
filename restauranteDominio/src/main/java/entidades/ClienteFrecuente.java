@@ -42,20 +42,20 @@ public class ClienteFrecuente extends Cliente implements Serializable{
         this.totalGastado = totalGastado;
     }
 
-    public ClienteFrecuente(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
+    public ClienteFrecuente(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
 
-    public ClienteFrecuente(Integer visitas, Integer puntos, Double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
-        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
+    public ClienteFrecuente(Integer visitas, Integer puntos, Double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
+        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
         this.visitas = visitas;
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
-
+    
     public int getVisitas() {
         return visitas;
     }
@@ -79,7 +79,7 @@ public class ClienteFrecuente extends Cliente implements Serializable{
     public void setTotalGastado(double totalGastado) {
         this.totalGastado = totalGastado;
     }
-
+  
     @Override
     public String toString() {
         return "clientesFrecuentes{" + "visitas=" + visitas + ", puntos=" + puntos + ", totalGastado=" + totalGastado + '}';
