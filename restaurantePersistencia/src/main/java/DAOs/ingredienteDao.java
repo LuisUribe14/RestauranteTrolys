@@ -168,36 +168,44 @@ public class ingredienteDao implements Iingrediente {
 
     @Override
     public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {
-    EntityManager em = Conexion.crearConexion();
-    try {
-        TypedQuery<Ingrediente> query = em.createQuery(
-            "SELECT i FROM Ingrediente i WHERE i.nombre = :nombre AND i.unidadMedida = :unidad",
-            Ingrediente.class);
-        query.setParameter("nombre", nombre);
-        query.setParameter("unidad", unidad);
+        EntityManager em = Conexion.crearConexion();
+        try {
+            TypedQuery<Ingrediente> query = em.createQuery(
+                    "SELECT i FROM Ingrediente i WHERE i.nombre = :nombre AND i.unidadMedida = :unidad",
+                    Ingrediente.class);
+            query.setParameter("nombre", nombre);
+            query.setParameter("unidad", unidad);
 
-        List<Ingrediente> ingredientes = query.getResultList();
+            List<Ingrediente> ingredientes = query.getResultList();
 
-        if (ingredientes.isEmpty()) {
-            throw new PersistenciaException("No se encontró un ingrediente con ese nombre y unidad");
+            if (ingredientes.isEmpty()) {
+                throw new PersistenciaException("No se encontró un ingrediente con ese nombre y unidad");
+            }
+
+            Ingrediente ingrediente = ingredientes.get(0);
+
+            if (ingrediente.getProductos() != null && !ingrediente.getProductos().isEmpty()) {
+                throw new PersistenciaException("No se puede eliminar el ingrediente porque está asociado a productos");
+            }
+
+            em.getTransaction().begin();
+            em.remove(em.merge(ingrediente));
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al eliminar el ingrediente", e);
+        } finally {
+            em.close();
         }
-
-        Ingrediente ingrediente = ingredientes.get(0);
-
-        if (ingrediente.getProductos() != null && !ingrediente.getProductos().isEmpty()) {
-            throw new PersistenciaException("No se puede eliminar el ingrediente porque está asociado a productos");
-        }
-
-        em.getTransaction().begin();
-        em.remove(em.merge(ingrediente));
-        em.getTransaction().commit();
-
-    } catch (Exception e) {
-        throw new PersistenciaException("Error al eliminar el ingrediente", e);
-    } finally {
-        em.close();
     }
-}
 
+    public List<Ingrediente> obtenerTodos() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            return em.createQuery("SELECT i FROM Ingrediente i", Ingrediente.class).getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener la lista de ingredientes.", e);
+        }
+    }
 
 }
