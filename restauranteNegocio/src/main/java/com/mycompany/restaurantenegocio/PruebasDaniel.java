@@ -1,5 +1,6 @@
 package com.mycompany.restaurantenegocio;
 
+import BOs.ComandaBO;
 import BOs.ProductoBO;
 import DTOs.IngredienteViejoDTO;
 import DTOs.ProductoIngredienteNuevoDTO;
@@ -11,6 +12,7 @@ import entidades.Producto;
 import enums.estadoProducto;
 import enums.tipoProducto;
 import exception.NegocioException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -38,7 +40,10 @@ public class PruebasDaniel {
 //        productoViejoDTO.setEstado(estadoProducto.NO_DISPONIBLE);
 //        ProductoBO.getInstancia().actualizarEstado(productoViejoDTO);
 
-        System.out.println(ProductoBO.getInstancia().obtenerTodos());
+//        System.out.println(ProductoBO.getInstancia().obtenerTodos());
+
+        // COMANDAS
+        System.out.println(ComandaBO.getInstancia().generarFolio(LocalDateTime.now()));
     }
     
 }

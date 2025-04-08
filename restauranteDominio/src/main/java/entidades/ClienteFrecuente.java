@@ -55,7 +55,7 @@ public class ClienteFrecuente extends Cliente implements Serializable{
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
-    
+
     public int getVisitas() {
         return visitas;
     }
