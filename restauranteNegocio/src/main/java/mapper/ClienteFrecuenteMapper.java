@@ -5,6 +5,7 @@
 package mapper;
 
 import DTOs.ClienteFrecuenteDTO;
+import DTOs.ClienteFrecuenteViejoDTO;
 import entidades.Cliente;
 import entidades.ClienteFrecuente;
 
@@ -54,5 +55,20 @@ public class ClienteFrecuenteMapper {
         clienteFrecuente.setPuntos(dto.getPuntos());
 
         return clienteFrecuente;
+    }
+    
+    public static ClienteFrecuente toEntity(ClienteFrecuenteViejoDTO clienteFrecuenteViejoDTO) {
+        if (clienteFrecuenteViejoDTO == null) {
+            return null;
+        }
+        return new ClienteFrecuente(
+                clienteFrecuenteViejoDTO.getId(),
+                clienteFrecuenteViejoDTO.getNombre(),
+                clienteFrecuenteViejoDTO.getApellidoPaterno(),
+                clienteFrecuenteViejoDTO.getApellidoMaterno(),
+                clienteFrecuenteViejoDTO.getTelefono(),
+                clienteFrecuenteViejoDTO.getCorreo(),
+                clienteFrecuenteViejoDTO.getFechaRegistro()
+        );
     }
 }

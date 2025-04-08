@@ -67,6 +67,12 @@ public class ComandaProducto implements Serializable {
         this.producto = producto;
     }
 
+    public ComandaProducto(Integer cantidadRequerida, Double precioProducto, String comentario) {
+        this.cantidadRequerida = cantidadRequerida;
+        this.precioProducto = precioProducto;
+        this.comentario = comentario;
+    }
+
     public Integer getCantidadRequerida() {
         return cantidadRequerida;
     }

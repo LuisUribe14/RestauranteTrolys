@@ -17,7 +17,7 @@ public class MesaBO {
     private MesaBO() {
     }
     
-    public MesaBO getInstancia() {
+    public static MesaBO getInstancia() {
         if (mesaBO == null) {
             return new MesaBO();
         }

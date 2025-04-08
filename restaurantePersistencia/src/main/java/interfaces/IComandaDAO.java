@@ -10,4 +10,6 @@ import exception.PersistenciaException;
 public interface IComandaDAO {
     
     public Comanda registrarComanda(Comanda comanda) throws PersistenciaException;
+    
+    public int obtenerCantidadComandas() throws PersistenciaException;
 }

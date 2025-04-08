@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -43,10 +45,10 @@ public class Comanda implements Serializable {
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaYHora;
-    @Column(name = "total_Venta", nullable = false)
+    @Transient
     private Double totalVenta;
     
-    @OneToMany(mappedBy = "comanda")
+    @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST})
     private List<ComandaProducto> productos;
 
     @ManyToOne

@@ -7,11 +7,23 @@ package BOs;
 import DAOs.ComandaDAO;
 import DTOs.ComandaNuevaDTO;
 import DTOs.ComandaProductoNuevaDTO;
-import DTOs.ProductoViejoDTO;
+import entidades.ClienteFrecuente;
 import entidades.Comanda;
+import entidades.ComandaProducto;
+import entidades.Mesa;
+import entidades.Producto;
 import exception.NegocioException;
+import exception.PersistenciaException;
 import interfaces.IComandaDAO;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import mapper.ClienteFrecuenteMapper;
 import mapper.ComandaMapper;
+import mapper.ComandaProductoMapper;
+import mapper.MesaMapper;
+import mapper.ProductoMapper;
 
 /**
  *
@@ -25,7 +37,7 @@ public class ComandaBO {
     private ComandaBO() {
     }
     
-    public ComandaBO getInstancia() {
+    public static ComandaBO getInstancia() {
         if (comandaBO == null) {
             comandaBO = new ComandaBO();
         }
@@ -52,6 +64,46 @@ public class ComandaBO {
         }
         
         Comanda comanda = ComandaMapper.toEntity(comandaNuevaDTO);
-        return true;
+        ClienteFrecuente cliente = ClienteFrecuenteMapper.toEntity(comandaNuevaDTO.getCliente());
+        Mesa mesa = MesaMapper.toEntity(comandaNuevaDTO.getMesa());
+        
+        List<ComandaProductoNuevaDTO> productosDTO = comandaNuevaDTO.getProductos();
+        List<ComandaProducto> productos = new ArrayList();
+        
+        for (ComandaProductoNuevaDTO comandaProductoDTO : productosDTO) {
+            Producto producto = ProductoMapper.toEntity(comandaProductoDTO.getProducto());
+            ComandaProducto comandaProducto = ComandaProductoMapper.toEntity(comandaProductoDTO);
+            comandaProducto.setProducto(producto);
+            productos.add(comandaProducto);
+        }
+        
+        comanda.setMesa(mesa);
+        comanda.setCliente(cliente);
+        comanda.setProductos(productos);
+        comanda.setFechaYHora(LocalDateTime.now());
+        comanda.setFolio(generarFolio(comanda.getFechaYHora()));
+        
+        try {
+            Comanda comandaGuardada = comandaDAO.registrarComanda(comanda);
+            
+            if (comandaGuardada.getId() == null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al registrar Comanda");
+        }
+    }
+    
+    public String generarFolio(LocalDateTime fechaHora) throws NegocioException {
+        String fecha = fechaHora.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        String folio = "OB-" + fecha;
+        try {
+            String numero = String.format("%03d", comandaDAO.obtenerCantidadComandas());
+            return folio + "-" + numero;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al generar folio");
+        }
     }
 }
