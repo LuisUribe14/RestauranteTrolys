@@ -1,7 +1,6 @@
 package interfaces;
 
 import entidades.Producto;
-import enums.estadoProducto;
 import exception.PersistenciaException;
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface IProductoDAO {
     
     public boolean actualizarProducto(Producto producto) throws PersistenciaException;
     
-    public List<Producto> obtenerTodos() throws PersistenciaException;
+    public List<Producto> obtenerProductosDisponibles() throws PersistenciaException;
 }

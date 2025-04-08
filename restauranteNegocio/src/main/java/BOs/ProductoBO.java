@@ -8,6 +8,7 @@ import entidades.Producto;
 import entidades.ProductoIngrediente;
 import exception.NegocioException;
 import exception.PersistenciaException;
+import interfaces.IProductoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import mapper.ProductoIngredienteMapper;
@@ -19,7 +20,7 @@ import mapper.ProductoMapper;
  */
 public class ProductoBO {
     
-    private ProductoDAO productoDAO = ProductoDAO.getInstancia();
+    private IProductoDAO productoDAO = ProductoDAO.getInstancia();
     private static ProductoBO productoBO;
 
     private ProductoBO() {
@@ -48,6 +49,11 @@ public class ProductoBO {
         if (productoNuevoDTO.getTipo() == null) {
             throw new NegocioException("El tipo no puede estar vacío.");
         }
+        for (ProductoIngredienteNuevoDTO ingrediente : productoNuevoDTO.getIngredientes()) {
+            if (ingrediente.getCantidadRequerida() == null || ingrediente.getCantidadRequerida() == 0) {
+                throw new NegocioException("Error, la cantidad no debe estar vacía.");
+            }
+        }
         
         Producto producto = ProductoMapper.toEntity(productoNuevoDTO);
         
@@ -63,7 +69,7 @@ public class ProductoBO {
         producto.setIngredientes(ingredientes);
         
         try{
-            Producto productoGuardado = ProductoDAO.getInstancia().registrarProducto(producto);
+            Producto productoGuardado = productoDAO.registrarProducto(producto);
             
             if (productoGuardado.getId() == null) {
                 return true;
@@ -77,13 +83,13 @@ public class ProductoBO {
     
     public boolean actualizarEstado(ProductoViejoDTO productoViejoDTO) throws NegocioException {
         if (productoViejoDTO.getEstado() == null) {
-             throw new NegocioException("Error, el estado no puede estar vacío.");
+            throw new NegocioException("Error, el estado no puede estar vacío.");
         }
         
         Producto producto = ProductoMapper.toEntity(productoViejoDTO);
         
         try {
-            boolean exito = ProductoDAO.getInstancia().actualizarProducto(producto);
+            boolean exito = productoDAO.actualizarProducto(producto);
             
             if (exito) {
                 return true;
@@ -95,9 +101,9 @@ public class ProductoBO {
         }
     }
     
-    public List<ProductoViejoDTO> obtenerTodos() throws NegocioException {
+    public List<ProductoViejoDTO> obtenerProductosDisponibles() throws NegocioException {
         try {
-            List<Producto> productos = ProductoDAO.getInstancia().obtenerTodos();
+            List<Producto> productos = productoDAO.obtenerProductosDisponibles();
             List<ProductoViejoDTO> productosDTO = new ArrayList();
             
             for (Producto producto : productos) {

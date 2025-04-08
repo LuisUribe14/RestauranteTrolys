@@ -38,7 +38,7 @@ public class PruebasDaniel {
 //        productoViejoDTO.setEstado(estadoProducto.NO_DISPONIBLE);
 //        ProductoBO.getInstancia().actualizarEstado(productoViejoDTO);
 
-        System.out.println(ProductoBO.getInstancia().obtenerTodos());
+//        System.out.println(ProductoBO.getInstancia().obtenerTodos());
     }
     
 }
