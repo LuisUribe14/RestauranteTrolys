@@ -20,8 +20,9 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     /**
      * Creates new form AgregarIngrediente
      */
+    DefaultTableModel mt = new DefaultTableModel();
+
     public AgregarIngrediente() {
-        initComponents();
         initComponents();
 
         // Crear el modelo con las columnas correctas
@@ -46,13 +47,15 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     private void cargarIngredientes() {
         modeloTabla.setRowCount(0); // Limpia la tabla
         try {
-            List<Ingrediente> lista = bo.obtenerTodos(); // Devuelve todos
-            for (Ingrediente ing : lista) {
-                modeloTabla.addRow(new Object[]{
-                    ing.getNombre(),
-                    ing.getUnidadMedida(),
-                    ing.getStock()
-                });
+            List<Ingrediente> lista = bo.obtenerTodos(); // Devuelve todos los ingredientes
+            if (lista != null) {
+                for (Ingrediente ing : lista) {
+                    modeloTabla.addRow(new Object[]{
+                        ing.getNombre(),
+                        ing.getUnidadMedida(),
+                        ing.getStock()
+                    });
+                }
             }
         } catch (PersistenciaException ex) {
             JOptionPane.showMessageDialog(this, "Error al cargar ingredientes: " + ex.getMessage(),
