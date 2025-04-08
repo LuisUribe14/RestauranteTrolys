@@ -4,6 +4,7 @@
  */
 package mapper;
 
+import DTOs.ClienteDTO;
 import DTOs.ClienteFrecuenteDTO;
 import entidades.Cliente;
 import entidades.ClienteFrecuente;
@@ -12,46 +13,70 @@ import entidades.ClienteFrecuente;
  *
  * @author multaslokas33
  */
-public class ClienteFrecuenteMapper {
+public class ClienteFrecuenteMapper extends ClienteMapper {
 
-    public static ClienteFrecuenteDTO toDTO(ClienteFrecuente clienteFrecuente) {
+    public ClienteFrecuenteDTO toDTO(ClienteFrecuente clienteFrecuente) {
         if (clienteFrecuente == null) {
             return null;
         }
 
-        String nombreCompleto = clienteFrecuente.getNombreCompleto();
-
-        return new ClienteFrecuenteDTO(
-                nombreCompleto, 
+        ClienteDTO clienteDTO = new ClienteDTO(
+                clienteFrecuente.getId(),
+                clienteFrecuente.getNombre(),
+                clienteFrecuente.getApellidoPaterno(),
+                clienteFrecuente.getApellidoMaterno(),
                 clienteFrecuente.getTelefono(),
                 clienteFrecuente.getCorreo(),
                 clienteFrecuente.getFechaRegistro(),
+                clienteFrecuente.getComandas()
+        );
+
+        return new ClienteFrecuenteDTO(
                 clienteFrecuente.getVisitas(),
+                clienteFrecuente.getPuntos(),
                 clienteFrecuente.getTotalGastado(),
-                clienteFrecuente.getPuntos()
+                clienteDTO.getId(),
+                clienteDTO.getNombre(),
+                clienteDTO.getApellidoPaterno(),
+                clienteDTO.getApellidoMaterno(),
+                clienteDTO.getTelefono(),
+                clienteDTO.getCorreo(),
+                clienteDTO.getFechaRegistro(),
+                clienteDTO.getComandas()
         );
     }
-    
-    public static ClienteFrecuente toEntity(ClienteFrecuenteDTO dto) {
-        if (dto == null) {
+
+    public ClienteFrecuente toEntity(ClienteFrecuenteDTO clienteFrecuenteDTO) {
+        if (clienteFrecuenteDTO == null) {
             return null;
         }
 
+        // Crea el Cliente a partir del DTO
+        Cliente cliente = new Cliente();
+        cliente.setId(clienteFrecuenteDTO.getId());
+        cliente.setNombre(clienteFrecuenteDTO.getNombre());
+        cliente.setApellidoPaterno(clienteFrecuenteDTO.getApellidoPaterno());
+        cliente.setApellidoMaterno(clienteFrecuenteDTO.getApellidoMaterno());
+        cliente.setTelefono(clienteFrecuenteDTO.getTelefono());
+        cliente.setCorreo(clienteFrecuenteDTO.getCorreo());
+        cliente.setFechaRegistro(clienteFrecuenteDTO.getFechaRegistro());
+        cliente.setComandas(clienteFrecuenteDTO.getComandas());
+
+        // Crea el ClienteFrecuente y asigna los valores
         ClienteFrecuente clienteFrecuente = new ClienteFrecuente();
+        clienteFrecuente.setVisitas(clienteFrecuenteDTO.getVisitas() != null ? clienteFrecuenteDTO.getVisitas() : 0);
+        clienteFrecuente.setPuntos(clienteFrecuenteDTO.getPuntos() != null ? clienteFrecuenteDTO.getPuntos() : 0);
+        clienteFrecuente.setTotalGastado(clienteFrecuenteDTO.getTotalGastado() != null ? clienteFrecuenteDTO.getTotalGastado() : 0.0);
 
-        // Aquí asignamos los valores del DTO a la entidad
-        String[] nombreParts = dto.getNombreCompleto().split(" ");
-
-        clienteFrecuente.setNombre(nombreParts[0]);
-        clienteFrecuente.setApellidoPaterno(nombreParts.length > 1 ? nombreParts[1] : "");
-        clienteFrecuente.setApellidoMaterno(nombreParts.length > 2 ? nombreParts[2] : null);
-
-        clienteFrecuente.setTelefono(dto.getTelefono());
-        clienteFrecuente.setCorreo(dto.getCorreo());
-        clienteFrecuente.setFechaRegistro(dto.getFechaRegistro());
-        clienteFrecuente.setVisitas(dto.getVisitas());
-        clienteFrecuente.setTotalGastado(dto.getTotalGastado());
-        clienteFrecuente.setPuntos(dto.getPuntos());
+        // Asigna todos los atributos del Cliente al ClienteFrecuente
+        clienteFrecuente.setId(cliente.getId());
+        clienteFrecuente.setNombre(cliente.getNombre());
+        clienteFrecuente.setApellidoPaterno(cliente.getApellidoPaterno());
+        clienteFrecuente.setApellidoMaterno(cliente.getApellidoMaterno());
+        clienteFrecuente.setTelefono(cliente.getTelefono());
+        clienteFrecuente.setCorreo(cliente.getCorreo());
+        clienteFrecuente.setFechaRegistro(cliente.getFechaRegistro());
+        clienteFrecuente.setComandas(cliente.getComandas());
 
         return clienteFrecuente;
     }

@@ -21,6 +21,18 @@ import javax.persistence.TypedQuery;
  */
 public class ClienteFrecuenteDAO implements IClienteFrecuente {
 
+    private static ClienteFrecuenteDAO clienteFrecuenteDAO;
+    
+    public ClienteFrecuenteDAO() {
+    }
+    
+    public static ClienteFrecuenteDAO getInstancia() {
+        if (clienteFrecuenteDAO == null) {
+            clienteFrecuenteDAO = new ClienteFrecuenteDAO();
+        }
+        return clienteFrecuenteDAO;
+    }
+    
     @Override
     public void registrarComanda(Comanda comanda) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();

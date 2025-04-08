@@ -4,75 +4,43 @@
  */
 package DTOs;
 
+import entidades.Comanda;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author multaslokas33
  */
-public class ClienteFrecuenteDTO {
+public class ClienteFrecuenteDTO extends ClienteDTO {
 
-    private String nombreCompleto;  
-    private String telefono;
-    private String correo;
-    private LocalDate fechaRegistro;
     private Integer visitas;
-    private Double totalGastado;
     private Integer puntos;
+    private Double totalGastado;
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado) {
+        this.visitas = visitas;
+        this.puntos = puntos;
+        this.totalGastado = totalGastado;
+    }
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+        this.visitas = visitas;
+        this.puntos = puntos;
+        this.totalGastado = totalGastado;
+    }
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
+        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+        this.visitas = visitas;
+        this.puntos = puntos;
+        this.totalGastado = totalGastado;
+    }
 
     public ClienteFrecuenteDTO() {
-    }
-
-    public ClienteFrecuenteDTO(String telefono, String correo, LocalDate fechaRegistro, Integer visitas, Double totalGastado, Integer puntos) {
-        this.telefono = telefono;
-        this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
-        this.visitas = visitas;
-        this.totalGastado = totalGastado;
-        this.puntos = puntos;
-    }
-
-    public ClienteFrecuenteDTO(String nombreCompleto, String telefono, String correo, LocalDate fechaRegistro, Integer visitas, Double totalGastado, Integer puntos) {
-        this.nombreCompleto = nombreCompleto;
-        this.telefono = telefono;
-        this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
-        this.visitas = visitas;
-        this.totalGastado = totalGastado;
-        this.puntos = puntos;
-    }
-
-    public String getNombreCompleto() {
-        return nombreCompleto != null ? nombreCompleto : "";  
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
+        
     }
 
     public Integer getVisitas() {
@@ -83,14 +51,6 @@ public class ClienteFrecuenteDTO {
         this.visitas = visitas;
     }
 
-    public Double getTotalGastado() {
-        return totalGastado;
-    }
-
-    public void setTotalGastado(Double totalGastado) {
-        this.totalGastado = totalGastado;
-    }
-
     public Integer getPuntos() {
         return puntos;
     }
@@ -99,9 +59,17 @@ public class ClienteFrecuenteDTO {
         this.puntos = puntos;
     }
 
+    public Double getTotalGastado() {
+        return totalGastado;
+    }
+
+    public void setTotalGastado(Double totalGastado) {
+        this.totalGastado = totalGastado;
+    }
+
     @Override
     public String toString() {
-        return "ClienteFrecuenteDTO{" + "nombreCompleto=" + nombreCompleto + ", telefono=" + telefono + ", correo=" + correo + ", fechaRegistro=" + fechaRegistro + ", visitas=" + visitas + ", totalGastado=" + totalGastado + ", puntos=" + puntos + '}';
+        return "ClienteFrecuenteDTO{" + "visitas=" + visitas + ", puntos=" + puntos + ", totalGastado=" + totalGastado + '}';
     }
-}
 
+}
