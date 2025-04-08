@@ -91,9 +91,14 @@ public class Inicio extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
         jLabel2.setText("Seleccion De Rol");
 
+        Administrador.setText("Administrador");
         Administrador.setBackground(new java.awt.Color(0, 0, 0));
         Administrador.setForeground(new java.awt.Color(255, 255, 255));
-        Administrador.setText("Administrador");
+        Administrador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdministradorActionPerformed(evt);
+            }
+        });
 
         Mesero.setBackground(new java.awt.Color(0, 0, 0));
         Mesero.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,6 +173,12 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministradorActionPerformed
+        // TODO add your handling code here:
+        ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
+        this.dispose();
+    }//GEN-LAST:event_AdministradorActionPerformed
 
     
 
