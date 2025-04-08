@@ -188,6 +188,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void IngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngredientesActionPerformed
         // TODO add your handling code here:
+        ControlFlujoPantallas.getInstancia().abrirPantallaIngredientes();
     }//GEN-LAST:event_IngredientesActionPerformed
 
     
