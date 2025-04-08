@@ -114,4 +114,8 @@ public class ingredienteBO {
         }
     }
 
+    public List<Ingrediente> obtenerTodos() throws PersistenciaException {
+        return dao.obtenerTodos();
+    }
+
 }
