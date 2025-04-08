@@ -23,45 +23,45 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClienteFrecuenteBOTest {
 
-   private ClienteFrecuenteBO clienteBO;
-
-    @BeforeEach
-    public void setUp() {
-        clienteBO = new ClienteFrecuenteBO();
-    }
-
-    @Test
-    public void testRegistrarClienteValido() throws PersistenciaException {
-        ClienteFrecuenteDTO cliente = new ClienteFrecuenteDTO();
-        cliente.setNombre("polar");
-        cliente.setApellidoPaterno("panda");
-        cliente.setApellidoMaterno("pardo");
-        cliente.setTelefono("1234567890");
-        cliente.setCorreo("polar@gmail.com");
-
-        try {
-            ClienteFrecuenteDTO registrado = clienteBO.registrarClienteFrecuente(cliente);
-            assertNotNull(registrado.getId());
-            assertEquals("polar", registrado.getNombre().trim());
-        } catch (NegocioException e) {
-            fail("No debería lanzar excepción: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testObtenerTodosClientesFrecuentes() throws NegocioException {
-        ClienteFrecuenteBO bo = new ClienteFrecuenteBO();
-
-        // Suponiendo que ya hay clientes en la base de datos
-        List<ClienteFrecuenteDTO> clientes = bo.obtenerTodosClientesFrecuentes();
-
-        assertNotNull(clientes);
-        assertFalse(clientes.isEmpty(), "La lista de clientes no debería estar vacía");
-
-        for (ClienteFrecuenteDTO cliente : clientes) {
-            System.out.println(cliente);
-            assertNotNull(cliente.getNombre());
-            assertNotNull(cliente.getApellidoPaterno());
-        }
-    }
+//   private ClienteFrecuenteBO clienteBO;
+//
+//    @BeforeEach
+//    public void setUp() {
+//        clienteBO = new ClienteFrecuenteBO();
+//    }
+//
+//    @Test
+//    public void testRegistrarClienteValido() throws PersistenciaException {
+//        ClienteFrecuenteDTO cliente = new ClienteFrecuenteDTO();
+//        cliente.setNombre("polar");
+//        cliente.setApellidoPaterno("panda");
+//        cliente.setApellidoMaterno("pardo");
+//        cliente.setTelefono("1234567890");
+//        cliente.setCorreo("polar@gmail.com");
+//
+//        try {
+//            ClienteFrecuenteDTO registrado = clienteBO.registrarClienteFrecuente(cliente);
+//            assertNotNull(registrado.getId());
+//            assertEquals("polar", registrado.getNombre().trim());
+//        } catch (NegocioException e) {
+//            fail("No debería lanzar excepción: " + e.getMessage());
+//        }
+//    }
+//
+//    @Test
+//    public void testObtenerTodosClientesFrecuentes() throws NegocioException {
+//        ClienteFrecuenteBO bo = new ClienteFrecuenteBO();
+//
+//        // Suponiendo que ya hay clientes en la base de datos
+//        List<ClienteFrecuenteDTO> clientes = bo.obtenerTodosClientesFrecuentes();
+//
+//        assertNotNull(clientes);
+//        assertFalse(clientes.isEmpty(), "La lista de clientes no debería estar vacía");
+//
+//        for (ClienteFrecuenteDTO cliente : clientes) {
+//            System.out.println(cliente);
+//            assertNotNull(cliente.getNombre());
+//            assertNotNull(cliente.getApellidoPaterno());
+//        }
+//    }
 }

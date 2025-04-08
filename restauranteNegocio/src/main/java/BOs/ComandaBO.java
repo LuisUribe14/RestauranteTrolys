@@ -7,6 +7,7 @@ package BOs;
 import DAOs.ComandaDAO;
 import DTOs.ComandaNuevaDTO;
 import DTOs.ComandaProductoNuevaDTO;
+import DTOs.ComandaViejaDTO;
 import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import entidades.ComandaProducto;
@@ -74,8 +75,11 @@ public class ComandaBO {
             Producto producto = ProductoMapper.toEntity(comandaProductoDTO.getProducto());
             ComandaProducto comandaProducto = ComandaProductoMapper.toEntity(comandaProductoDTO);
             comandaProducto.setProducto(producto);
+            comandaProducto.setComanda(comanda);
             productos.add(comandaProducto);
         }
+        
+        cliente.getComandas().add(comanda);
         
         comanda.setMesa(mesa);
         comanda.setCliente(cliente);
@@ -105,5 +109,9 @@ public class ComandaBO {
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al generar folio");
         }
+    }
+    
+    public boolean actaulizarEstado(ComandaViejaDTO comandaViejaDTO) throws NegocioException {
+        return true;
     }
 }

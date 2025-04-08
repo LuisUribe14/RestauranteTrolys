@@ -47,6 +47,15 @@ public class ClienteDTO {
         this.comandas = comandas;
     }
 
+    public ClienteDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, LocalDate fechaRegistro) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public Long getId() {
         return id;
     }

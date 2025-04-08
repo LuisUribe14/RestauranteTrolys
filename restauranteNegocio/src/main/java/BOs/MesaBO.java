@@ -1,6 +1,7 @@
 package BOs;
 
 import DAOs.MesaDAO;
+import entidades.Mesa;
 import exception.NegocioException;
 import exception.PersistenciaException;
 import interfaces.IMesaDAO;
@@ -28,13 +29,20 @@ public class MesaBO {
         if (cantidad == null || cantidad == 0) {
             throw new NegocioException("Error, la cantidad no puede estar vacia.");
         }
+        if (cantidad > 20) {
+            throw new NegocioException("Error, la cantidad no puede ser mayor a 20");
+        }
         
         try {
-            mesaDAO.registrarCantidadMesas(cantidad);
+            for (Integer i = 1; i < cantidad+1; i++) {
+                Mesa mesa = new Mesa(i);
+                mesaDAO.registrarCantidadMesas(mesa);
+            }
             
             return true;
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al reistrar mesas.");
         }
     }
+    
 }

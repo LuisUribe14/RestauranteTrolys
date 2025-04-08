@@ -96,4 +96,19 @@ public class ClienteFrecuenteMapper extends ClienteMapper {
                 clienteFrecuenteViejoDTO.getFechaRegistro()
         );
     }
+    
+    public static ClienteFrecuenteViejoDTO toViejoDTO(ClienteFrecuente clienteFrecuente) {
+        if (clienteFrecuente == null) {
+            return null;
+        }
+        return new ClienteFrecuenteViejoDTO(
+                clienteFrecuente.getId(),
+                clienteFrecuente.getNombre(),
+                clienteFrecuente.getApellidoPaterno(),
+                clienteFrecuente.getApellidoPaterno(),
+                clienteFrecuente.getTelefono(),
+                clienteFrecuente.getCorreo(),
+                clienteFrecuente.getFechaRegistro()
+        );
+    }
 }

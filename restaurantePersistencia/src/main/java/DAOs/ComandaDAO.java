@@ -38,7 +38,7 @@ public class ComandaDAO implements IComandaDAO{
             em.getTransaction().rollback();
             throw new PersistenciaException("Errror al registrar Comanda");
         } finally {
-            Conexion.cerrar();
+            em.close();
         }
     }
 
@@ -52,7 +52,24 @@ public class ComandaDAO implements IComandaDAO{
         } catch(Exception e) {
             throw new PersistenciaException("Error al consultar cantidad de Comandas");
         } finally {
-            Conexion.cerrar();
+            em.close();
+        }
+    }
+
+    @Override
+    public boolean actualizarComanda(Comanda comanda) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            em.getTransaction().begin();
+            em.merge(comanda);
+            em.getTransaction().commit();
+            
+            return true;
+        } catch(Exception e) {
+            em.getTransaction().rollback();
+            throw new PersistenciaException("Errror al actualizar Comanda");
+        } finally {
+            em.close();
         }
     }
     

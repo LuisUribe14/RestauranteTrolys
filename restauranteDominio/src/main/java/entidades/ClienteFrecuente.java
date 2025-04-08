@@ -57,8 +57,9 @@ public class ClienteFrecuente extends Cliente implements Serializable{
     }
 
     public ClienteFrecuente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
     }
+
 
     public Integer getVisitas() {
         return visitas;

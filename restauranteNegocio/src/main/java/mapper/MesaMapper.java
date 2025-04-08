@@ -18,4 +18,14 @@ public class MesaMapper {
                 mesaViejaDTO.getNumero()
         );
     }
+    
+    public static MesaViejaDTO toViejoDTO(Mesa mesa) {
+        if (mesa == null) {
+            return null;
+        }
+        return new MesaViejaDTO(
+                mesa.getId(),
+                mesa.getNumero()
+        );
+    }
 }
