@@ -45,7 +45,7 @@ public class Comanda implements Serializable {
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaYHora;
-    @Transient
+    @Column(name = "total_venta", nullable = false)
     private Double totalVenta;
     
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST})
@@ -81,16 +81,6 @@ public class Comanda implements Serializable {
         this.productos = productos;
         this.cliente = cliente;
         this.mesa = mesa;
-    }
-
-    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, Cliente cliente, Mesa mesa) {
-        this.folio = folio;
-        this.estado = estado;
-        this.fechaYHora = fechaYHora;
-        this.totalVenta = totalVenta;
-        this.cliente = cliente;
-        this.mesa = mesa;
-        this.productos = new ArrayList();
     }
 
     public Comanda(estadoComanda estado) {
@@ -183,7 +173,7 @@ public class Comanda implements Serializable {
 
     @Override
     public String toString() {
-        return "Comanda{" + "id=" + id + ", folio=" + folio + ", estado=" + estado + ", fechaYHora=" + fechaYHora + ", totalVenta=" + totalVenta + '}';
+        return "Comanda{" + "id=" + id + ", folio=" + folio + ", estado=" + estado + ", fechaYHora=" + fechaYHora + ", totalVenta=" + totalVenta + ", productos=" + productos + ", cliente=" + cliente + ", mesa=" + mesa + '}';
     }
     
 }
