@@ -166,7 +166,8 @@ public class ingredienteDao implements Iingrediente {
         }
     }
 
-public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {
+    @Override
+    public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {
     EntityManager em = Conexion.crearConexion();
     try {
         TypedQuery<Ingrediente> query = em.createQuery(

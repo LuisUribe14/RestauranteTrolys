@@ -4,6 +4,8 @@
  */
 package interfaces;
 
+import control.ControlFlujoPantallas;
+
 /**
  *
  * @author chris
@@ -27,7 +29,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnIngrediente = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -36,10 +38,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Ingredientes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngrediente.setText("Ingredientes");
+        btnIngrediente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnIngredienteActionPerformed(evt);
             }
         });
 
@@ -67,7 +69,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(200, 200, 200)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(btnIngrediente)
                             .addComponent(jButton4)
                             .addComponent(jButton5)
                             .addComponent(jButton3)
@@ -81,7 +83,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(jButton1)
+                .addComponent(btnIngrediente)
                 .addGap(28, 28, 28)
                 .addComponent(jButton2)
                 .addGap(35, 35, 35)
@@ -109,18 +111,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngredienteActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirPantallaIngredientes();
+        this.dispose();
+
+    }//GEN-LAST:event_btnIngredienteActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnIngrediente;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
