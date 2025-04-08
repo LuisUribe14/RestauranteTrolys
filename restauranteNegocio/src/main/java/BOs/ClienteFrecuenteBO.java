@@ -12,6 +12,7 @@ import exception.PersistenciaException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import mapper.ClienteFrecuenteMapper;
 
 /**
@@ -144,6 +145,17 @@ public class ClienteFrecuenteBO {
 
     private boolean esCorreoValido(String correo) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        return correo != null && correo.matches(regex); 
+        return correo != null && correo.matches(regex);
+    }
+
+    public List<ClienteFrecuenteDTO> obtenerTodosClientesFrecuentes() throws NegocioException {
+        try {
+            List<ClienteFrecuente> clientes = clienteFrecuenteDAO.obtenerTodosLosClientesFrecuentes();
+            return clientes.stream()
+                    .map(cliente -> ClienteFrecuenteMapper.toDTO((ClienteFrecuente) cliente))
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al obtener los clientes frecuentes", e);
+        }
     }
 }

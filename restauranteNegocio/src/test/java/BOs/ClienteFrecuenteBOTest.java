@@ -42,9 +42,25 @@ public class ClienteFrecuenteBOTest {
         try {
             ClienteFrecuenteDTO registrado = clienteBO.registrarClienteFrecuente(cliente);
             assertNotNull(registrado.getId());
-             assertEquals("polar", registrado.getNombre().trim()); 
+            assertEquals("polar", registrado.getNombre().trim());
         } catch (NegocioException e) {
             fail("No debería lanzar excepción: " + e.getMessage());
+        }
+    }
+
+    @Test
+    public void testObtenerTodosClientesFrecuentes() throws NegocioException {
+        ClienteFrecuenteBO bo = new ClienteFrecuenteBO();
+
+        List<ClienteFrecuenteDTO> clientes = bo.obtenerTodosClientesFrecuentes();
+
+        assertNotNull(clientes);
+        assertFalse(clientes.isEmpty(), "La lista de clientes no debería estar vacía");
+
+        for (ClienteFrecuenteDTO cliente : clientes) {
+            System.out.println(cliente);
+            assertNotNull(cliente.getNombre());
+            assertNotNull(cliente.getApellidoPaterno());
         }
     }
 }

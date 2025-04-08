@@ -16,7 +16,7 @@ import entidades.ClienteFrecuente;
  */
 public class ClienteFrecuenteMapper extends ClienteMapper {
 
-    public ClienteFrecuenteDTO toDTO(ClienteFrecuente clienteFrecuente) {
+    public static ClienteFrecuenteDTO toDTO(ClienteFrecuente clienteFrecuente) {
         if (clienteFrecuente == null) {
             return null;
         }
@@ -81,7 +81,7 @@ public class ClienteFrecuenteMapper extends ClienteMapper {
 
         return clienteFrecuente;
     }
-    
+
     public static ClienteFrecuente toEntity(ClienteFrecuenteViejoDTO clienteFrecuenteViejoDTO) {
         if (clienteFrecuenteViejoDTO == null) {
             return null;

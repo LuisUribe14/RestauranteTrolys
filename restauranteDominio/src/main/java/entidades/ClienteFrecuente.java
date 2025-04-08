@@ -27,11 +27,11 @@ import javax.persistence.Transient;
 public class ClienteFrecuente extends Cliente implements Serializable{
 
     @Transient
-    private Integer visitas;
+    private Integer visitas = 0;
     @Transient
-    private Integer puntos;
+    private Integer puntos = 0;
     @Transient
-    private Double totalGastado;
+    private Double totalGastado = 0.0;
 
     public ClienteFrecuente() {
     }
@@ -60,27 +60,27 @@ public class ClienteFrecuente extends Cliente implements Serializable{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public int getVisitas() {
+    public Integer getVisitas() {
         return visitas;
     }
 
-    public void setVisitas(int visitas) {
+    public void setVisitas(Integer visitas) {
         this.visitas = visitas;
     }
 
-    public int getPuntos() {
+    public Integer getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(int puntos) {
+    public void setPuntos(Integer puntos) {
         this.puntos = puntos;
     }
 
-    public double getTotalGastado() {
+    public Double getTotalGastado() {
         return totalGastado;
     }
 
-    public void setTotalGastado(double totalGastado) {
+    public void setTotalGastado(Double totalGastado) {
         this.totalGastado = totalGastado;
     }
   

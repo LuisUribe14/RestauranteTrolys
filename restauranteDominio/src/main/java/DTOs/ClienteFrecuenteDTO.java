@@ -15,32 +15,29 @@ import java.util.List;
  */
 public class ClienteFrecuenteDTO extends ClienteDTO {
 
-    private Integer visitas;
-    private Integer puntos;
-    private Double totalGastado;
-
-    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado) {
-        this.visitas = visitas;
-        this.puntos = puntos;
-        this.totalGastado = totalGastado;
-    }
-
-    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
-        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
-        this.visitas = visitas;
-        this.puntos = puntos;
-        this.totalGastado = totalGastado;
-    }
-
-    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
-        super(nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
-        this.visitas = visitas;
-        this.puntos = puntos;
-        this.totalGastado = totalGastado;
-    }
+    private Integer visitas = 0;
+    private Integer puntos = 0;
+    private Double totalGastado = 0.0;
 
     public ClienteFrecuenteDTO() {
-        
+        this.visitas = 0;
+        this.puntos = 0;
+        this.totalGastado = 0.0;
+    }
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado) {
+        this.visitas = visitas != null ? visitas : 0;
+        this.puntos = puntos != null ? puntos : 0;
+        this.totalGastado = totalGastado != null ? totalGastado : 0.0;
+    }
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre,
+            String apellidoPaterno, String apellidoMaterno, String telefono,
+            String correo, LocalDate fechaRegistro, List<Comanda> comandas) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+        this.visitas = visitas != null ? visitas : 0;
+        this.puntos = puntos != null ? puntos : 0;
+        this.totalGastado = totalGastado != null ? totalGastado : 0.0;
     }
 
     public Integer getVisitas() {
@@ -48,7 +45,7 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
     }
 
     public void setVisitas(Integer visitas) {
-        this.visitas = visitas;
+        this.visitas = visitas != null ? visitas : 0;
     }
 
     public Integer getPuntos() {
@@ -56,7 +53,7 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
     }
 
     public void setPuntos(Integer puntos) {
-        this.puntos = puntos;
+        this.puntos = puntos != null ? puntos : 0;
     }
 
     public Double getTotalGastado() {
@@ -64,12 +61,21 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
     }
 
     public void setTotalGastado(Double totalGastado) {
-        this.totalGastado = totalGastado;
+        this.totalGastado = totalGastado != null ? totalGastado : 0.0;
     }
 
     @Override
     public String toString() {
-        return "ClienteFrecuenteDTO{" + "visitas=" + visitas + ", puntos=" + puntos + ", totalGastado=" + totalGastado + '}';
+        return "Todos los clientes{"
+                + "id=" + getId()
+                + ", nombre='" + getNombre() + '\''
+                + ", apellidoPaterno='" + getApellidoPaterno() + '\''
+                + ", apellidoMaterno='" + getApellidoMaterno() + '\''
+                + ", telefono='" + getTelefono() + '\''
+                + ", correo='" + getCorreo() + '\''
+                + ", visitas=" + visitas
+                + ", puntos=" + puntos
+                + ", totalGastado=" + totalGastado
+                + '}';
     }
-
 }
