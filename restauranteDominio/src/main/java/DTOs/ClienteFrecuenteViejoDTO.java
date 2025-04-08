@@ -19,6 +19,16 @@ public class ClienteFrecuenteViejoDTO {
     private Integer puntos;
     private Double totalGastado;
 
+    public ClienteFrecuenteViejoDTO(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
+        this.id = id;
+        this.nombre = nombre;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.fechaRegistro = fechaRegistro;
+    }
+
     public ClienteFrecuenteViejoDTO() {
     }
 
@@ -34,6 +44,8 @@ public class ClienteFrecuenteViejoDTO {
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
+    
+    
 
     public Long getId() {
         return id;

@@ -56,6 +56,10 @@ public class ClienteFrecuente extends Cliente implements Serializable{
         this.totalGastado = totalGastado;
     }
 
+    public ClienteFrecuente(Long id, String nombre, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, LocalDate fechaRegistro) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getVisitas() {
         return visitas;
     }
