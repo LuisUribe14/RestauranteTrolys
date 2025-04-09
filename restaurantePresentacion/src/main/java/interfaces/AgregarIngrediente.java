@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import entidades.Ingrediente;
 import BOs.ingredienteBO;
+import DTOs.ingredienteDTO;
 import control.ControlFlujoPantallas;
 import exception.PersistenciaException;
 
@@ -67,10 +68,10 @@ public class AgregarIngrediente extends javax.swing.JFrame {
                 }
 
                 try {
-                    List<Ingrediente> listaFiltrada = bo.filtrarIngredientes(nombre, unidad);
+                    List<ingredienteDTO> listaFiltrada = bo.filtrarIngredientesDTO(nombre, unidad);
                     modeloTabla.setRowCount(0); // limpia la tabla
 
-                    for (Ingrediente ing : listaFiltrada) {
+                    for (ingredienteDTO ing : listaFiltrada) {
                         modeloTabla.addRow(new Object[]{
                             ing.getNombre(),
                             ing.getUnidadMedida(),
@@ -91,9 +92,9 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     private void cargarIngredientes() {
         modeloTabla.setRowCount(0); // Limpia la tabla
         try {
-            List<Ingrediente> lista = bo.obtenerTodos(); // Devuelve todos los ingredientes
+            List<ingredienteDTO> lista = bo.obtenerTodosDTO(); // Devuelve todos los ingredientes
             if (lista != null) {
-                for (Ingrediente ing : lista) {
+                for (ingredienteDTO ing : lista) {
                     modeloTabla.addRow(new Object[]{
                         ing.getNombre(),
                         ing.getUnidadMedida(),

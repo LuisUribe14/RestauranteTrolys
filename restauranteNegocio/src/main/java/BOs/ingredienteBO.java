@@ -5,9 +5,13 @@
 package BOs;
 
 import DAOs.ingredienteDao;
+import DTOs.IngredienteViejoDTO;
+import DTOs.ingredienteDTO;
+import DTOs.ingredienteNuevoDTO;
 import entidades.Ingrediente;
 import enums.unidadMedida;
 import exception.PersistenciaException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,71 +40,62 @@ public class ingredienteBO {
         return instanceIngredienteBO;
     }
 
-    /**
-     * Metodo que primero tiene que pasar por las validaciones y que manda a
-     * llamar al metodo existeIngrediente, para corroborar que al momento de
-     * agregar un ingrediente no se se repita su nombre y tu tipo de unidad
-     *
-     * @param ingrediente
-     * @throws PersistenciaException
-     */
-    public void agregarIngrediente(Ingrediente ingrediente) throws PersistenciaException {
-
-        if (dao.existeIngrediente(ingrediente.getNombre(), ingrediente.getUnidadMedida())) {
-            throw new PersistenciaException("Ya existe un ingrediente con el mismo nombre y unidad de medida.");
-        }
-        if (ingrediente.getNombre() == null || ingrediente.getNombre().trim().isEmpty()) {
+    public void agregarIngrediente(ingredienteNuevoDTO dto) throws PersistenciaException {
+        if (dto.getNombre() == null || dto.getNombre().trim().isEmpty()) {
             throw new PersistenciaException("El nombre del ingrediente no puede estar vacío.");
         }
 
-        if (ingrediente.getUnidadMedida() == null) {
+        if (dto.getUnidadMedida() == null) {
             throw new PersistenciaException("Debe seleccionar una unidad de medida.");
         }
 
-        if (ingrediente.getStock() < 0) {
+        if (dto.getStock() == null || dto.getStock() < 0) {
             throw new PersistenciaException("El stock no puede ser negativo.");
         }
-        if (ingrediente.getNombre().length() > 100) {
+
+        if (dto.getNombre().length() > 100) {
             throw new PersistenciaException("El nombre del ingrediente es demasiado largo. Máximo 100 caracteres.");
         }
 
-        if (!ingrediente.getNombre().matches("[a-zA-ZÁÉÍÓÚÑáéíóúñ\\s]+")) {
+        if (!dto.getNombre().matches("[a-zA-ZÁÉÍÓÚÑáéíóúñ\\s]+")) {
             throw new PersistenciaException("El nombre del ingrediente solo debe contener letras y espacios.");
         }
 
-        if (ingrediente.getStock() > 99999) {
+        if (dto.getStock() > 99999) {
             throw new PersistenciaException("El stock no puede ser mayor a 99,999.");
         }
 
-        if (ingrediente.getUnidadMedida() == null) {
-            throw new PersistenciaException("Debe seleccionar una unidad de medida válida.");
+        if (dao.existeIngrediente(dto.getNombre(), dto.getUnidadMedida())) {
+            throw new PersistenciaException("Ya existe un ingrediente con el mismo nombre y unidad de medida.");
         }
 
-        //                                        _______
-        //NECECTIO QUE AGREGUES MAS validaciones |<.> <.>|
-        //                                       |___-___|
+        // Transformar DTO en entidad
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setNombre(dto.getNombre());
+        ingrediente.setUnidadMedida(dto.getUnidadMedida());
+        ingrediente.setStock(dto.getStock());
+
         dao.agregarIngrediente(ingrediente);
     }
 
-    /**
-     * Metodo en el que validamos que validamos si se puede descontar el stock,
-     * en caso de que no mnadamos una exception de que no se puede descontar
-     *
-     * @param ingrediente
-     * @param cantidad
-     * @throws PersistenciaException
-     */
-    public void descontarStock(Ingrediente ingrediente, int cantidad) throws PersistenciaException {
-        if (ingrediente.getStock() < cantidad) {
+    public void descontarStock(IngredienteViejoDTO dto, int cantidad) throws PersistenciaException {
+        Ingrediente ing = dao.obtenerIngrediente(dto.getNombre(), dto.getUnidadMedida());
+
+        if (ing == null) {
+            throw new PersistenciaException("No se encontró el ingrediente.");
+        }
+
+        if (ing.getStock() < cantidad) {
             throw new PersistenciaException("No se puede descontar, stock insuficiente");
         }
-        ingrediente.setStock(ingrediente.getStock() - cantidad);
-        dao.actualizarIngrediente(ingrediente);
+
+        ing.setStock(ing.getStock() - cantidad);
+        dao.actualizarIngrediente(ing);
     }
 
-    public List<Ingrediente> buscarIngredientes(String filtro) throws PersistenciaException {
-        return dao.buscarPorNombreOUm(filtro);
-    }
+//    public List<Ingrediente> buscarIngredientes(String filtro) throws PersistenciaException {
+//        return dao.buscarPorNombreOUm(filtro);
+//    }
 
     public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {
         try {
@@ -114,12 +109,26 @@ public class ingredienteBO {
         }
     }
 
-    public List<Ingrediente> obtenerTodos() throws PersistenciaException {
-        return dao.obtenerTodos();
+    public List<ingredienteDTO> obtenerTodosDTO() throws PersistenciaException {
+        List<Ingrediente> ingredientes = dao.obtenerTodos();
+        List<ingredienteDTO> listaDTO = new ArrayList<>();
+
+        for (Ingrediente ing : ingredientes) {
+            listaDTO.add(new ingredienteDTO(ing.getNombre(), ing.getUnidadMedida(), ing.getStock()));
+        }
+
+        return listaDTO;
     }
 
-    public List<Ingrediente> filtrarIngredientes(String nombre, String unidadMedida) throws PersistenciaException {
-        return ingredienteDao.getInstancia().filtrarIngredientes(nombre, unidadMedida);
+    public List<ingredienteDTO> filtrarIngredientesDTO(String nombre, String unidad) throws PersistenciaException {
+        List<Ingrediente> ingredientes = dao.filtrarIngredientes(nombre, unidad);
+        List<ingredienteDTO> listaDTO = new ArrayList<>();
+
+        for (Ingrediente ing : ingredientes) {
+            listaDTO.add(new ingredienteDTO(ing.getNombre(), ing.getUnidadMedida(), ing.getStock()));
+        }
+
+        return listaDTO;
     }
 
 }

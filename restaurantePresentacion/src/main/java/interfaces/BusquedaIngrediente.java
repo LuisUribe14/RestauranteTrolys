@@ -44,67 +44,67 @@ public class BusquedaIngrediente extends javax.swing.JFrame {
         // Asegúrate de que el campo de texto de búsqueda esté inicializado correctamente
         txtBuscarIngrediente = new javax.swing.JTextField();
         txtBuscarIngrediente.setToolTipText("Buscar Ingrediente");
-
-        // Agregar DocumentListener para detectar cambios en el campo de búsqueda
-        txtBuscarIngrediente.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                buscarIngrediente();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                buscarIngrediente();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                buscarIngrediente();
-            }
-        });
+//
+//        // Agregar DocumentListener para detectar cambios en el campo de búsqueda
+//        txtBuscarIngrediente.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                buscarIngrediente();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                buscarIngrediente();
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                buscarIngrediente();
+//            }
+//        });
     }
 
-private void buscarIngrediente() {
-    // Obtener la consulta escrita en el campo de búsqueda (convertido a minúsculas para hacer la búsqueda insensible a mayúsculas)
-    String query = txtBuscarIngrediente.getText().toLowerCase();  
-    List<Ingrediente> listaFiltrada = new ArrayList<>();
-
-    try {
-        // Obtener la lista de ingredientes desde la base de datos
-        List<Ingrediente> lista = bo.obtenerTodos();
-        
-        // Filtramos la lista de ingredientes según el texto ingresado
-        for (Ingrediente ing : lista) {
-            // Aquí filtramos por nombre (puedes añadir más filtros si es necesario)
-            if (ing.getNombre().toLowerCase().contains(query)) {
-                listaFiltrada.add(ing);
-            }
-        }
-
-        // Limpiamos la tabla antes de agregar los nuevos resultados filtrados
-        modeloTabla.setRowCount(0);
-        
-        // Agregar los ingredientes filtrados a la tabla
-        for (Ingrediente ing : listaFiltrada) {
-            modeloTabla.addRow(new Object[]{
-                ing.getNombre(),
-                ing.getUnidadMedida(),
-                ing.getStock()
-            });
-        }
-
-        // Si no hay resultados, mostrar un mensaje
-        if (listaFiltrada.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No se encontraron coincidencias.",
-                    "Resultado de la búsqueda", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-    } catch (PersistenciaException ex) {
-        // En caso de error con la base de datos, mostramos un mensaje de error
-        JOptionPane.showMessageDialog(this, "Error al cargar ingredientes: " + ex.getMessage(),
-                "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
+//private void buscarIngrediente() {
+//    // Obtener la consulta escrita en el campo de búsqueda (convertido a minúsculas para hacer la búsqueda insensible a mayúsculas)
+//    String query = txtBuscarIngrediente.getText().toLowerCase();  
+//    List<Ingrediente> listaFiltrada = new ArrayList<>();
+//
+//    try {
+//        // Obtener la lista de ingredientes desde la base de datos
+//        List<Ingrediente> lista = bo.obtenerTodos();
+//        
+//        // Filtramos la lista de ingredientes según el texto ingresado
+//        for (Ingrediente ing : lista) {
+//            // Aquí filtramos por nombre (puedes añadir más filtros si es necesario)
+//            if (ing.getNombre().toLowerCase().contains(query)) {
+//                listaFiltrada.add(ing);
+//            }
+//        }
+//
+//        // Limpiamos la tabla antes de agregar los nuevos resultados filtrados
+//        modeloTabla.setRowCount(0);
+//        
+//        // Agregar los ingredientes filtrados a la tabla
+//        for (Ingrediente ing : listaFiltrada) {
+//            modeloTabla.addRow(new Object[]{
+//                ing.getNombre(),
+//                ing.getUnidadMedida(),
+//                ing.getStock()
+//            });
+//        }
+//
+//        // Si no hay resultados, mostrar un mensaje
+//        if (listaFiltrada.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "No se encontraron coincidencias.",
+//                    "Resultado de la búsqueda", JOptionPane.INFORMATION_MESSAGE);
+//        }
+//
+//    } catch (PersistenciaException ex) {
+//        // En caso de error con la base de datos, mostramos un mensaje de error
+//        JOptionPane.showMessageDialog(this, "Error al cargar ingredientes: " + ex.getMessage(),
+//                "Error", JOptionPane.ERROR_MESSAGE);
+//    }
+//}
 
 
     /**

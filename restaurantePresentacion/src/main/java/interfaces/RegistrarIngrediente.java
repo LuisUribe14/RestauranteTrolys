@@ -5,8 +5,8 @@
 package interfaces;
 
 import BOs.ingredienteBO;
+import DTOs.ingredienteNuevoDTO;
 import control.ControlFlujoPantallas;
-import entidades.Ingrediente;
 import enums.unidadMedida;
 import exception.PersistenciaException;
 import java.util.ResourceBundle;
@@ -238,19 +238,15 @@ public class RegistrarIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // TODO add your handling code here:
-      // Recuperamos los valores ingresados por el usuario en los campos de texto
-    String nombre = textFieldNombre.getText().trim().toUpperCase(); // Convertimos el nombre a mayúsculas
-    String unidad = textFieldUnidad.getText().trim().toUpperCase(); // Convertimos la unidad a mayúsculas
+   String nombre = textFieldNombre.getText().trim().toUpperCase(); 
+    String unidad = textFieldUnidad.getText().trim().toUpperCase(); 
     String stockStr = textFieldStock.getText().trim();
 
-    // Validamos que los campos no estén vacíos
     if (nombre.isEmpty() || unidad.isEmpty() || stockStr.isEmpty()) {
         javax.swing.JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
         return;
     }
 
-    // Validamos que el stock sea un número válido
     int stock;
     try {
         stock = Integer.parseInt(stockStr);
@@ -259,37 +255,27 @@ public class RegistrarIngrediente extends javax.swing.JFrame {
         return;
     }
 
-    // Convertimos la unidad a un valor del enum unidadMedida
     unidadMedida unidadEnum;
     try {
-        // Convertimos la unidad a mayúsculas antes de pasarlo al enum
-        unidadEnum = unidadMedida.valueOf(unidad); // El valor ya es mayúscula
+        unidadEnum = unidadMedida.valueOf(unidad); 
     } catch (IllegalArgumentException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Unidad de medida inválida. Debe ser una de las siguientes: KILO, LITRO, UNIDAD.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Unidad de medida inválida. Debe ser: KILO, LITRO o UNIDAD.");
         return;
     }
 
-    // Creamos el ingrediente a partir de los valores ingresados
-    Ingrediente ingrediente = new Ingrediente();
-    ingrediente.setNombre(nombre); // El nombre está en mayúsculas
-    ingrediente.setUnidadMedida(unidadEnum);
-    ingrediente.setStock(stock);
+    // Aquí usamos el DTO en lugar de la entidad
+    ingredienteNuevoDTO ingredienteDTO = new ingredienteNuevoDTO(nombre, unidadEnum, stock);
 
-    // Usamos la capa de negocio (ingredienteBO) para registrar el ingrediente
     ingredienteBO bo = ingredienteBO.getInstancia();
     try {
-        bo.agregarIngrediente(ingrediente);
+        bo.agregarIngrediente(ingredienteDTO);
         javax.swing.JOptionPane.showMessageDialog(this, "Ingrediente registrado exitosamente.");
-        
-        // Limpiamos los campos de texto después de registrar
         textFieldNombre.setText("");
         textFieldUnidad.setText("");
         textFieldStock.setText("");
     } catch (PersistenciaException e) {
-        // Si ocurre un error al registrar el ingrediente
         javax.swing.JOptionPane.showMessageDialog(this, "Error al registrar el ingrediente: " + e.getMessage());
     }
-
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void textFieldStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldStockActionPerformed
