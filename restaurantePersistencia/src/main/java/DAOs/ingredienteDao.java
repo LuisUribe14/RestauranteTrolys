@@ -87,8 +87,8 @@ public class ingredienteDao implements Iingrediente {
     }
 
     /**
-     * Actualiza el stock de un ingrediente que mandamos que mandamos como
-     * parametro para actualiarlo
+     * Actualiza el stock de un ingrediente que mandamos como
+     * parametro para actualizarlo
      *
      * @param ingrediente
      * @throws PersistenciaException
@@ -131,37 +131,37 @@ public class ingredienteDao implements Iingrediente {
 
         } catch (Exception e) {
             //em.getTransaction().rollback();
-            throw new PersistenciaException("No se puedo obtener eñ ingrediente");
+            throw new PersistenciaException("No se puedo obtener el ingrediente");
         } finally {
             em.close();
         }
     }
 
-    /**
-     * Metodo que recibe como parametro una variable de tipo String y trata de
-     * buscar coincidencias en la base de datos con el parametro que recibe
-     *
-     * @param filtro
-     * @return Una lista de tipo ingredientes con las coincidencias
-     * @throws PersistenciaException
-     */
-    //OPCION 2 buscarlos o solo por nombre o unidad, y no pedir los 2 parametros 
-    @Override
-    public List<Ingrediente> buscarPorNombreOUm(String filtro) throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
-        try {
-            TypedQuery<Ingrediente> query = em.createQuery(
-                    "SELECT i FROM Ingrediente i WHERE LOWER(i.nombre) LIKE LOWER(:filtro) "
-                    + "OR LOWER(CONCAT('', i.unidadMedida)) LIKE LOWER(:filtro)", Ingrediente.class);
-            query.setParameter("filtro", "%" + filtro + "%");
-
-            return query.getResultList();
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar ingredientes por nombre o unidad de medida", e);
-        } finally {
-            em.close();
-        }
-    }
+//    /**
+//     * Metodo que recibe como parametro una variable de tipo String y trata de
+//     * buscar coincidencias en la base de datos con el parametro que recibe
+//     *
+//     * @param filtro
+//     * @return Una lista de tipo ingredientes con las coincidencias
+//     * @throws PersistenciaException
+//     */
+//    //OPCION 2 buscarlos o solo por nombre o unidad, y no pedir los 2 parametros 
+//    @Override
+//    public List<Ingrediente> buscarPorNombreOUm(String filtro) throws PersistenciaException {
+//        EntityManager em = Conexion.crearConexion();
+//        try {
+//            TypedQuery<Ingrediente> query = em.createQuery(
+//                    "SELECT i FROM Ingrediente i WHERE LOWER(i.nombre) LIKE LOWER(:filtro) "
+//                    + "OR LOWER(CONCAT('', i.unidadMedida)) LIKE LOWER(:filtro)", Ingrediente.class);
+//            query.setParameter("filtro", "%" + filtro + "%");
+//
+//            return query.getResultList();
+//        } catch (Exception e) {
+//            throw new PersistenciaException("Error al buscar ingredientes por nombre o unidad de medida", e);
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     @Override
     public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {

@@ -23,7 +23,7 @@ public interface Iingrediente {
 
     public Ingrediente obtenerIngrediente(String nombre, unidadMedida unidadMedida) throws PersistenciaException;
 
-    public List<Ingrediente> buscarPorNombreOUm(String filtro) throws PersistenciaException;
+    //public List<Ingrediente> buscarPorNombreOUm(String filtro) throws PersistenciaException;
 
     public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException;
 
