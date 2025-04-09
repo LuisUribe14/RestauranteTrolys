@@ -23,6 +23,13 @@ public class IngredienteViejoDTO {
         this.stock = stock;
     }
 
+    public IngredienteViejoDTO(String nombre, unidadMedida unidadMedida) {
+        this.nombre = nombre;
+        this.unidadMedida = unidadMedida;
+    }
+
+    
+
     public Long getId() {
         return id;
     }

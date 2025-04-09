@@ -284,6 +284,7 @@ public class RegistrarIngrediente extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         ControlFlujoPantallas.getInstancia().abrirPantallaIngredientes();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void textFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNombreActionPerformed
