@@ -45,7 +45,7 @@ public class PruebasDaniel {
 //        System.out.println(ProductoDAO.getInstancia().obtenerProductosDisponibles());
          
         // COMANDAS
-        
+//        System.out.println(ProductoDAO.getInstancia().obtenerProductosFiltrados("Pizza", tipoProducto.PLATILLO));
     }
     
 }

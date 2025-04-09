@@ -6,6 +6,7 @@ import DTOs.ProductoNuevoDTO;
 import DTOs.ProductoViejoDTO;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
+import enums.tipoProducto;
 import exception.NegocioException;
 import exception.PersistenciaException;
 import interfaces.IProductoDAO;
@@ -71,7 +72,7 @@ public class ProductoBO {
         try{
             Producto productoGuardado = productoDAO.registrarProducto(producto);
             
-            if (productoGuardado.getId() == null) {
+            if (productoGuardado.getId() != null) {
                 return true;
             } else {
                 return false;
@@ -113,6 +114,22 @@ public class ProductoBO {
             return productosDTO;
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al consultar los Productos");
+        }
+    }
+    
+    public List<ProductoViejoDTO> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws NegocioException {
+        List<ProductoViejoDTO> productosDTO = new ArrayList();
+        try {
+            List<Producto> productos = productoDAO.obtenerProductosFiltrados(nombre, tipo);
+            
+            for (Producto producto: productos) {
+                ProductoViejoDTO productoDTO = ProductoMapper.toViejoDTO(producto);
+                productosDTO.add(productoDTO);
+            }
+            
+            return productosDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar Productos.");
         }
     }
 }

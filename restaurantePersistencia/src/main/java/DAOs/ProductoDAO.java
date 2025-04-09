@@ -3,10 +3,12 @@ package DAOs;
 import conexion.Conexion;
 import entidades.Producto;
 import static enums.estadoProducto.DISPONIBLE;
+import enums.tipoProducto;
 import exception.PersistenciaException;
 import interfaces.IProductoDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -40,7 +42,7 @@ public class ProductoDAO implements IProductoDAO{
             em.getTransaction().rollback();
             throw new PersistenciaException("Error al registrar Producto");
         } finally {
-            Conexion.cerrar();
+            em.close();
         }
     }
 
@@ -57,7 +59,7 @@ public class ProductoDAO implements IProductoDAO{
             em.getTransaction().rollback();
             throw new PersistenciaException("Error al actualizar Producto");
         } finally {
-            Conexion.cerrar();
+            em.close();
         }
     }
 
@@ -73,7 +75,26 @@ public class ProductoDAO implements IProductoDAO{
         } catch(Exception e) {
             throw new PersistenciaException("Error al consultar Productos");
         } finally {
-            Conexion.cerrar();
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Producto> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws PersistenceException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT p FROM Producto p "
+                    + "WHERE (:nombre IS NULL OR p.nombre LIKE :nombre) "
+                    + "AND (:tipo IS NULL OR p.tipo = :tipo)";
+            TypedQuery query = em.createQuery(jpql, Producto.class);
+            query.setParameter("nombre", nombre);
+            query.setParameter("tipo", tipo);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenceException("Error al consultar la Lista de Productos");
+        } finally {
+            em.close();
         }
     }
     

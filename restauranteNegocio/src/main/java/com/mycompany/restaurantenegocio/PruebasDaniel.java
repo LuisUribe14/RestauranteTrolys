@@ -57,13 +57,16 @@ public class PruebasDaniel {
 //        System.out.println(ComandaBO.getInstancia().generarFolio(LocalDateTime.now()));
 //        MesaBO.getInstancia().registrarCantidadMesas(20);
 
-        ClienteFrecuenteViejoDTO cliente = ClienteFrecuenteMapper.toViejoDTO(em.find(ClienteFrecuente.class, 1L));
-        MesaViejaDTO mesa = MesaMapper.toViejoDTO(em.find(Mesa.class, 5L));
-        ProductoViejoDTO producto = ProductoMapper.toViejoDTO(em.find(Producto.class, 1L));
-        ComandaProductoNuevaDTO comandaDTO = new ComandaProductoNuevaDTO(2, 100.00, "si", producto);
-        List<ComandaProductoNuevaDTO> productos = Arrays.asList(comandaDTO);
-        ComandaNuevaDTO comanda = new ComandaNuevaDTO(estadoComanda.ENTREGADO, cliente, mesa, productos);
-        ComandaBO.getInstancia().registrarComanda(comanda);
+//        ClienteFrecuenteViejoDTO cliente = ClienteFrecuenteMapper.toViejoDTO(em.find(ClienteFrecuente.class, 1L));
+//        MesaViejaDTO mesa = MesaMapper.toViejoDTO(em.find(Mesa.class, 5L));
+//        ProductoViejoDTO producto = ProductoMapper.toViejoDTO(em.find(Producto.class, 1L));
+//        ComandaProductoNuevaDTO comandaDTO = new ComandaProductoNuevaDTO(2, 100.00, "si", producto);
+//        List<ComandaProductoNuevaDTO> productos = Arrays.asList(comandaDTO);
+//        ComandaNuevaDTO comanda = new ComandaNuevaDTO(estadoComanda.ENTREGADO, cliente, mesa, productos);
+//        ComandaBO.getInstancia().registrarComanda(comanda);
+
+        System.out.println(ProductoBO.getInstancia().obtenerProductosFiltrados("", null));
+//        System.out.println(ProductoBO.getInstancia().obtenerProductosDisponibles());
     }
     
 }
