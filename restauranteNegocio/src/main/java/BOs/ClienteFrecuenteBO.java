@@ -91,15 +91,15 @@ public class ClienteFrecuenteBO {
     }
 
     public List<ClienteFrecuenteDTO> buscarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException, NegocioException {
-        if (nombre != null && nombre.trim().isEmpty()) {
-            throw new NegocioException("El nombre no puede ser vacío.");
-        }
-        if (telefono != null && telefono.trim().isEmpty()) {
-            throw new NegocioException("El teléfono no puede ser vacío.");
-        }
-        if (correo != null && correo.trim().isEmpty()) {
-            throw new NegocioException("El correo no puede ser vacío.");
-        }
+//        if (nombre != null && nombre.trim().isEmpty()) {
+//            throw new NegocioException("El nombre no puede ser vacío.");
+//        }
+//        if (telefono != null && telefono.trim().isEmpty()) {
+//            throw new NegocioException("El teléfono no puede ser vacío.");
+//        }
+//        if (correo != null && correo.trim().isEmpty()) {
+//            throw new NegocioException("El correo no puede ser vacío.");
+//        }
 
         List<ClienteFrecuente> clientes = clienteFrecuenteDAO.filtrarClientesFrecuentes(nombre, telefono, correo);
         List<ClienteFrecuenteDTO> clienteDTOs = new ArrayList<>();

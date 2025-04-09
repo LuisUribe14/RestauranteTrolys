@@ -7,6 +7,7 @@ package mapper;
 import DTOs.ClienteDTO;
 import DTOs.ClienteFrecuenteDTO;
 import DTOs.ClienteFrecuenteViejoDTO;
+import ENcriptador.Encriptador;
 import entidades.Cliente;
 import entidades.ClienteFrecuente;
 
@@ -52,7 +53,6 @@ public class ClienteFrecuenteMapper extends ClienteMapper {
             return null;
         }
 
-        // Crea el Cliente a partir del DTO
         Cliente cliente = new Cliente();
         cliente.setId(clienteFrecuenteDTO.getId());
         cliente.setNombre(clienteFrecuenteDTO.getNombre());
@@ -63,7 +63,6 @@ public class ClienteFrecuenteMapper extends ClienteMapper {
         cliente.setFechaRegistro(clienteFrecuenteDTO.getFechaRegistro());
         cliente.setComandas(clienteFrecuenteDTO.getComandas());
 
-        // Crea el ClienteFrecuente y asigna los valores
         ClienteFrecuente clienteFrecuente = new ClienteFrecuente();
         clienteFrecuente.setVisitas(clienteFrecuenteDTO.getVisitas() != null ? clienteFrecuenteDTO.getVisitas() : 0);
         clienteFrecuente.setPuntos(clienteFrecuenteDTO.getPuntos() != null ? clienteFrecuenteDTO.getPuntos() : 0);
@@ -96,7 +95,7 @@ public class ClienteFrecuenteMapper extends ClienteMapper {
                 clienteFrecuenteViejoDTO.getFechaRegistro()
         );
     }
-    
+
     public static ClienteFrecuenteViejoDTO toViejoDTO(ClienteFrecuente clienteFrecuente) {
         if (clienteFrecuente == null) {
             return null;

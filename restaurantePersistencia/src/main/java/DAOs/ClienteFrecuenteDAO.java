@@ -22,17 +22,17 @@ import javax.persistence.TypedQuery;
 public class ClienteFrecuenteDAO implements IClienteFrecuente {
 
     private static ClienteFrecuenteDAO clienteFrecuenteDAO;
-    
+
     public ClienteFrecuenteDAO() {
     }
-    
+
     public static ClienteFrecuenteDAO getInstancia() {
         if (clienteFrecuenteDAO == null) {
             clienteFrecuenteDAO = new ClienteFrecuenteDAO();
         }
         return clienteFrecuenteDAO;
     }
-    
+
 //    @Override
 //    public void registrarComanda(Comanda comanda) throws PersistenciaException {
 //        EntityManager em = Conexion.crearConexion();
@@ -53,7 +53,6 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 //            Conexion.cerrarConexion(em);
 //        }
 //    }
-
     @Override
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -155,18 +154,21 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         try {
             StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
 
+            // Agregar condiciones dinámicas a la consulta
             if (nombre != null && !nombre.trim().isEmpty()) {
-                jpql.append(" AND LOWER(CONCAT(c.nombre, ' ', c.apellidoPaterno, ' ', COALESCE(c.apellidoMaterno, ''))) LIKE :nombre");
+                jpql.append(" AND (LOWER(c.nombre) LIKE :nombre OR LOWER(c.apellidoPaterno) LIKE :nombre OR LOWER(c.apellidoMaterno) LIKE :nombre)");
             }
             if (correo != null && !correo.trim().isEmpty()) {
                 jpql.append(" AND LOWER(c.correo) LIKE :correo");
             }
             if (telefono != null && !telefono.trim().isEmpty()) {
-                jpql.append(" AND c.telefono = :telefono"); // Solo comparación exacta
+                jpql.append(" AND c.telefono = :telefono");
             }
 
+            // Preparar la consulta
             TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
 
+            // Establecer parámetros de la consulta
             if (nombre != null && !nombre.trim().isEmpty()) {
                 query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
             }
@@ -182,15 +184,19 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
                 }
             }
 
+            // Ejecutar la consulta y obtener los resultados
             resultados = query.getResultList();
 
+            // Procesar los resultados y realizar los cálculos necesarios
             for (ClienteFrecuente cliente : resultados) {
+                // Desencriptar el teléfono del cliente
                 try {
-                    cliente.setTelefono(Encriptador.decrypt(cliente.getTelefono()));
+                    cliente.setTelefono(Encriptador.decrypt(cliente.getTelefono())); // Desencriptar el teléfono
                 } catch (Exception e) {
-                    cliente.setTelefono("ERROR");
+                    cliente.setTelefono("Error al desencriptar");
                 }
 
+                // Calcular atributos derivados
                 calcularTotalGastado(cliente);
                 calcularVisitas(cliente);
                 calcularPuntos(cliente);
@@ -199,7 +205,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             return resultados;
 
         } catch (Exception e) {
-            throw new PersistenciaException("No se encontró ningún cliente con estos datos.", e);
+            throw new PersistenciaException("Error al filtrar los clientes frecuentes.", e);
         } finally {
             Conexion.cerrarConexion(em);
         }
