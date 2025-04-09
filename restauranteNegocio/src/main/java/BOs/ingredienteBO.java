@@ -118,4 +118,8 @@ public class ingredienteBO {
         return dao.obtenerTodos();
     }
 
+    public List<Ingrediente> filtrarIngredientes(String nombre, String unidadMedida) throws PersistenciaException {
+        return ingredienteDao.getInstancia().filtrarIngredientes(nombre, unidadMedida);
+    }
+
 }

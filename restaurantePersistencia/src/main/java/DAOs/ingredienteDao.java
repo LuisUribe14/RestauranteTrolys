@@ -5,6 +5,7 @@ import entidades.Ingrediente;
 import enums.unidadMedida;
 import exception.PersistenciaException;
 import interfaces.Iingrediente;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -201,6 +202,45 @@ public class ingredienteDao implements Iingrediente {
             return em.createQuery("SELECT i FROM Ingrediente i", Ingrediente.class).getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener la lista de ingredientes.", e);
+        }
+    }
+
+    /**
+     * Filtro
+     * @param nombre
+     * @param unidad
+     * @return
+     * @throws PersistenciaException 
+     */
+    public List<Ingrediente> filtrarIngredientes(String nombre, String unidad) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        List<Ingrediente> resultados = new ArrayList<>();
+
+        try {
+            StringBuilder jpql = new StringBuilder("SELECT i FROM Ingrediente i WHERE 1=1");
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                jpql.append(" AND LOWER(i.nombre) LIKE :nombre");
+            }
+            if (unidad != null && !unidad.trim().isEmpty()) {
+                jpql.append(" AND LOWER(i.unidadMedida) LIKE :unidad");
+            }
+
+            TypedQuery<Ingrediente> query = em.createQuery(jpql.toString(), Ingrediente.class);
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
+            }
+            if (unidad != null && !unidad.trim().isEmpty()) {
+                query.setParameter("unidad", "%" + unidad.toLowerCase() + "%");
+            }
+
+            resultados = query.getResultList();
+            return resultados;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al filtrar ingredientes.", e);
+        } finally {
+            em.close();
         }
     }
 

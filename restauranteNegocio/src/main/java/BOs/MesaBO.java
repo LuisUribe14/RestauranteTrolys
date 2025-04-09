@@ -25,24 +25,24 @@ public class MesaBO {
         return mesaBO;
     }
     
-    public boolean registrarCantidadMesas(Integer cantidad) throws NegocioException {
-        if (cantidad == null || cantidad == 0) {
-            throw new NegocioException("Error, la cantidad no puede estar vacia.");
-        }
-        if (cantidad > 20) {
-            throw new NegocioException("Error, la cantidad no puede ser mayor a 20");
-        }
-        
-        try {
-            for (Integer i = 1; i < cantidad+1; i++) {
-                Mesa mesa = new Mesa(i);
-                mesaDAO.registrarCantidadMesas(mesa);
-            }
-            
-            return true;
-        } catch(PersistenciaException e) {
-            throw new NegocioException("Error al reistrar mesas.");
-        }
-    }
+//    public boolean registrarCantidadMesas(Integer cantidad) throws NegocioException {
+//        if (cantidad == null || cantidad == 0) {
+//            throw new NegocioException("Error, la cantidad no puede estar vacia.");
+//        }
+//        if (cantidad > 20) {
+//            throw new NegocioException("Error, la cantidad no puede ser mayor a 20");
+//        }
+//        
+//        try {
+//            for (Integer i = 1; i < cantidad+1; i++) {
+//                Mesa mesa = new Mesa(i);
+//                mesaDAO.registrarCantidadMesas(mesa);
+//            }
+//            
+//            return true;
+//        } catch(PersistenciaException e) {
+//            throw new NegocioException("Error al reistrar mesas.");
+//        }
+//    }
     
 }
