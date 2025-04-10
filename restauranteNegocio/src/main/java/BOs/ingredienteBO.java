@@ -93,10 +93,30 @@ public class ingredienteBO {
         dao.actualizarIngrediente(ing);
     }
 
+    public void aumentarStock(IngredienteViejoDTO dto, int cantidad) throws PersistenciaException {
+        if (cantidad <= 0) {
+            throw new PersistenciaException("La cantidad a aumentar debe ser mayor a cero.");
+        }
+
+        Ingrediente ing = dao.obtenerIngrediente(dto.getNombre(), dto.getUnidadMedida());
+
+        if (ing == null) {
+            throw new PersistenciaException("No se encontró el ingrediente.");
+        }
+
+        int nuevoStock = ing.getStock() + cantidad;
+
+        if (nuevoStock > 99999) {
+            throw new PersistenciaException("El stock total no puede superar 99,999 unidades.");
+        }
+
+        ing.setStock(nuevoStock);
+        dao.actualizarIngrediente(ing);
+    }
+
 //    public List<Ingrediente> buscarIngredientes(String filtro) throws PersistenciaException {
 //        return dao.buscarPorNombreOUm(filtro);
 //    }
-
     public void eliminarIngredientePorNombreYUnidad(String nombre, unidadMedida unidad) throws PersistenciaException {
         try {
             if (nombre == null || nombre.trim().isEmpty() || unidad == null) {
