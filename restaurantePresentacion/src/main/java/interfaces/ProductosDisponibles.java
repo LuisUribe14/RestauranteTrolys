@@ -11,12 +11,12 @@ import java.util.ResourceBundle;
  *
  * @author chris
  */
-public class MenuAdministrador extends javax.swing.JFrame {
+public class ProductosDisponibles extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
      */
-    public MenuAdministrador() {
+    public ProductosDisponibles() {
         initComponents();
     }
 
@@ -39,12 +39,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        btnRegresar = new javax.swing.JButton();
-        Ingredientes = new javax.swing.JButton();
-        Producto = new javax.swing.JButton();
-        Mesas = new javax.swing.JButton();
-        Clientes = new javax.swing.JButton();
-        Clientes1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Administrador = new javax.swing.JButton();
+        Mesero = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -56,7 +53,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setText("Administrador");
+        jLabel1.setText("RestauranteTrolys");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -68,7 +65,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,62 +77,37 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnRegresar.setBackground(new java.awt.Color(0, 0, 0));
-        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegresar.setText("Regresar");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(btnRegresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(btnRegresar)
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        Ingredientes.setText("Ingrediente");
-        Ingredientes.setActionCommand("Ingredientes");
-        Ingredientes.setBackground(new java.awt.Color(0, 0, 0));
-        Ingredientes.setForeground(new java.awt.Color(255, 255, 255));
-        Ingredientes.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("Seleccion De Rol");
+        jLabel2.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
+
+        Administrador.setText("Administrador");
+        Administrador.setBackground(new java.awt.Color(0, 0, 0));
+        Administrador.setForeground(new java.awt.Color(255, 255, 255));
+        Administrador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IngredientesActionPerformed(evt);
+                AdministradorActionPerformed(evt);
             }
         });
 
-        Producto.setText("Producto");
-        Producto.setBackground(new java.awt.Color(0, 0, 0));
-        Producto.setForeground(new java.awt.Color(255, 255, 255));
-
-        Mesas.setText("Mesas");
-        Mesas.setBackground(new java.awt.Color(0, 0, 0));
-        Mesas.setForeground(new java.awt.Color(255, 255, 255));
-
-        Clientes.setText("Clientes");
-        Clientes.setBackground(new java.awt.Color(0, 0, 0));
-        Clientes.setForeground(new java.awt.Color(255, 255, 255));
-        Clientes.addActionListener(new java.awt.event.ActionListener() {
+        Mesero.setText("Mesero");
+        Mesero.setBackground(new java.awt.Color(0, 0, 0));
+        Mesero.setForeground(new java.awt.Color(255, 255, 255));
+        Mesero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClientesActionPerformed(evt);
+                MeseroActionPerformed(evt);
             }
         });
-
-        Clientes1.setText("Reportes");
-        Clientes1.setBackground(new java.awt.Color(0, 0, 0));
-        Clientes1.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -144,30 +116,28 @@ public class MenuAdministrador extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(200, 200, 200)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Ingredientes, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                    .addComponent(Producto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Mesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Clientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Clientes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(285, 285, 285)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Administrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(Mesero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(269, 269, 269)
+                        .addComponent(jLabel2)))
+                .addContainerGap(270, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(Ingredientes)
-                .addGap(30, 30, 30)
-                .addComponent(Producto)
-                .addGap(27, 27, 27)
-                .addComponent(Mesas)
-                .addGap(30, 30, 30)
-                .addComponent(Clientes)
-                .addGap(26, 26, 26)
-                .addComponent(Clientes1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(68, 68, 68)
+                .addComponent(jLabel2)
+                .addGap(31, 31, 31)
+                .addComponent(Administrador)
+                .addGap(31, 31, 31)
+                .addComponent(Mesero)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -179,7 +149,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -207,34 +179,26 @@ public class MenuAdministrador extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IngredientesActionPerformed
+    private void AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministradorActionPerformed
         // TODO add your handling code here:
-        ControlFlujoPantallas.getInstancia().abrirPantallaIngredientes();
+        ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
         this.dispose();
-    }//GEN-LAST:event_IngredientesActionPerformed
+    }//GEN-LAST:event_AdministradorActionPerformed
 
-    private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirClienteDisponible();
+    private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirPantallaComandasAbiertas();
         this.dispose();
-    }//GEN-LAST:event_ClientesActionPerformed
-
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirPantallaInicio();
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    }//GEN-LAST:event_MeseroActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Clientes;
-    private javax.swing.JButton Clientes1;
-    private javax.swing.JButton Ingredientes;
-    private javax.swing.JButton Mesas;
-    private javax.swing.JButton Producto;
-    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton Administrador;
+    private javax.swing.JButton Mesero;
     private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
