@@ -46,15 +46,46 @@ public class ClienteFrecuenteBO {
         if (clienteDTO.getNombre() == null || clienteDTO.getNombre().trim().isEmpty()) {
             throw new NegocioException("El nombre es obligatorio.");
         }
+
+        String nombre = clienteDTO.getNombre().trim();
+
+        if (!nombre.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El nombre solo debe contener letras.");
+        }
+
+        if (nombre.length() > 100) {
+            throw new NegocioException("El nombre no puede tener más de 100 caracteres.");
+        }
+
         if (clienteDTO.getApellidoPaterno() == null || clienteDTO.getApellidoPaterno().trim().isEmpty()) {
             throw new NegocioException("El apellido paterno es obligatorio.");
+        }
+
+        String apellidoPaterno = clienteDTO.getApellidoPaterno().trim();
+
+        if (!apellidoPaterno.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido paterno solo debe contener letras.");
+        }
+
+        if (apellidoPaterno.length() > 100) {
+            throw new NegocioException("El apellido paterno no puede tener más de 100 caracteres.");
+        }
+
+        String apellidoMaterno = clienteDTO.getApellidoMaterno().trim();
+
+        if (!apellidoMaterno.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido materno solo debe contener letras.");
+        }
+        
+        if (apellidoMaterno.length() > 100) {
+            throw new NegocioException("El apellido paterno no puede tener más de 100 caracteres.");
         }
 
         if (clienteDTO.getTelefono() == null || clienteDTO.getTelefono().trim().isEmpty()) {
             throw new NegocioException("El teléfono es obligatorio.");
         }
         if (!esTelefonoValido(clienteDTO.getTelefono())) {
-            throw new NegocioException("El número de teléfono no es válido.");
+            throw new NegocioException("El número de teléfono no es válido debe tener 10 numeros.");
         }
 
         if (clienteDTO.getCorreo() != null && !clienteDTO.getCorreo().trim().isEmpty()) {

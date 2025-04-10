@@ -108,9 +108,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Mesas.setForeground(new java.awt.Color(255, 255, 255));
         Mesas.setText("Mesas");
 
+        Clientes.setText("Clientes");
         Clientes.setBackground(new java.awt.Color(0, 0, 0));
         Clientes.setForeground(new java.awt.Color(255, 255, 255));
-        Clientes.setText("Clientes");
+        Clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClientesActionPerformed(evt);
+            }
+        });
 
         Clientes1.setBackground(new java.awt.Color(0, 0, 0));
         Clientes1.setForeground(new java.awt.Color(255, 255, 255));
@@ -191,6 +196,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ControlFlujoPantallas.getInstancia().abrirPantallaIngredientes();
         this.dispose();
     }//GEN-LAST:event_IngredientesActionPerformed
+
+    private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirClienteDisponible();
+        this.dispose();
+    }//GEN-LAST:event_ClientesActionPerformed
 
     
 

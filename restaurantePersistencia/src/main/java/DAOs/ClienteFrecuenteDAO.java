@@ -170,10 +170,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 
             // Establecer parámetros de la consulta
             if (nombre != null && !nombre.trim().isEmpty()) {
-                query.setParameter("nombre", "%" + nombre.toLowerCase() + "%");
+                query.setParameter("nombre", nombre.toLowerCase() + "%");
             }
             if (correo != null && !correo.trim().isEmpty()) {
-                query.setParameter("correo", "%" + correo.toLowerCase() + "%");
+                query.setParameter("correo", correo.toLowerCase() + "%");
             }
             if (telefono != null && !telefono.trim().isEmpty()) {
                 try {

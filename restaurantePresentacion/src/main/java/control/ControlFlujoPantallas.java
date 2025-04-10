@@ -6,8 +6,10 @@ package control;
 
 import interfaces.AgregarIngrediente;
 import interfaces.BusquedaIngrediente;
+import interfaces.ClientesDisponibles;
 import interfaces.Inicio;
 import interfaces.MenuAdministrador;
+import interfaces.RegistrarCliente;
 import interfaces.RegistrarIngrediente;
 
 /**
@@ -61,6 +63,16 @@ public class ControlFlujoPantallas {
     
     public void abrirAgregarIngredientes(){
         RegistrarIngrediente forma = new RegistrarIngrediente();
+        forma.setVisible(true);
+    }
+    
+    public void abrirClienteDisponible(){
+        ClientesDisponibles forma = new ClientesDisponibles();
+        forma.setVisible(true);
+    }
+    
+    public void abrirRegistrarCliente(){
+        RegistrarCliente forma = new RegistrarCliente();
         forma.setVisible(true);
     }
 }
