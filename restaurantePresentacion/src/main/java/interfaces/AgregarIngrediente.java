@@ -10,7 +10,7 @@ import java.util.List;
 import entidades.Ingrediente;
 import BOs.ingredienteBO;
 import DTOs.ingredienteDTO;
-import Pantallas.EliminarIngredienteRendererEditor;
+import render.EliminarIngredienteRendererEditor;
 import control.ControlFlujoPantallas;
 import exception.PersistenciaException;
 

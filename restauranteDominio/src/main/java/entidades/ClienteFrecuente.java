@@ -6,6 +6,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @DiscriminatorValue("Cliente_Frecuente")
-public class ClienteFrecuente extends Cliente implements Serializable{
+public class ClienteFrecuente extends Cliente implements Serializable {
 
     @Transient
     private Integer visitas = 0;
@@ -32,6 +33,8 @@ public class ClienteFrecuente extends Cliente implements Serializable{
     private Integer puntos = 0;
     @Transient
     private Double totalGastado = 0.0;
+    @Transient
+    private LocalDateTime fechaUltimaComanda;
 
     public ClienteFrecuente() {
     }
@@ -60,9 +63,16 @@ public class ClienteFrecuente extends Cliente implements Serializable{
         super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro);
     }
 
-
     public Integer getVisitas() {
         return visitas;
+    }
+
+    public LocalDateTime getFechaUltimaComanda() {
+        return fechaUltimaComanda;
+    }
+
+    public void setFechaUltimaComanda(LocalDateTime fechaUltimaComanda) {
+        this.fechaUltimaComanda = fechaUltimaComanda;
     }
 
     public void setVisitas(Integer visitas) {
@@ -84,7 +94,7 @@ public class ClienteFrecuente extends Cliente implements Serializable{
     public void setTotalGastado(Double totalGastado) {
         this.totalGastado = totalGastado;
     }
-  
+
     @Override
     public String toString() {
         return "clientesFrecuentes{" + "visitas=" + visitas + ", puntos=" + puntos + ", totalGastado=" + totalGastado + '}';
