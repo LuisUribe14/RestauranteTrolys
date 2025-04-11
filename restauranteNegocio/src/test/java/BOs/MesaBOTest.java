@@ -17,36 +17,36 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class MesaBOTest {
     
-    public MesaBOTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
-
-    /**
-     * Test of getInstancia method, of class MesaBO.
-     */
-    @Test
-    public void testGetInstancia() {
-        System.out.println("getInstancia");
-        MesaBO expResult = null;
-        MesaBO result = MesaBO.getInstancia();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    public MesaBOTest() {
+//    }
+//    
+//    @BeforeAll
+//    public static void setUpClass() {
+//    }
+//    
+//    @AfterAll
+//    public static void tearDownClass() {
+//    }
+//    
+//    @BeforeEach
+//    public void setUp() {
+//    }
+//    
+//    @AfterEach
+//    public void tearDown() {
+//    }
+//
+//    /**
+//     * Test of getInstancia method, of class MesaBO.
+//     */
+//    @Test
+//    public void testGetInstancia() {
+//        System.out.println("getInstancia");
+//        MesaBO expResult = null;
+//        MesaBO result = MesaBO.getInstancia();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }

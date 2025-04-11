@@ -84,7 +84,7 @@ public class ProductoDAO implements IProductoDAO{
         EntityManager em = Conexion.crearConexion();
         try {
             String jpql = "SELECT p FROM Producto p "
-                    + "WHERE (:nombre IS NULL OR p.nombre LIKE :nombre) "
+                    + "WHERE (:nombre IS NULL OR p.nombre LIKE CONCAT(:nombre, '%')) "
                     + "AND (:tipo IS NULL OR p.tipo = :tipo)";
             TypedQuery query = em.createQuery(jpql, Producto.class);
             query.setParameter("nombre", nombre);
