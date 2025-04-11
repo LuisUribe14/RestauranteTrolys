@@ -6,6 +6,7 @@ package BOs;
 
 import DAOs.ClienteFrecuenteDAO;
 import DTOs.ClienteFrecuenteDTO;
+import ENcriptador.Encriptador;
 import entidades.ClienteFrecuente;
 import exception.NegocioException;
 import exception.PersistenciaException;
@@ -49,7 +50,7 @@ public class ClienteFrecuenteBO {
 
         String nombre = clienteDTO.getNombre().trim();
 
-        if (!nombre.matches("^[a-zA-Z]+$")) {
+        if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new NegocioException("El nombre solo debe contener letras.");
         }
 
@@ -63,7 +64,7 @@ public class ClienteFrecuenteBO {
 
         String apellidoPaterno = clienteDTO.getApellidoPaterno().trim();
 
-        if (!apellidoPaterno.matches("^[a-zA-Z]+$")) {
+        if (!apellidoPaterno.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
             throw new NegocioException("El apellido paterno solo debe contener letras.");
         }
 
@@ -73,20 +74,25 @@ public class ClienteFrecuenteBO {
 
         String apellidoMaterno = clienteDTO.getApellidoMaterno().trim();
 
-        if (!apellidoMaterno.matches("^[a-zA-Z]+$")) {
-            throw new NegocioException("El apellido materno solo debe contener letras.");
-        }
-        
-        if (apellidoMaterno.length() > 100) {
-            throw new NegocioException("El apellido paterno no puede tener más de 100 caracteres.");
+        if (!apellidoMaterno.isEmpty() && !apellidoMaterno.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+")) {
+            throw new NegocioException("El apellido materno solo debe tener letras");
         }
 
         if (clienteDTO.getTelefono() == null || clienteDTO.getTelefono().trim().isEmpty()) {
             throw new NegocioException("El teléfono es obligatorio.");
         }
+
+//        String telefonoCifrado = Encriptador.encrypt(clienteDTO.getTelefono());
+//
+//        if (clienteFrecuenteDAO.compararSiYaExisteTelefono(telefonoCifrado)) {
+//            throw new NegocioException("Ya existe un cliente con ese número de teléfono.");
+//        }
+
         if (!esTelefonoValido(clienteDTO.getTelefono())) {
             throw new NegocioException("El número de teléfono no es válido debe tener 10 numeros.");
         }
+
+//        clienteDTO.setTelefono(telefonoCifrado);
 
         if (clienteDTO.getCorreo() != null && !clienteDTO.getCorreo().trim().isEmpty()) {
             if (!esCorreoValido(clienteDTO.getCorreo())) {

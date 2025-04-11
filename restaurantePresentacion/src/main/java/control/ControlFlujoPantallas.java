@@ -13,6 +13,9 @@ import interfaces.MenuAdministrador;
 import interfaces.MesasDisponibles;
 import interfaces.RegistrarCliente;
 import interfaces.RegistrarIngrediente;
+import interfaces.ReporteClientes;
+import interfaces.ReporteComandas;
+import interfaces.Reportes;
 
 /**
  *
@@ -77,6 +80,7 @@ public class ControlFlujoPantallas {
         RegistrarCliente forma = new RegistrarCliente();
         forma.setVisible(true);
     }
+    
     public void abrirPantallaInicio(){
         Inicio forma = new Inicio();
         forma.setVisible(true);
@@ -89,6 +93,20 @@ public class ControlFlujoPantallas {
     
     public void abrirPantallaMesas(){
         MesasDisponibles forma = new MesasDisponibles();
+    }
+    
+    public void abrirReportes(){
+        Reportes forma = new Reportes();
+        forma.setVisible(true);
+    }
+    
+    public void abrirReporteCliente(){
+        ReporteClientes forma = new ReporteClientes();
+        forma.setVisible(true);
+    }
+    
+    public void abrirReporteComandas(){
+        ReporteComandas forma = new ReporteComandas();
         forma.setVisible(true);
     }
 }
