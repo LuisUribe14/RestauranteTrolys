@@ -68,6 +68,8 @@ public class ClientesDisponibles extends javax.swing.JFrame {
             }
 
             tablaClientes.setModel(model);
+            tablaClientes.getTableHeader().setReorderingAllowed(false); 
+            tablaClientes.getTableHeader().setResizingAllowed(false);
         } catch (NegocioException | PersistenciaException e) {
             JOptionPane.showMessageDialog(this, "Error al buscar clientes: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

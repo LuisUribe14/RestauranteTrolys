@@ -146,6 +146,19 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         return puntos;
     }
 
+//    @Override
+//    public boolean compararSiYaExisteTelefono(String telefonoEncriptado) {
+//        EntityManager em = Conexion.crearConexion();
+//        try {
+//            TypedQuery<Long> query = em.createQuery(
+//                    "SELECT COUNT(c) FROM Cliente c WHERE c.telefono = :telefono", Long.class);
+//            query.setParameter("telefono", telefonoEncriptado);
+//            return query.getSingleResult() > 0;
+//        } finally {
+//            Conexion.cerrarConexion(em);
+//        }
+//    }
+
     @Override
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
