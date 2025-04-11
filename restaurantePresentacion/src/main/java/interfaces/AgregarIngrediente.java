@@ -11,7 +11,7 @@ import entidades.Ingrediente;
 import BOs.ingredienteBO;
 import DTOs.IngredienteViejoDTO;
 import DTOs.ingredienteDTO;
-import Pantallas.EliminarIngredienteRendererEditor;
+import render.EliminarIngredienteRendererEditor;
 import control.ControlFlujoPantallas;
 import enums.unidadMedida;
 import exception.PersistenciaException;
@@ -401,8 +401,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarIngredienteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirBuscarIngrediente();
-        this.dispose();
+//        ControlFlujoPantallas.getInstancia().abrirBuscarIngrediente();
+//        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

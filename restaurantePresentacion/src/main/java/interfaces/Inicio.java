@@ -179,17 +179,15 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministradorActionPerformed
-        // TODO add your handling code here:
         ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
         this.dispose();
     }//GEN-LAST:event_AdministradorActionPerformed
 
     private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirPantallaComandasAbiertas();
-        this.dispose();
+//        ControlFlujoPantallas.getInstancia().abrirPantallaComandasAbiertas();
+//        this.dispose();
     }//GEN-LAST:event_MeseroActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Administrador;
