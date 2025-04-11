@@ -7,10 +7,8 @@ package control;
 import interfaces.AgregarIngrediente;
 import interfaces.BusquedaIngrediente;
 import interfaces.ClientesDisponibles;
-import interfaces.ComandasAbiertas;
 import interfaces.Inicio;
 import interfaces.MenuAdministrador;
-import interfaces.MesasDisponibles;
 import interfaces.RegistrarCliente;
 import interfaces.RegistrarIngrediente;
 import interfaces.ReporteClientes;
@@ -84,15 +82,6 @@ public class ControlFlujoPantallas {
     public void abrirPantallaInicio(){
         Inicio forma = new Inicio();
         forma.setVisible(true);
-    }
-    
-    public void abrirPantallaComandasAbiertas(){
-        ComandasAbiertas forma = new ComandasAbiertas();
-        forma.setVisible(true);
-    }
-    
-    public void abrirPantallaMesas(){
-        MesasDisponibles forma = new MesasDisponibles();
     }
     
     public void abrirReportes(){

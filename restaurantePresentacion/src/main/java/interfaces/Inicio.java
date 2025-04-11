@@ -103,11 +103,6 @@ public class Inicio extends javax.swing.JFrame {
         Mesero.setText("Mesero");
         Mesero.setBackground(new java.awt.Color(0, 0, 0));
         Mesero.setForeground(new java.awt.Color(255, 255, 255));
-        Mesero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MeseroActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -183,11 +178,6 @@ public class Inicio extends javax.swing.JFrame {
         ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
         this.dispose();
     }//GEN-LAST:event_AdministradorActionPerformed
-
-    private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirPantallaComandasAbiertas();
-        this.dispose();
-    }//GEN-LAST:event_MeseroActionPerformed
 
     
 

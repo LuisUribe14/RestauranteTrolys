@@ -259,7 +259,7 @@ public class RegistrarIngrediente extends javax.swing.JFrame {
     try {
         unidadEnum = unidadMedida.valueOf(unidad); 
     } catch (IllegalArgumentException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Unidad de medida inválida. Debe ser: KILO, LITRO o PIEZAS.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Unidad de medida inválida. Debe ser: KILO, LITRO o UNIDAD.");
         return;
     }
 

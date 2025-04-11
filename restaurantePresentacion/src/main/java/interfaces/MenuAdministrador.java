@@ -240,7 +240,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton Ingredientes;
     private javax.swing.JButton Mesas;
     private javax.swing.JButton Producto;
-    private javax.swing.JButton btnRegresar;
     private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private javax.swing.JLabel jLabel1;
