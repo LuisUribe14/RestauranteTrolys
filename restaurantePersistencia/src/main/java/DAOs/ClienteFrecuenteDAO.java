@@ -7,7 +7,7 @@ package DAOs;
 import ENcriptador.Encriptador;
 import conexion.Conexion;
 import entidades.ClienteFrecuente;
-import entidades.Comanda;
+import enums.estadoComanda;
 import exception.PersistenciaException;
 import interfaces.IClienteFrecuente;
 import java.time.LocalDateTime;
@@ -127,10 +127,13 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
-            String query = "SELECT SUM(c.totalVenta) FROM Comanda c WHERE c.cliente.id = :clienteId";
+            String query = "SELECT SUM(c.totalVenta) FROM Comanda c "+ "WHERE c.cliente.id = :clienteId AND c.estado = :estado";
+
             Double totalGastado = em.createQuery(query, Double.class)
                     .setParameter("clienteId", cliente.getId())
+                    .setParameter("estado", estadoComanda.ENTREGADO) 
                     .getSingleResult();
+
             return totalGastado != null ? totalGastado : 0.0;
         } catch (Exception e) {
             throw new PersistenciaException("Error al calcular el total gastado del cliente", e);
@@ -168,10 +171,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
 
             // Agregar condiciones dinámicas a la consulta
-            if (nombre != null && !nombre.trim().isEmpty()) {
+            if (nombre != null && nombre.trim().length() >= 2) {
                 jpql.append(" AND (LOWER(c.nombre) LIKE :nombre OR LOWER(c.apellidoPaterno) LIKE :nombre OR LOWER(c.apellidoMaterno) LIKE :nombre)");
             }
-            if (correo != null && !correo.trim().isEmpty()) {
+            if (correo != null && correo.trim().length() >= 2) {
                 jpql.append(" AND LOWER(c.correo) LIKE :correo");
             }
             if (telefono != null && !telefono.trim().isEmpty()) {
@@ -182,10 +185,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
 
             // Establecer parámetros de la consulta
-            if (nombre != null && !nombre.trim().isEmpty()) {
+            if (nombre != null && nombre.trim().length() >= 2) {
                 query.setParameter("nombre", nombre.toLowerCase() + "%");
             }
-            if (correo != null && !correo.trim().isEmpty()) {
+            if (correo != null && correo.trim().length() >= 2) {
                 query.setParameter("correo", correo.toLowerCase() + "%");
             }
             if (telefono != null && !telefono.trim().isEmpty()) {
@@ -224,6 +227,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    @Override
     public List<ClienteFrecuente> filtrarClientesPorNombreYVisitas(String nombre, Integer visitasMinimas) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         List<ClienteFrecuente> resultados = new ArrayList<>();
@@ -231,13 +235,13 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         try {
             StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
 
-            if (nombre != null && !nombre.trim().isEmpty()) {
-                jpql.append(" AND LOWER(c.nombre) LIKE :nombre");
+            if (nombre != null && nombre.trim().length() >= 2) {
+                jpql.append(" AND (LOWER(c.nombre) LIKE :nombre OR LOWER(c.apellidoPaterno) LIKE :nombre OR LOWER(c.apellidoMaterno) LIKE :nombre)");
             }
 
             TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
 
-            if (nombre != null && !nombre.trim().isEmpty()) {
+            if (nombre != null && nombre.trim().length() >= 2) {
                 query.setParameter("nombre", nombre.toLowerCase() + "%"); // solo nombres que comiencen con ese valor
             }
 
@@ -264,6 +268,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    @Override
     public LocalDateTime obtenerFechaUltimaComanda(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
 
