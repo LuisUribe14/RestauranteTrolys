@@ -5,9 +5,12 @@
 package control;
 
 import interfaces.AgregarIngrediente;
+import interfaces.BusquedaIngrediente;
 import interfaces.ClientesDisponibles;
+import interfaces.ComandasAbiertas;
 import interfaces.Inicio;
 import interfaces.MenuAdministrador;
+import interfaces.MesasDisponibles;
 import interfaces.RegistrarCliente;
 import interfaces.RegistrarIngrediente;
 import interfaces.ReporteClientes;
@@ -58,10 +61,10 @@ public class ControlFlujoPantallas {
         formAgregarIngrediente.setVisible(true);
     }
     
-//    public void abrirBuscarIngrediente(){
-//        BusquedaIngrediente forma = new BusquedaIngrediente();
-//        forma.setVisible(true);
-//    }
+    public void abrirBuscarIngrediente(){
+        BusquedaIngrediente forma = new BusquedaIngrediente();
+        forma.setVisible(true);
+    }
     
     public void abrirAgregarIngredientes(){
         RegistrarIngrediente forma = new RegistrarIngrediente();
@@ -83,15 +86,15 @@ public class ControlFlujoPantallas {
         forma.setVisible(true);
     }
     
-//    public void abrirPantallaComandasAbiertas(){
-//        ComandasAbiertas forma = new ComandasAbiertas();
-//        forma.setVisible(true);
-//    }
+    public void abrirPantallaComandasAbiertas(){
+        ComandasAbiertas forma = new ComandasAbiertas();
+        forma.setVisible(true);
+    }
     
-//    public void abrirPantallaMesas(){
-//        MesasDisponibles forma = new MesasDisponibles();
-//    }
-//    
+    public void abrirPantallaMesas(){
+        MesasDisponibles forma = new MesasDisponibles();
+    }
+    
     public void abrirReportes(){
         Reportes forma = new Reportes();
         forma.setVisible(true);
