@@ -11,7 +11,7 @@ import entidades.Ingrediente;
 import BOs.ingredienteBO;
 import DTOs.IngredienteViejoDTO;
 import DTOs.ingredienteDTO;
-import Pantallas.EliminarIngredienteRendererEditor;
+import render.EliminarIngredienteRendererEditor;
 import control.ControlFlujoPantallas;
 import enums.unidadMedida;
 import exception.PersistenciaException;

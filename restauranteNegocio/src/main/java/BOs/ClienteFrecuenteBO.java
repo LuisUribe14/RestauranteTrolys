@@ -195,4 +195,6 @@ public class ClienteFrecuenteBO {
             throw new NegocioException("Error al obtener los clientes frecuentes", e);
         }
     }
+    
+    
 }
