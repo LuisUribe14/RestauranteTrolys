@@ -7,6 +7,7 @@ package interfaces;
 import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import exception.PersistenciaException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -30,4 +31,8 @@ public interface IClienteFrecuente {
     public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException;
     
 //    public boolean compararSiYaExisteTelefono(String telefonoEncriptado);
+    
+    public List<ClienteFrecuente> filtrarClientesPorNombreYVisitas(String nombre, Integer visitasMinimas) throws PersistenciaException;
+    
+    public LocalDateTime obtenerFechaUltimaComanda(ClienteFrecuente cliente) throws PersistenciaException;
 }
