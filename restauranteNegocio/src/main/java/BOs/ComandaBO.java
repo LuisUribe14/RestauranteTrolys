@@ -114,4 +114,8 @@ public class ComandaBO {
     public boolean actaulizarEstado(ComandaViejaDTO comandaViejaDTO) throws NegocioException {
         return true;
     }
+    
+    public List<ComandaViejaDTO> obtenerComandasAbiertas() throws NegocioException {
+        return null;
+    }
 }

@@ -2,6 +2,7 @@ package Pantallas.moduloProductos;
 
 import BOs.ProductoBO;
 import DTOs.ProductoViejoDTO;
+import enums.estadoProducto;
 import exception.NegocioException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +28,12 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
         txfPrecio.setText(producto.getPrecio().toString());
         txfEstado.setText(producto.getEstado().toString());
         
+        if (producto.getEstado() == estadoProducto.DISPONIBLE) {
+            cbEstado.setSelectedIndex(0);
+        } else {
+            cbEstado.setSelectedIndex(1);
+        }
+        
     }
 
     /**
@@ -43,7 +50,7 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
         txfEstado = new javax.swing.JTextField();
         txfPrecio = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbEstado = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(217, 217, 217));
         setMaximumSize(new java.awt.Dimension(856, 29));
@@ -81,10 +88,11 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DISPONIBLE", "NO_DISPONIBLE" }));
+        cbEstado.setSelectedIndex(-1);
+        cbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbEstadoActionPerformed(evt);
             }
         });
 
@@ -101,8 +109,8 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(txfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
@@ -115,7 +123,7 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
                     .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -125,17 +133,23 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
         frame.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEstadoActionPerformed
+        actualizarEstado();
+    }//GEN-LAST:event_cbEstadoActionPerformed
+
+    private void actualizarEstado() {
         try {
+            estadoProducto estado = estadoProducto.valueOf((String) cbEstado.getSelectedItem());
+            producto.setEstado(estado);
             ProductoBO.getInstancia().actualizarEstado(producto);
         } catch(NegocioException e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
+    }
+            
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbEstado;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JTextField txfEstado;
     private javax.swing.JTextField txfNombre;
     private javax.swing.JTextField txfPrecio;

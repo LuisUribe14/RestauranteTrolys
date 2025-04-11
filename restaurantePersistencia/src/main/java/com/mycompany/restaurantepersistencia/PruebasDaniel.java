@@ -37,8 +37,8 @@ public class PruebasDaniel {
         p.getIngredientes().add(pi);
         p.getIngredientes().add(pi2);
 //        
-        Producto pGuardado = ProductoDAO.getInstancia().registrarProducto(p);
-        System.out.println("ID: " + pGuardado.getId());
+//        Producto pGuardado = ProductoDAO.getInstancia().registrarProducto(p);
+//        System.out.println("ID: " + pGuardado.getId());
 //         Producto p2 = new Producto();
 //         System.out.println(p2.getId());
        
@@ -46,6 +46,12 @@ public class PruebasDaniel {
          
         // COMANDAS
 //        System.out.println(ProductoDAO.getInstancia().obtenerProductosFiltrados("Pizza", tipoProducto.PLATILLO));
+           
+//        Producto producto = em.find(Producto.class, 1L);
+//        producto.setEstado(estadoProducto.DISPONIBLE);
+//        ProductoDAO.getInstancia().actualizarProducto(producto);
+
+        System.out.println(ProductoDAO.getInstancia().obtenerProductosRegistrados());
     }
     
 }

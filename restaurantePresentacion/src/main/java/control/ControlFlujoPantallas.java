@@ -4,6 +4,9 @@
  */
 package control;
 
+import DTOs.IngredienteViejoDTO;
+import Pantallas.moduloProductos.FrmProductosRegistrados;
+import Pantallas.moduloProductos.FrmRegistrarProductos;
 import interfaces.AgregarIngrediente;
 import interfaces.BusquedaIngrediente;
 import interfaces.ClientesDisponibles;
@@ -14,6 +17,8 @@ import interfaces.RegistrarIngrediente;
 import interfaces.ReporteClientes;
 import interfaces.ReporteComandas;
 import interfaces.Reportes;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -42,6 +47,13 @@ public class ControlFlujoPantallas {
         return instancia;
     }
     
+    public void abrirFrmRegistrarProducto(List<IngredienteViejoDTO> ingredientes) {
+        new FrmRegistrarProductos(ingredientes).setVisible(true);
+    }
+    
+    public void abrirFrmProductosRegistrados() {
+        new FrmProductosRegistrados().setVisible(true);
+    }
     
     public void abrirPantallaPrincipal(){
         Inicio formInicio = new Inicio();

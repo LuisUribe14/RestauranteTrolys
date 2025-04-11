@@ -44,7 +44,7 @@ public class ProductoBO {
         if (productoNuevoDTO.getNombre() == null) {
             throw new NegocioException("El nombre no puede estar vacío.");
         }
-        if (productoNuevoDTO.getPrecio() == null) {
+        if (productoNuevoDTO.getPrecio() == null || productoNuevoDTO.getPrecio() == 0.00) {
             throw new NegocioException("El precio no puede estar vacío.");
         }
         if (productoNuevoDTO.getTipo() == null) {
@@ -131,5 +131,46 @@ public class ProductoBO {
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al consultar Productos.");
         }
+    }
+    
+    public List<ProductoViejoDTO> obtenerProductosRegistrados() throws NegocioException {
+        List<ProductoViejoDTO> productosDTO = new ArrayList();
+        try {
+            List<Producto> productos = productoDAO.obtenerProductosRegistrados();
+            
+            for (Producto producto: productos) {
+                ProductoViejoDTO productoDTO = ProductoMapper.toViejoDTO(producto);
+                productosDTO.add(productoDTO);
+            }
+            
+            return productosDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar Productos.");
+        }
+    }
+    
+    public boolean validarProducto(ProductoNuevoDTO productoNuevoDTO) throws NegocioException {
+        if (productoNuevoDTO.getEstado() == null) {
+            throw new NegocioException("El estado no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getIngredientes().isEmpty()) {
+            throw new NegocioException("El Producto tiene que tener ingredientes.");
+        }
+        if (productoNuevoDTO.getNombre() == null) {
+            throw new NegocioException("El nombre no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getPrecio() == null) {
+            throw new NegocioException("El precio no puede estar vacío.");
+        }
+        if (productoNuevoDTO.getTipo() == null) {
+            throw new NegocioException("El tipo no puede estar vacío.");
+        }
+        for (ProductoIngredienteNuevoDTO ingrediente : productoNuevoDTO.getIngredientes()) {
+            if (ingrediente.getCantidadRequerida() == null || ingrediente.getCantidadRequerida() == 0) {
+                throw new NegocioException("Error, la cantidad no debe estar vacía.");
+            }
+        }
+        
+        return true;
     }
 }

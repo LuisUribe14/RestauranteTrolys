@@ -8,7 +8,6 @@ import exception.PersistenciaException;
 import interfaces.IProductoDAO;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 /**
@@ -80,7 +79,7 @@ public class ProductoDAO implements IProductoDAO{
     }
     
     @Override
-    public List<Producto> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws PersistenceException {
+    public List<Producto> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String jpql = "SELECT p FROM Producto p "
@@ -92,7 +91,23 @@ public class ProductoDAO implements IProductoDAO{
             
             return query.getResultList();
         } catch(Exception e) {
-            throw new PersistenceException("Error al consultar la Lista de Productos");
+            throw new PersistenciaException("Error al consultar la Lista de Productos");
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Producto> obtenerProductosRegistrados() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT p FROM Producto P";
+            TypedQuery query = em.createQuery(jpql, Producto.class);
+            query.setMaxResults(5);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar la Lista de Productos");
         } finally {
             em.close();
         }

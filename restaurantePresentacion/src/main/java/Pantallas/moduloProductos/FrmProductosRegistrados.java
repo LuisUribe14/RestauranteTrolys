@@ -16,12 +16,15 @@ import javax.swing.JOptionPane;
 public class FrmProductosRegistrados extends javax.swing.JFrame {
 
     private ProductoBO productoBO = ProductoBO.getInstancia();
+    private List<ProductoViejoDTO> productos; 
     
     /**
      * Creates new form FrmProductosRegistrados
      */
-    public FrmProductosRegistrados(List<ProductoViejoDTO> productos) {
+    public FrmProductosRegistrados() {
+        obtenerProductosRegistrados();
         initComponents();
+        
         for (ProductoViejoDTO producto : productos) {
             pnlContenedor.add(new PnlProductosRegistrados(producto));
         }
@@ -47,6 +50,14 @@ public class FrmProductosRegistrados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
         pnlContenedor.repaint();
+    }
+    
+    private void obtenerProductosRegistrados() {
+        try {
+            productos = productoBO.obtenerProductosRegistrados();
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**
@@ -94,6 +105,11 @@ public class FrmProductosRegistrados extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Registrar Producto");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(128, 143, 180));
 
@@ -153,6 +169,11 @@ public class FrmProductosRegistrados extends javax.swing.JFrame {
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PLATILLO", "BEBIDA", "POSTRE" }));
         cbTipo.setSelectedIndex(-1);
         cbTipo.setSelectedItem(null);
+        cbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -231,6 +252,15 @@ public class FrmProductosRegistrados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
+        mostrarProductosFiltrados();
+    }//GEN-LAST:event_cbTipoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        control.ControlFlujoPantallas.getInstancia().abrirFrmRegistrarProducto(new ArrayList());
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -261,7 +291,7 @@ public class FrmProductosRegistrados extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmProductosRegistrados(new ArrayList()).setVisible(true);
+                new FrmProductosRegistrados().setVisible(true);
             }
         });
     }
