@@ -28,4 +28,6 @@ public interface IClienteFrecuente {
     public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException;
     
     public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException;
+    
+//    public boolean compararSiYaExisteTelefono(String telefonoEncriptado);
 }
