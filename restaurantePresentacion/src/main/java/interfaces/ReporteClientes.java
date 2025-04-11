@@ -4,8 +4,25 @@
  */
 package interfaces;
 
+import BOs.ClienteFrecuenteBO;
+import DTOs.ClienteFrecuenteDTO;
 import control.ControlFlujoPantallas;
+import exception.NegocioException;
+import exception.PersistenciaException;
+import java.io.File;
+import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import pdf.PDFReportGenerator;
 
 /**
  *
@@ -18,6 +35,110 @@ public class ReporteClientes extends javax.swing.JFrame {
      */
     public ReporteClientes() {
         initComponents();
+        agregarListenersTiempoReal();
+        cargarClientes();
+
+    }
+
+    private void agregarListenersTiempoReal() {
+        txtNombre.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+        });
+
+        txtMinVisitas.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+
+            public void removeUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+
+            public void changedUpdate(DocumentEvent e) {
+                cargarClientes();
+            }
+        });
+    }
+
+    private Integer parsearVisitas(String texto) {
+        if (texto == null || texto.isEmpty()) {
+            return null; // No se aplicará filtro por visitas
+        }
+        try {
+            return Integer.parseInt(texto);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El número mínimo de visitas debe ser un número entero válido.", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+
+    public void cargarClientes() {
+        try {
+            String nombre = this.txtNombre.getText();
+            String visitasStr = txtMinVisitas.getText();
+            Integer visitasMinimas = null;
+
+            if (!visitasStr.trim().isEmpty()) {
+                try {
+                    visitasMinimas = Integer.parseInt(visitasStr);
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "El número de visitas debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            // Llama al método del BO:
+            List<ClienteFrecuenteDTO> clientes = ClienteFrecuenteBO.getInstancia().obtenerClientesFrecuentesParaReporte(nombre, visitasMinimas);
+
+            String[] columnas = {"Nombre", "Visitas", "Total Gastado", "Puntos", "Última Comanda"};
+            DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false; // Deshabilita la edición de cualquier celda
+                }
+            };
+
+            // Definir el formato de la fecha
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            for (ClienteFrecuenteDTO dto : clientes) {
+                Object[] fila = {
+                    dto.getNombre(),
+                    dto.getVisitas(),
+                    "$" + dto.getTotalGastado(),
+                    dto.getPuntos(),
+                    // Formatear la fecha antes de mostrarla
+                    dto.getFechaUltimaComanda() != null ? dto.getFechaUltimaComanda().format(formatter) : "N/A"
+                };
+                modelo.addRow(fila);
+            }
+
+            tablaClientes.setModel(modelo);
+
+            // Deshabilitar el cambio de tamaño de las columnas
+            tablaClientes.getTableHeader().setReorderingAllowed(false);
+
+            // Deshabilitar el redimensionamiento de las columnas
+            for (int i = 0; i < tablaClientes.getColumnCount(); i++) {
+                tablaClientes.getColumnModel().getColumn(i).setResizable(false);
+            }
+
+            totalClientes.setText(String.valueOf(clientes.size()));
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ReporteClientes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ReporteClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -41,12 +162,12 @@ public class ReporteClientes extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         regresar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        telefono = new javax.swing.JTextField();
-        pdf = new javax.swing.JButton();
+        txtMinVisitas = new javax.swing.JTextField();
+        descargarPDF = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         totalClientes = new javax.swing.JTextField();
 
@@ -72,7 +193,7 @@ public class ReporteClientes extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,9 +229,9 @@ public class ReporteClientes extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
 
-        nombre.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
@@ -118,22 +239,22 @@ public class ReporteClientes extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
 
-        telefono.addActionListener(new java.awt.event.ActionListener() {
+        txtMinVisitas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefonoActionPerformed(evt);
+                txtMinVisitasActionPerformed(evt);
             }
         });
 
-        pdf.setText("Descargar Reporte PDF");
-        pdf.setBackground(new java.awt.Color(0, 0, 0));
-        pdf.setForeground(new java.awt.Color(255, 255, 255));
-        pdf.addActionListener(new java.awt.event.ActionListener() {
+        descargarPDF.setText("Descargar Reporte PDF");
+        descargarPDF.setBackground(new java.awt.Color(0, 0, 0));
+        descargarPDF.setForeground(new java.awt.Color(255, 255, 255));
+        descargarPDF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pdfActionPerformed(evt);
+                descargarPDFActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,12 +265,13 @@ public class ReporteClientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tablaClientes);
 
+        jLabel4.setText("Total Clientes:");
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Serif", 0, 18)); // NOI18N
-        jLabel4.setText("Total Clientes:");
 
+        totalClientes.setEditable(false);
         totalClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 totalClientesActionPerformed(evt);
@@ -162,30 +284,34 @@ public class ReporteClientes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(pdf)
-                .addGap(45, 45, 45))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(telefono))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(txtMinVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(descargarPDF)))
+                .addGap(45, 45, 45))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(217, 217, 217)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -195,10 +321,10 @@ public class ReporteClientes extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
+                    .addComponent(txtMinVisitas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,7 +333,7 @@ public class ReporteClientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regresar)
-                    .addComponent(pdf))
+                    .addComponent(descargarPDF))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -248,17 +374,60 @@ public class ReporteClientes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nombreActionPerformed
 
-    private void telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
 
-    private void pdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pdfActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtMinVisitasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMinVisitasActionPerformed
+
+    }//GEN-LAST:event_txtMinVisitasActionPerformed
+
+    private void descargarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descargarPDFActionPerformed
+        try {
+            String nombre = txtNombre.getText().trim();
+            Integer visitasMinimas = parsearVisitas(txtMinVisitas.getText().trim());
+            if (visitasMinimas == null && !txtMinVisitas.getText().trim().isEmpty()) {
+                return;
+            }
+
+            List<ClienteFrecuenteDTO> clientes = ClienteFrecuenteBO.getInstancia()
+                    .obtenerClientesFrecuentesParaReporte(nombre, visitasMinimas);
+
+            if (clientes.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No hay clientes que coincidan con los filtros.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar reporte PDF");
+            fileChooser.setSelectedFile(new File("reporte_clientes.pdf"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File archivo = fileChooser.getSelectedFile();
+
+                // Asegura que tenga extensión .pdf
+                String rutaFinal = archivo.getAbsolutePath();
+                if (!rutaFinal.toLowerCase().endsWith(".pdf")) {
+                    rutaFinal += ".pdf";
+                }
+
+                // Generar el PDF con la clase que compartiste
+                PDFReportGenerator.generarReporteClientes(clientes, rutaFinal);
+
+                JOptionPane.showMessageDialog(this, "Reporte PDF generado con éxito en:\n" + rutaFinal, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (PersistenciaException | NegocioException ex) {
+            Logger.getLogger(ReporteClientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al generar el reporte: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException ioex) {
+            Logger.getLogger(ReporteClientes.class.getName()).log(Level.SEVERE, null, ioex);
+            JOptionPane.showMessageDialog(this, "Error al guardar el PDF: " + ioex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_descargarPDFActionPerformed
 
     private void totalClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalClientesActionPerformed
         // TODO add your handling code here:
@@ -269,11 +438,11 @@ public class ReporteClientes extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
+    private javax.swing.JButton descargarPDF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -285,12 +454,11 @@ public class ReporteClientes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField nombre;
-    private javax.swing.JButton pdf;
     private javax.swing.JButton regresar;
-    private javax.swing.JTextField telefono;
+    private javax.swing.JTable tablaClientes;
     private javax.swing.JTextField totalClientes;
+    private javax.swing.JTextField txtMinVisitas;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

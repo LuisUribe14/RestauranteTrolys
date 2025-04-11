@@ -10,6 +10,7 @@ import entidades.ClienteFrecuente;
 import entidades.Comanda;
 import exception.PersistenciaException;
 import interfaces.IClienteFrecuente;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -158,7 +159,6 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 //            Conexion.cerrarConexion(em);
 //        }
 //    }
-
     @Override
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -219,6 +219,62 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 
         } catch (Exception e) {
             throw new PersistenciaException("Error al filtrar los clientes frecuentes.", e);
+        } finally {
+            Conexion.cerrarConexion(em);
+        }
+    }
+
+    public List<ClienteFrecuente> filtrarClientesPorNombreYVisitas(String nombre, Integer visitasMinimas) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        List<ClienteFrecuente> resultados = new ArrayList<>();
+
+        try {
+            StringBuilder jpql = new StringBuilder("SELECT c FROM ClienteFrecuente c WHERE 1=1");
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                jpql.append(" AND LOWER(c.nombre) LIKE :nombre");
+            }
+
+            TypedQuery<ClienteFrecuente> query = em.createQuery(jpql.toString(), ClienteFrecuente.class);
+
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                query.setParameter("nombre", nombre.toLowerCase() + "%"); // solo nombres que comiencen con ese valor
+            }
+
+            resultados = query.getResultList();
+
+            // Calcular visitas y filtrar por visitas mínimas
+            List<ClienteFrecuente> filtrados = new ArrayList<>();
+            for (ClienteFrecuente cliente : resultados) {
+                int visitas = calcularVisitas(cliente);
+                if (visitasMinimas == null || visitas >= visitasMinimas) {
+                    cliente.setVisitas(visitas);
+                    cliente.setTotalGastado(calcularTotalGastado(cliente));
+                    cliente.setPuntos(calcularPuntos(cliente));
+                    cliente.setFechaUltimaComanda(obtenerFechaUltimaComanda(cliente));
+                    filtrados.add(cliente);
+                }
+            }
+
+            return filtrados;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al filtrar clientes por nombre y visitas.", e);
+        } finally {
+            Conexion.cerrarConexion(em);
+        }
+    }
+
+    public LocalDateTime obtenerFechaUltimaComanda(ClienteFrecuente cliente) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+
+        try {
+            TypedQuery<LocalDateTime> query = em.createQuery(
+                    "SELECT MAX(c.fechaYHora) FROM Comanda c WHERE c.cliente.id = :clienteId", LocalDateTime.class);
+            query.setParameter("clienteId", cliente.getId());
+
+            return query.getSingleResult();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener la fecha de la última comanda.", e);
         } finally {
             Conexion.cerrarConexion(em);
         }

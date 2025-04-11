@@ -6,6 +6,7 @@ package DTOs;
 
 import entidades.Comanda;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
     private Integer visitas = 0;
     private Integer puntos = 0;
     private Double totalGastado = 0.0;
+    private LocalDateTime fechaUltimaComanda;
 
     public ClienteFrecuenteDTO() {
         this.visitas = 0;
@@ -38,6 +40,24 @@ public class ClienteFrecuenteDTO extends ClienteDTO {
         this.visitas = visitas != null ? visitas : 0;
         this.puntos = puntos != null ? puntos : 0;
         this.totalGastado = totalGastado != null ? totalGastado : 0.0;
+    }
+
+    public ClienteFrecuenteDTO(Integer visitas, Integer puntos, Double totalGastado, Long id, String nombre,
+            String apellidoPaterno, String apellidoMaterno, String telefono,
+            String correo, LocalDate fechaRegistro, List<Comanda> comandas, LocalDateTime fechaUltimaComanda) {
+        super(id, nombre, apellidoPaterno, apellidoMaterno, telefono, correo, fechaRegistro, comandas);
+        this.visitas = visitas != null ? visitas : 0;
+        this.puntos = puntos != null ? puntos : 0;
+        this.totalGastado = totalGastado != null ? totalGastado : 0.0;
+        this.fechaUltimaComanda = fechaUltimaComanda != null ? fechaUltimaComanda : LocalDateTime.now();  // Si la fecha es null, se usa la fecha actual
+    }
+
+    public LocalDateTime getFechaUltimaComanda() {
+        return fechaUltimaComanda;
+    }
+
+    public void setFechaUltimaComanda(LocalDateTime fechaUltimaComanda) {
+        this.fechaUltimaComanda = fechaUltimaComanda;
     }
 
     public Integer getVisitas() {

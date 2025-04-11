@@ -87,13 +87,11 @@ public class ClienteFrecuenteBO {
 //        if (clienteFrecuenteDAO.compararSiYaExisteTelefono(telefonoCifrado)) {
 //            throw new NegocioException("Ya existe un cliente con ese número de teléfono.");
 //        }
-
         if (!esTelefonoValido(clienteDTO.getTelefono())) {
             throw new NegocioException("El número de teléfono no es válido debe tener 10 numeros.");
         }
 
 //        clienteDTO.setTelefono(telefonoCifrado);
-
         if (clienteDTO.getCorreo() != null && !clienteDTO.getCorreo().trim().isEmpty()) {
             if (!esCorreoValido(clienteDTO.getCorreo())) {
                 throw new NegocioException("El correo electrónico no tiene un formato válido.");
@@ -195,4 +193,34 @@ public class ClienteFrecuenteBO {
             throw new NegocioException("Error al obtener los clientes frecuentes", e);
         }
     }
+
+    public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesParaReporte(String nombre, Integer visitasMinimas) throws PersistenciaException, NegocioException {
+        // Llamamos al DAO para obtener la lista de clientes filtrados por nombre y visitas mínimas
+        List<ClienteFrecuente> clientes = clienteFrecuenteDAO.filtrarClientesPorNombreYVisitas(nombre, visitasMinimas);
+
+        // Preparamos la lista de DTOs
+        List<ClienteFrecuenteDTO> clientesDTO = new ArrayList<>();
+        for (ClienteFrecuente cliente : clientes) {
+            // Creamos el DTO para cada cliente
+            ClienteFrecuenteDTO dto = new ClienteFrecuenteDTO(
+                    cliente.getVisitas(),
+                    cliente.getPuntos(),
+                    cliente.getTotalGastado(),
+                    cliente.getId(),
+                    cliente.getNombre(),
+                    cliente.getApellidoPaterno(),
+                    cliente.getApellidoMaterno(),
+                    cliente.getTelefono(),
+                    cliente.getCorreo(),
+                    cliente.getFechaRegistro(),
+                    cliente.getComandas(),
+                    cliente.getFechaUltimaComanda()
+            );
+            // Añadimos el DTO a la lista
+            clientesDTO.add(dto);
+        }
+
+        return clientesDTO;
+    }
+
 }
