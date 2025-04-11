@@ -34,7 +34,7 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     @Transient
     private Double totalGastado = 0.0;
     @Transient
-    private LocalDateTime fechaUltimaComanda;
+    private LocalDateTime FechaUltimaComanda;
 
     public ClienteFrecuente() {
     }
@@ -68,12 +68,14 @@ public class ClienteFrecuente extends Cliente implements Serializable {
     }
 
     public LocalDateTime getFechaUltimaComanda() {
-        return fechaUltimaComanda;
+        return FechaUltimaComanda;
     }
 
-    public void setFechaUltimaComanda(LocalDateTime fechaUltimaComanda) {
-        this.fechaUltimaComanda = fechaUltimaComanda;
+    public void setFechaUltimaComanda(LocalDateTime FechaUltimaComanda) {
+        this.FechaUltimaComanda = FechaUltimaComanda;
     }
+
+
 
     public void setVisitas(Integer visitas) {
         this.visitas = visitas;
