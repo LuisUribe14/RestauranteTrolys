@@ -53,10 +53,10 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel1.setText("RestauranteTrolys");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("RestauranteTrolys");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -88,8 +88,8 @@ public class Inicio extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        jLabel2.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
         jLabel2.setText("Seleccion De Rol");
+        jLabel2.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
 
         Administrador.setText("Administrador");
         Administrador.setBackground(new java.awt.Color(0, 0, 0));
@@ -100,9 +100,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        Mesero.setText("Mesero");
         Mesero.setBackground(new java.awt.Color(0, 0, 0));
         Mesero.setForeground(new java.awt.Color(255, 255, 255));
-        Mesero.setText("Mesero");
+        Mesero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MeseroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -179,6 +184,11 @@ public class Inicio extends javax.swing.JFrame {
         ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
         this.dispose();
     }//GEN-LAST:event_AdministradorActionPerformed
+
+    private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirPantallaComandasAbiertas();
+        this.dispose();
+    }//GEN-LAST:event_MeseroActionPerformed
 
     
 

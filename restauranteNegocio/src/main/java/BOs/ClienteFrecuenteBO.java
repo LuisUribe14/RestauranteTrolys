@@ -46,15 +46,46 @@ public class ClienteFrecuenteBO {
         if (clienteDTO.getNombre() == null || clienteDTO.getNombre().trim().isEmpty()) {
             throw new NegocioException("El nombre es obligatorio.");
         }
+
+        String nombre = clienteDTO.getNombre().trim();
+
+        if (!nombre.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El nombre solo debe contener letras.");
+        }
+
+        if (nombre.length() > 100) {
+            throw new NegocioException("El nombre no puede tener más de 100 caracteres.");
+        }
+
         if (clienteDTO.getApellidoPaterno() == null || clienteDTO.getApellidoPaterno().trim().isEmpty()) {
             throw new NegocioException("El apellido paterno es obligatorio.");
+        }
+
+        String apellidoPaterno = clienteDTO.getApellidoPaterno().trim();
+
+        if (!apellidoPaterno.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido paterno solo debe contener letras.");
+        }
+
+        if (apellidoPaterno.length() > 100) {
+            throw new NegocioException("El apellido paterno no puede tener más de 100 caracteres.");
+        }
+
+        String apellidoMaterno = clienteDTO.getApellidoMaterno().trim();
+
+        if (!apellidoMaterno.matches("^[a-zA-Z]+$")) {
+            throw new NegocioException("El apellido materno solo debe contener letras.");
+        }
+        
+        if (apellidoMaterno.length() > 100) {
+            throw new NegocioException("El apellido paterno no puede tener más de 100 caracteres.");
         }
 
         if (clienteDTO.getTelefono() == null || clienteDTO.getTelefono().trim().isEmpty()) {
             throw new NegocioException("El teléfono es obligatorio.");
         }
         if (!esTelefonoValido(clienteDTO.getTelefono())) {
-            throw new NegocioException("El número de teléfono no es válido.");
+            throw new NegocioException("El número de teléfono no es válido debe tener 10 numeros.");
         }
 
         if (clienteDTO.getCorreo() != null && !clienteDTO.getCorreo().trim().isEmpty()) {
@@ -91,15 +122,15 @@ public class ClienteFrecuenteBO {
     }
 
     public List<ClienteFrecuenteDTO> buscarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException, NegocioException {
-        if (nombre != null && nombre.trim().isEmpty()) {
-            throw new NegocioException("El nombre no puede ser vacío.");
-        }
-        if (telefono != null && telefono.trim().isEmpty()) {
-            throw new NegocioException("El teléfono no puede ser vacío.");
-        }
-        if (correo != null && correo.trim().isEmpty()) {
-            throw new NegocioException("El correo no puede ser vacío.");
-        }
+//        if (nombre != null && nombre.trim().isEmpty()) {
+//            throw new NegocioException("El nombre no puede ser vacío.");
+//        }
+//        if (telefono != null && telefono.trim().isEmpty()) {
+//            throw new NegocioException("El teléfono no puede ser vacío.");
+//        }
+//        if (correo != null && correo.trim().isEmpty()) {
+//            throw new NegocioException("El correo no puede ser vacío.");
+//        }
 
         List<ClienteFrecuente> clientes = clienteFrecuenteDAO.filtrarClientesFrecuentes(nombre, telefono, correo);
         List<ClienteFrecuenteDTO> clienteDTOs = new ArrayList<>();

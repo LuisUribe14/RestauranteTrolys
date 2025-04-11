@@ -21,14 +21,14 @@ import javax.swing.JTable;
  *
  * @author chris
  */
-public class AgregarIngrediente extends javax.swing.JFrame {
+public class ComandasAbiertas extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarIngrediente
      */
     DefaultTableModel mt = new DefaultTableModel();
 
-    public AgregarIngrediente() {
+    public ComandasAbiertas() {
         initComponents();
 
         // Crear el modelo con las columnas correctas
@@ -139,7 +139,7 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jPanel1 = new javax.swing.JPanel();
-        btnRegistrarIngrediente = new javax.swing.JButton();
+        btnNuevaComanda = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         Filtro = new javax.swing.JComboBox<>();
@@ -149,13 +149,6 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jLabel3 = new javax.swing.JLabel();
-        Aumentar = new javax.swing.JTextField();
-        btnActualizar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        Descontar = new javax.swing.JTextField();
-        btnDescontar = new javax.swing.JButton();
 
         jButton1.setText("Buscar Ingredientes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -179,10 +172,10 @@ public class AgregarIngrediente extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnRegistrarIngrediente.setText("Registrar Ingrediente");
-        btnRegistrarIngrediente.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaComanda.setText("Nueva Comanda");
+        btnNuevaComanda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarIngredienteActionPerformed(evt);
+                btnNuevaComandaActionPerformed(evt);
             }
         });
 
@@ -269,36 +262,6 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Agregar Stock");
-
-        Aumentar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AumentarActionPerformed(evt);
-            }
-        });
-
-        btnActualizar.setText("Aumentar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Descontar Stock");
-
-        Descontar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DescontarActionPerformed(evt);
-            }
-        });
-
-        btnDescontar.setText("Descontar");
-        btnDescontar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDescontarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -308,40 +271,19 @@ public class AgregarIngrediente extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(159, 159, 159)
-                                .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(297, 297, 297)
-                                .addComponent(btnRegistrarIngrediente))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(btnRegresar)))
-                        .addGap(0, 209, Short.MAX_VALUE))
+                        .addGap(159, 159, 159)
+                        .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(Filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1)))
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnActualizar)
-                    .addComponent(jLabel3)
-                    .addComponent(Aumentar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(259, 259, 259)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4)
-                        .addComponent(Descontar, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(297, 297, 297)
+                        .addComponent(btnNuevaComanda))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(btnDescontar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addComponent(btnRegresar)))
+                .addContainerGap(215, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 553, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -359,22 +301,8 @@ public class AgregarIngrediente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
-                .addComponent(btnRegistrarIngrediente)
-                .addGap(70, 70, 70)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Aumentar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Descontar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnDescontar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addComponent(btnNuevaComanda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -394,16 +322,15 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegistrarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarIngredienteActionPerformed
-        // TODO add your handling code here:
-        ControlFlujoPantallas.getInstancia().abrirAgregarIngredientes();
-        this.dispose();
-    }//GEN-LAST:event_btnRegistrarIngredienteActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ControlFlujoPantallas.getInstancia().abrirBuscarIngrediente();
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Buscador.setText("");
@@ -411,106 +338,26 @@ public class AgregarIngrediente extends javax.swing.JFrame {
         cargarIngredientes(); // Recarga todos los ingredientes
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
+    private void btnNuevaComandaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaComandaActionPerformed
+        // TODO add your handling code here:
+        ControlFlujoPantallas.getInstancia().abrirPantallaMesas();
         this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void AumentarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AumentarActionPerformed
-
-
-    }//GEN-LAST:event_AumentarActionPerformed
-
-    private void DescontarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescontarActionPerformed
-    }//GEN-LAST:event_DescontarActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Selecciona un ingrediente primero.");
-            return;
-        }
-
-        String nombre = jTable1.getValueAt(fila, 0).toString();
-        String unidadStr = jTable1.getValueAt(fila, 1).toString();
-
-        try {
-            // Convertir el String a unidadMedida (enum)
-            unidadMedida unidad = unidadMedida.valueOf(unidadStr);
-
-            int cantidad = Integer.parseInt(Aumentar.getText());
-
-            // Crear el DTO con los valores obtenidos de la tabla
-            IngredienteViejoDTO dto = new IngredienteViejoDTO(nombre, unidad);
-
-            // Llamar al método BO con el DTO y la cantidad
-            bo.aumentarStock(dto, cantidad); // Usa el método con DTO
-
-            JOptionPane.showMessageDialog(null, "Stock actualizado exitosamente.");
-            cargarIngredientes(); // Refresca la tabla
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Ingresa un número válido.");
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Unidad de medida inválida.");
-        } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar stock: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnDescontarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescontarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "Selecciona un ingrediente primero.");
-            return;
-        }
-
-        String nombre = jTable1.getValueAt(fila, 0).toString();
-        String unidadStr = jTable1.getValueAt(fila, 1).toString();
-
-        try {
-            // Convertir el String a unidadMedida (enum)
-            unidadMedida unidad = unidadMedida.valueOf(unidadStr);
-
-            int cantidad = Integer.parseInt(Descontar.getText());
-
-            // Crear el DTO con los valores obtenidos de la tabla
-            IngredienteViejoDTO dto = new IngredienteViejoDTO(nombre, unidad);
-
-            // Llamar al método BO con el DTO y la cantidad
-            bo.descontarStock(dto, cantidad); // Usa el método con DTO
-
-            JOptionPane.showMessageDialog(null, "Stock descontado exitosamente.");
-            cargarIngredientes(); // Refresca la tabla
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Ingresa un número válido.");
-        } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(null, "Unidad de medida inválida.");
-        } catch (PersistenciaException e) {
-            JOptionPane.showMessageDialog(null, "Error al descontar stock: " + e.getMessage());
-        }
-    }//GEN-LAST:event_btnDescontarActionPerformed
+    }//GEN-LAST:event_btnNuevaComandaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Aumentar;
     private javax.swing.JTextField Buscador;
-    private javax.swing.JTextField Descontar;
     private javax.swing.JComboBox<String> Filtro;
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnDescontar;
-    private javax.swing.JButton btnRegistrarIngrediente;
+    private javax.swing.JButton btnNuevaComanda;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

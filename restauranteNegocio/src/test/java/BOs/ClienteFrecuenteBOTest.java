@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ClienteFrecuenteBOTest {
 
-//   private ClienteFrecuenteBO clienteBO;
+//    private ClienteFrecuenteBO clienteBO;
 //
 //    @BeforeEach
 //    public void setUp() {
@@ -31,7 +31,7 @@ public class ClienteFrecuenteBOTest {
 //    }
 //
 //    @Test
-//    public void testRegistrarClienteValido() throws PersistenciaException {
+//    public void testRegistrarClienteValido() throws PersistenciaException, NegocioException {
 //        ClienteFrecuenteDTO cliente = new ClienteFrecuenteDTO();
 //        cliente.setNombre("polar");
 //        cliente.setApellidoPaterno("panda");
@@ -39,20 +39,120 @@ public class ClienteFrecuenteBOTest {
 //        cliente.setTelefono("1234567890");
 //        cliente.setCorreo("polar@gmail.com");
 //
-//        try {
-//            ClienteFrecuenteDTO registrado = clienteBO.registrarClienteFrecuente(cliente);
-//            assertNotNull(registrado.getId());
-//            assertEquals("polar", registrado.getNombre().trim());
-//        } catch (NegocioException e) {
-//            fail("No debería lanzar excepción: " + e.getMessage());
+//        cliente = clienteBO.registrarClienteFrecuente(cliente);
+//
+//        System.out.println("Cliente registrado: " + cliente.getNombre());
+//
+//        assertNotNull(cliente.getId(), "El cliente 1 no fue registrado correctamente.");
+//    }
+//
+//    @Test
+//    public void testFiltrarClientesPorNombre() throws PersistenciaException, NegocioException {
+//        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO();
+//        clienteDTO.setNombre("Cristoper");
+//        clienteDTO.setApellidoPaterno("soto");
+//        clienteDTO.setApellidoMaterno("vasquez");
+//        clienteDTO.setCorreo("cris@gmail.com");
+//        clienteDTO.setTelefono("1029543097");
+//
+//        clienteDTO = clienteBO.registrarClienteFrecuente(clienteDTO);
+//
+//        System.out.println("Cliente registrado: " + clienteDTO.getNombre());
+//
+//        assertNotNull(clienteDTO.getId(), "El cliente 1 no fue registrado correctamente.");
+//
+//        List<ClienteFrecuenteDTO> filtrados = clienteBO.buscarClientesFrecuentes("Cris", null, null);
+//
+//        assertNotNull(filtrados, "La lista de clientes filtrados no debe ser nula");
+//        assertTrue(filtrados.size() >= 1, "Debe encontrar al menos un cliente con ese nombre.");
+//
+//        for (ClienteFrecuenteDTO cliente : filtrados) {
+//            System.out.println("Cliente encontrado: "
+//                    + "Nombre: " + cliente.getNombre() + " "
+//                    + "Apellido Paterno: " + cliente.getApellidoPaterno() + " "
+//                    + "Apellido Materno: " + cliente.getApellidoMaterno() + ", "
+//                    + "Correo: " + cliente.getCorreo() + ", "
+//                    + "Teléfono: " + cliente.getTelefono() + ", "
+//                    + "Visitas: " + cliente.getVisitas() + ", "
+//                    + "Puntos: " + cliente.getPuntos() + ", "
+//                    + "Total Gastado: " + cliente.getTotalGastado());
+//            assertTrue(cliente.getNombre().toLowerCase().contains("cristoper"),
+//                    "El nombre del cliente no contiene el nombre proporcionado.");
 //        }
 //    }
 //
 //    @Test
+//    public void testFiltrarClientesPorNombreYCorreo() throws PersistenciaException, NegocioException {
+//        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO();
+//        clienteDTO.setNombre("Eduardo");
+//        clienteDTO.setApellidoPaterno("mendez");
+//        clienteDTO.setApellidoMaterno("lopez");
+//        clienteDTO.setCorreo("eduardo@gmail.com");
+//        clienteDTO.setTelefono("0932634811");
+//
+//        clienteDTO = clienteBO.registrarClienteFrecuente(clienteDTO);
+//
+//        System.out.println("Cliente registrado: " + clienteDTO.getNombre());
+//
+//        assertNotNull(clienteDTO.getId(), "El cliente 1 no fue registrado correctamente.");
+//
+//        List<ClienteFrecuenteDTO> filtrados = clienteBO.buscarClientesFrecuentes("Eduardo", null, "eduardo@gmail.com");
+//
+//        assertNotNull(filtrados, "La lista de clientes filtrados no debe ser nula");
+//        assertTrue(filtrados.size() >= 1, "Debe encontrar al menos un cliente con ese nombre.");
+//
+//        for (ClienteFrecuenteDTO cliente : filtrados) {
+//            System.out.println("Cliente encontrado: "
+//                    + "Nombre: " + cliente.getNombre() + " "
+//                    + "Apellido Paterno: " + cliente.getApellidoPaterno() + " "
+//                    + "Apellido Materno: " + cliente.getApellidoMaterno() + ", "
+//                    + "Correo: " + cliente.getCorreo() + ", "
+//                    + "Teléfono: " + cliente.getTelefono() + ", "
+//                    + "Visitas: " + cliente.getVisitas() + ", "
+//                    + "Puntos: " + cliente.getPuntos() + ", "
+//                    + "Total Gastado: " + cliente.getTotalGastado());
+//            assertTrue(cliente.getNombre().toLowerCase().contains("eduardo"),
+//                    "El nombre del cliente no contiene el nombre proporcionado.");
+//        }
+//    }
+//
+//    @Test
+//    public void testFiltrarClientesPorTelefono() throws PersistenciaException, NegocioException {
+//        ClienteFrecuenteDTO clienteDTO = new ClienteFrecuenteDTO();
+//        clienteDTO.setNombre("Laura");
+//        clienteDTO.setApellidoPaterno("vega");
+//        clienteDTO.setApellidoMaterno("uribe");
+//        clienteDTO.setCorreo("laura@gmail.com");
+//        clienteDTO.setTelefono("2365490568");
+//
+//        clienteDTO = clienteBO.registrarClienteFrecuente(clienteDTO);
+//
+//        System.out.println("Cliente registrado: " + clienteDTO.getNombre());
+//
+//        List<ClienteFrecuenteDTO> filtrados = clienteBO.buscarClientesFrecuentes(null, "2365490568", null);
+//
+//        assertNotNull(filtrados, "La lista de clientes filtrados no debe ser nula");
+//        assertEquals(1, filtrados.size(), "Debe encontrar al menos un cliente con ese nombre.");
+//
+//        for (ClienteFrecuenteDTO cliente : filtrados) {
+//            System.out.println("Cliente encontrado: "
+//                    + "Nombre: " + cliente.getNombre() + " "
+//                    + "Apellido Paterno: " + cliente.getApellidoPaterno() + " "
+//                    + "Apellido Materno: " + cliente.getApellidoMaterno() + ", "
+//                    + "Correo: " + cliente.getCorreo() + ", "
+//                    + "Teléfono: " + cliente.getTelefono() + ", "
+//                    + "Visitas: " + cliente.getVisitas() + ", "
+//                    + "Puntos: " + cliente.getPuntos() + ", "
+//                    + "Total Gastado: " + cliente.getTotalGastado());
+//        }
+//    }
+
+}
+
+//    @Test
 //    public void testObtenerTodosClientesFrecuentes() throws NegocioException {
 //        ClienteFrecuenteBO bo = new ClienteFrecuenteBO();
 //
-//        // Suponiendo que ya hay clientes en la base de datos
 //        List<ClienteFrecuenteDTO> clientes = bo.obtenerTodosClientesFrecuentes();
 //
 //        assertNotNull(clientes);
@@ -64,4 +164,3 @@ public class ClienteFrecuenteBOTest {
 //            assertNotNull(cliente.getApellidoPaterno());
 //        }
 //    }
-}

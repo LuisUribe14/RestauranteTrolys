@@ -45,7 +45,7 @@ public class Comanda implements Serializable {
     private estadoComanda estado;
     @Column(name = "fecha_hora", nullable = false)
     private LocalDateTime fechaYHora;
-    @Transient
+    @Column(name = "total_venta")
     private Double totalVenta;
     
     @OneToMany(mappedBy = "comanda", cascade = {CascadeType.PERSIST})
@@ -175,5 +175,5 @@ public class Comanda implements Serializable {
     public String toString() {
         return "Comanda{" + "id=" + id + ", folio=" + folio + ", estado=" + estado + ", fechaYHora=" + fechaYHora + ", totalVenta=" + totalVenta + ", productos=" + productos + ", cliente=" + cliente + ", mesa=" + mesa + '}';
     }
-    
+
 }
