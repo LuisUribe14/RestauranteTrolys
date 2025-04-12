@@ -10,7 +10,7 @@ import exception.PersistenciaException;
  */
 public interface IMesaDAO {
     
-     public boolean registrarMesa(MesaViejaDTO mesaDTO) throws PersistenciaException;
+    public boolean registrarMesa(MesaViejaDTO mesaDTO) throws PersistenciaException;
      
     public int contarMesas() throws PersistenciaException;
 }

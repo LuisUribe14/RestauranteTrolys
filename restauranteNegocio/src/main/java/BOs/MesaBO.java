@@ -45,7 +45,6 @@ public class MesaBO {
 //            throw new NegocioException("Error al reistrar mesas.");
 //        }
 //    }
-    
     public void registrarMesa(MesaViejaDTO mesaDTO) throws NegocioException {
         try {
             if (mesaDTO.getNumero() == null || mesaDTO.getNumero() <= 0) {
@@ -58,14 +57,13 @@ public class MesaBO {
             throw new NegocioException("No se pudo registrar la mesa. " + e.getMessage());
         }
     }
-    
-    public int obtenerCantidadMesasRegistradas() throws NegocioException {
-    try {
-        return mesaDAO.contarMesas();
-    } catch (PersistenciaException e) {
-        throw new NegocioException("No se pudo obtener la cantidad de mesas registradas.");
-    }
-}
 
+    public int obtenerCantidadMesasRegistradas() throws NegocioException {
+        try {
+            return mesaDAO.contarMesas();
+        } catch (PersistenciaException e) {
+            throw new NegocioException("No se pudo obtener la cantidad de mesas registradas.");
+        }
+    }
 
 }

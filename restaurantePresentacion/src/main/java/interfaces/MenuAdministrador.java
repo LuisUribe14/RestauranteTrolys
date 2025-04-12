@@ -45,10 +45,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         regresar = new javax.swing.JButton();
         Ingredientes = new javax.swing.JButton();
-        Producto = new javax.swing.JButton();
         Mesas = new javax.swing.JButton();
         Clientes = new javax.swing.JButton();
         reportes = new javax.swing.JButton();
+        producto = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -120,15 +120,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        Producto.setText("Producto");
-        Producto.setBackground(new java.awt.Color(0, 0, 0));
-        Producto.setForeground(new java.awt.Color(255, 255, 255));
-        Producto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProductoActionPerformed(evt);
-            }
-        });
-
         Mesas.setText("Mesas");
         Mesas.setBackground(new java.awt.Color(0, 0, 0));
         Mesas.setForeground(new java.awt.Color(255, 255, 255));
@@ -156,6 +147,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
+        producto.setBackground(new java.awt.Color(0, 0, 0));
+        producto.setForeground(new java.awt.Color(255, 255, 255));
+        producto.setText("Producto");
+        producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -166,10 +166,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addGap(200, 200, 200)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Ingredientes, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                    .addComponent(Producto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Mesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Clientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(reportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(reportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(producto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -178,9 +178,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(Ingredientes)
-                .addGap(30, 30, 30)
-                .addComponent(Producto)
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
+                .addComponent(producto)
+                .addGap(29, 29, 29)
                 .addComponent(Mesas)
                 .addGap(30, 30, 30)
                 .addComponent(Clientes)
@@ -281,12 +281,16 @@ public class MenuAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_MesasActionPerformed
 
+    private void productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productoActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
+        this.dispose();
+    }//GEN-LAST:event_productoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clientes;
     private javax.swing.JButton Ingredientes;
     private javax.swing.JButton Mesas;
-    private javax.swing.JButton Producto;
     private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private javax.swing.JLabel jLabel1;
@@ -297,6 +301,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton producto;
     private javax.swing.JButton regresar;
     private javax.swing.JButton reportes;
     // End of variables declaration//GEN-END:variables
