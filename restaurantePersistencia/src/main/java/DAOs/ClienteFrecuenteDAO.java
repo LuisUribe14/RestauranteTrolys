@@ -55,6 +55,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 //        }
 //    }
     @Override
+    // metodo para registrar un cliente frecuente en la base de datos
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -70,8 +71,8 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
                 }
             }
 
-            em.persist(cliente);
-            em.getTransaction().commit();
+            em.persist(cliente); // guardamos el cliente
+            em.getTransaction().commit(); // y confirmamos la transacción
 
             return cliente;
         } catch (Exception e) {
@@ -83,6 +84,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
+    // este metodo obtiene todos los clientes frecuentes de la base de datos (pero jamas lo use para algo solo lo tengo por si se necesta)
     public List<ClienteFrecuente> obtenerTodosLosClientesFrecuentes() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -96,6 +98,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
+    // este metodo obtiene un cliente frecuente por su ID (tampoco lo use pero no estaria mal tenerlo)
     public ClienteFrecuente obtenerClienteFrecuentePorId(Long id) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -106,8 +109,9 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             Conexion.cerrarConexion(em);
         }
     }
-
+    
     @Override
+    // aqui calculamos la cantidad de visitas en comandas realizadas por un cliente
     public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -124,6 +128,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
+    // aqui este metodo calcula el total de dinero gastado por el cliente con comandas entregadas
     public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
@@ -143,6 +148,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
+    // aqui calculamos los puntos del cliente con base en el total gastado (1 punto por cada 20 pesos)
     public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException {
         double totalGastado = calcularTotalGastado(cliente);
         // cada 20 pesos equivalen a 1 punto
@@ -162,7 +168,10 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
 //            Conexion.cerrarConexion(em);
 //        }
 //    }
+    
+    
     @Override
+    // filtramos clientes frecuentes por nombre, teléfono ya encriptado aun que se desencripta para mostrarse en pantallas y correo
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         List<ClienteFrecuente> resultados = new ArrayList<>();
@@ -228,6 +237,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
     }
 
     @Override
+    // este es lo mismo que filtrar de clientes frecuentes pero ahora se cambia el parametro por visitas minimas
     public List<ClienteFrecuente> filtrarClientesPorNombreYVisitas(String nombre, Integer visitasMinimas) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         List<ClienteFrecuente> resultados = new ArrayList<>();
@@ -267,8 +277,9 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
             Conexion.cerrarConexion(em);
         }
     }
-
+    
     @Override
+    // aqui obtenemos la fecha de la última comanda de un cliente esto nos sirve para el reporte
     public LocalDateTime obtenerFechaUltimaComanda(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
 

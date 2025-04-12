@@ -38,6 +38,7 @@ public class Encriptador {
     private static final String ALGORITMO = "AES";
     private static final String CLAVE = "1234567890123456";
 
+    //encriptamos el telefono
     public static String encrypt(String input) {
         try {
             SecretKeySpec key = new SecretKeySpec(CLAVE.getBytes(), ALGORITMO); 
@@ -49,7 +50,7 @@ public class Encriptador {
             throw new RuntimeException("Error en la encriptación", e);
         }
     }
-
+    //desencriptamos el telefono
     public static String decrypt(String input) {
         try {
             SecretKeySpec key = new SecretKeySpec(CLAVE.getBytes(), ALGORITMO);
