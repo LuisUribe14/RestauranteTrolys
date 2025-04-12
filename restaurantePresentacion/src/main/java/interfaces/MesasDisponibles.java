@@ -5,19 +5,22 @@
 package interfaces;
 
 import control.ControlFlujoPantallas;
+import frames.comandasAbiertas;
+import frames.mesasabiertas;
 import java.util.ResourceBundle;
 
 /**
  *
  * @author chris
  */
-public class Inicio extends javax.swing.JFrame {
+public class MesasDisponibles extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
      */
-    public Inicio() {
+    public MesasDisponibles() {
         initComponents();
+        mesasabiertas.add(new mesasabiertas());
     }
 
     /**
@@ -39,9 +42,10 @@ public class Inicio extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        regresar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        mesasabiertas = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        Administrador = new javax.swing.JButton();
-        Mesero = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -53,7 +57,7 @@ public class Inicio extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setText("RestauranteTrolys");
+        jLabel1.setText("Mesas");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -63,7 +67,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -88,26 +92,19 @@ public class Inicio extends javax.swing.JFrame {
             .addGap(0, 70, Short.MAX_VALUE)
         );
 
-        jLabel2.setText("Seleccion De Rol");
-        jLabel2.setFont(new java.awt.Font("Serif", 0, 20)); // NOI18N
-
-        Administrador.setText("Administrador");
-        Administrador.setBackground(new java.awt.Color(0, 0, 0));
-        Administrador.setForeground(new java.awt.Color(255, 255, 255));
-        Administrador.addActionListener(new java.awt.event.ActionListener() {
+        regresar.setText("Regresar");
+        regresar.setBackground(new java.awt.Color(0, 0, 0));
+        regresar.setForeground(new java.awt.Color(255, 255, 255));
+        regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AdministradorActionPerformed(evt);
+                regresarActionPerformed(evt);
             }
         });
 
-        Mesero.setText("Mesero");
-        Mesero.setBackground(new java.awt.Color(0, 0, 0));
-        Mesero.setForeground(new java.awt.Color(255, 255, 255));
-        Mesero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MeseroActionPerformed(evt);
-            }
-        });
+        mesasabiertas.setLayout(new javax.swing.BoxLayout(mesasabiertas, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane2.setViewportView(mesasabiertas);
+
+        jLabel2.setText("Numero");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,28 +112,31 @@ public class Inicio extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(285, 285, 285)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Administrador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Mesero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(285, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(265, 265, 265))
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(239, 239, 239)
+                        .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(jLabel2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(30, 30, 30)
                 .addComponent(jLabel2)
-                .addGap(31, 31, 31)
-                .addComponent(Administrador)
-                .addGap(31, 31, 31)
-                .addComponent(Mesero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(regresar)
+                .addGap(38, 38, 38)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -148,9 +148,7 @@ public class Inicio extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -178,22 +176,14 @@ public class Inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdministradorActionPerformed
-        // TODO add your handling code here:
-        ControlFlujoPantallas.getInstancia().abrirPantallaAdministrador();
-        this.dispose();
-    }//GEN-LAST:event_AdministradorActionPerformed
-
-    private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
         ControlFlujoPantallas.getInstancia().abrirComandasAbiertas();
         this.dispose();
-    }//GEN-LAST:event_MeseroActionPerformed
+    }//GEN-LAST:event_regresarActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Administrador;
-    private javax.swing.JButton Mesero;
     private com.github.lgooddatepicker.components.CalendarPanel calendarPanel1;
     private com.github.lgooddatepicker.components.DateTimePicker dateTimePicker1;
     private javax.swing.JLabel jLabel1;
@@ -204,6 +194,9 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel mesasabiertas;
+    private javax.swing.JButton regresar;
     // End of variables declaration//GEN-END:variables
 }
