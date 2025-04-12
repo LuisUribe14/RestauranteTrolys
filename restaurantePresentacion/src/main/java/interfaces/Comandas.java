@@ -13,14 +13,13 @@ import java.util.ResourceBundle;
  *
  * @author chris
  */
-public class ProductosDisponibles extends javax.swing.JFrame {
+public class Comandas extends javax.swing.JFrame {
 
     /**
      * Creates new form Inicio
      */
-    public ProductosDisponibles() {
+    public Comandas() {
         initComponents();
-        productosdisponibles.add(new productosdisponibles());
         productosseleccionados.add(new productosseleccionados());
     }
 
@@ -45,8 +44,6 @@ public class ProductosDisponibles extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         regresar = new javax.swing.JButton();
         siguiente = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        productosdisponibles = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -71,7 +68,7 @@ public class ProductosDisponibles extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 204));
 
-        jLabel1.setText("Productos Disponibles");
+        jLabel1.setText("Comandas");
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Serif", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,9 +121,6 @@ public class ProductosDisponibles extends javax.swing.JFrame {
             }
         });
 
-        productosdisponibles.setLayout(new javax.swing.BoxLayout(productosdisponibles, javax.swing.BoxLayout.Y_AXIS));
-        jScrollPane2.setViewportView(productosdisponibles);
-
         jLabel2.setText("Nombre");
 
         jLabel3.setText("Tipo");
@@ -174,9 +168,7 @@ public class ProductosDisponibles extends javax.swing.JFrame {
                         .addComponent(siguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(176, 176, 176))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(productosseleccionados, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(productosseleccionados, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(71, 71, 71))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel7)
@@ -216,9 +208,7 @@ public class ProductosDisponibles extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -278,7 +268,7 @@ public class ProductosDisponibles extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarActionPerformed
 
     private void siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_siguienteActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirComandas();
+        ControlFlujoPantallas.getInstancia().abrirMesas();
         this.dispose();
     }//GEN-LAST:event_siguienteActionPerformed
 
@@ -304,10 +294,8 @@ public class ProductosDisponibles extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField producto;
-    private javax.swing.JPanel productosdisponibles;
     private javax.swing.JPanel productosseleccionados;
     private javax.swing.JButton regresar;
     private javax.swing.JButton siguiente;

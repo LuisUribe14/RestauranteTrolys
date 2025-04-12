@@ -11,6 +11,7 @@ import Pantallas.moduloProductos.FrmProductosRegistrados;
 import Pantallas.moduloProductos.FrmRegistrarProductos;
 import interfaces.AgregarIngrediente;
 import interfaces.ClientesDisponibles;
+import interfaces.Comandas;
 import interfaces.ComandasAbiertas;
 import interfaces.Inicio;
 import interfaces.MenuAdministrador;
@@ -128,6 +129,11 @@ public class ControlFlujoPantallas {
     
     public void abrirProductosDisponibles(){
         ProductosDisponibles forma = new ProductosDisponibles();
+        forma.setVisible(true);
+    }
+    
+    public void abrirComandas(){
+        Comandas forma = new Comandas();
         forma.setVisible(true);
     }
 }

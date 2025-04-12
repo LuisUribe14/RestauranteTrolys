@@ -1,5 +1,6 @@
 package interfaces;
 
+import DTOs.MesaViejaDTO;
 import entidades.Mesa;
 import exception.PersistenciaException;
 
@@ -9,5 +10,7 @@ import exception.PersistenciaException;
  */
 public interface IMesaDAO {
     
-    public boolean registrarCantidadMesas(Mesa mesa) throws PersistenciaException;
+     public boolean registrarMesa(MesaViejaDTO mesaDTO) throws PersistenciaException;
+     
+    public int contarMesas() throws PersistenciaException;
 }

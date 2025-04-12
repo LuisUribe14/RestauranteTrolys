@@ -20,4 +20,5 @@ public interface IProductoDAO {
     public List<Producto> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws PersistenciaException;
     
     public List<Producto> obtenerProductosRegistrados() throws PersistenciaException;
+    
 }

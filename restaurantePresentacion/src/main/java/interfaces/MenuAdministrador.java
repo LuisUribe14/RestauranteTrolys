@@ -4,8 +4,12 @@
  */
 package interfaces;
 
+import BOs.MesaBO;
+import DTOs.MesaViejaDTO;
 import control.ControlFlujoPantallas;
+import exception.NegocioException;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -123,6 +127,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Mesas.setText("Mesas");
         Mesas.setBackground(new java.awt.Color(0, 0, 0));
         Mesas.setForeground(new java.awt.Color(255, 255, 255));
+        Mesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MesasActionPerformed(evt);
+            }
+        });
 
         Clientes.setText("Clientes");
         Clientes.setBackground(new java.awt.Color(0, 0, 0));
@@ -233,7 +242,40 @@ public class MenuAdministrador extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
 
-    
+    private void MesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MesasActionPerformed
+        MesaBO mesaBO = new MesaBO();
+
+        try {
+            int cantidadActual = mesaBO.obtenerCantidadMesasRegistradas();
+            int maximoPermitido = 40;
+            int cantidadDisponible = maximoPermitido - cantidadActual;
+
+            if (cantidadDisponible <= 0) {
+                JOptionPane.showMessageDialog(this, "Ya hay 40 mesas registradas. No se pueden agregar más.");
+                return;
+            }
+
+            int agregadas = 0;
+
+            for (int i = cantidadActual + 1; i <= maximoPermitido && agregadas < 20; i++) {
+                MesaViejaDTO mesaDTO = new MesaViejaDTO();
+                mesaDTO.setNumero(i);
+
+                try {
+                    mesaBO.registrarMesa(mesaDTO);
+                    agregadas++;
+                } catch (NegocioException e) {
+                    JOptionPane.showMessageDialog(this, "Error al registrar mesa número " + i + ": " + e.getMessage());
+                }
+            }
+
+            JOptionPane.showMessageDialog(this, "Se registraron " + agregadas + " mesas. Total actual: " + (cantidadActual + agregadas));
+
+        } catch (NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error al consultar cantidad de mesas: " + e.getMessage());
+        }
+    }//GEN-LAST:event_MesasActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Clientes;
