@@ -4,6 +4,7 @@ import BOs.ProductoBO;
 import DTOs.IngredienteViejoDTO;
 import DTOs.ProductoIngredienteNuevoDTO;
 import DTOs.ProductoNuevoDTO;
+import control.ControlFlujoPantallas;
 import enums.estadoProducto;
 import enums.tipoProducto;
 import exception.NegocioException;
@@ -23,11 +24,11 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
     /**
      * Creates new form FrmRegistrarProductos
      */
-    public FrmRegistrarProductos(List<IngredienteViejoDTO> ingredientes) {
+    public FrmRegistrarProductos(List<ProductoIngredienteNuevoDTO> ingredientes) {
         initComponents();
-        for (IngredienteViejoDTO ingrediente : ingredientes) {
-            pnlContenedor.add(new Ingredientes(ingrediente));
-        }
+        this.ingredientes = ingredientes;
+        
+        mostrarIngredientes();
     }
 
     /**
@@ -58,7 +59,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
         pnlContenedor = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
         btnAñadirProducto = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnAñadirIngrediente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -204,7 +205,12 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Añadir Ingrediente");
+        btnAñadirIngrediente.setText("Añadir Ingrediente");
+        btnAñadirIngrediente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirIngredienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -223,7 +229,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAñadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(112, 112, 112)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnAñadirIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(42, Short.MAX_VALUE))
@@ -241,7 +247,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAñadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAñadirIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
 
@@ -288,10 +294,24 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirProductoActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        control.ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
+        ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnAñadirIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirIngredienteActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirFrmAñadirIngredientes(ingredientes);
+        this.dispose();
+    }//GEN-LAST:event_btnAñadirIngredienteActionPerformed
+
+    public void mostrarIngredientes() {
+        pnlContenedor.removeAll();
+        if (ingredientes != null) {
+            for (ProductoIngredienteNuevoDTO ingrediente : ingredientes) {
+                pnlContenedor.add(new Ingredientes(ingrediente, this));
+            }
+        }
+        pnlContenedor.repaint();
+    }
     /**
      * @param args the command line arguments
      */
@@ -328,10 +348,10 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAñadirIngrediente;
     private javax.swing.JButton btnAñadirProducto;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -349,4 +369,13 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txfNombre;
     private javax.swing.JTextField txfPrecio;
     // End of variables declaration//GEN-END:variables
+
+    public List<ProductoIngredienteNuevoDTO> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<ProductoIngredienteNuevoDTO> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+    
 }

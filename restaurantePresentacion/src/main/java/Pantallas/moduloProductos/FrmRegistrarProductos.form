@@ -64,7 +64,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnAñadirProducto" min="-2" pref="172" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" pref="172" max="-2" attributes="0"/>
+                                  <Component id="btnAñadirIngrediente" min="-2" pref="172" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jPanel2" max="32767" attributes="0"/>
                               <Component id="jPanel3" max="32767" attributes="0"/>
@@ -88,7 +88,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnRegresar" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                       <Component id="btnAñadirProducto" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="btnAñadirIngrediente" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -348,10 +348,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnA&#xf1;adirProductoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="btnA&#xf1;adirIngrediente">
           <Properties>
             <Property name="text" type="java.lang.String" value="A&#xf1;adir Ingrediente"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnA&#xf1;adirIngredienteActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

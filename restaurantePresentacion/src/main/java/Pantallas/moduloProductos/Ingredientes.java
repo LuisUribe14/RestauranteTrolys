@@ -1,6 +1,8 @@
 package Pantallas.moduloProductos;
 
 import DTOs.IngredienteViejoDTO;
+import DTOs.ProductoIngredienteNuevoDTO;
+import java.util.List;
 
 /**
  *
@@ -8,16 +10,19 @@ import DTOs.IngredienteViejoDTO;
  */
 public class Ingredientes extends javax.swing.JPanel {
 
-    private IngredienteViejoDTO ingrediente;
+    private ProductoIngredienteNuevoDTO ingrediente;
+    private FrmRegistrarProductos frame;
     
     /**
      * Creates new form Ingredientes
      */
-    public Ingredientes(IngredienteViejoDTO ingrediente) {
+    public Ingredientes(ProductoIngredienteNuevoDTO ingrediente, FrmRegistrarProductos frame) {
         initComponents();
         this.ingrediente = ingrediente;
-        txfNombre.setText(ingrediente.getNombre());
-        txfMedida.setText(ingrediente.getUnidadMedida().toString());
+        this.frame = frame;
+        
+        txfNombre.setText(ingrediente.getIngrediente().getNombre());
+        txfMedida.setText(ingrediente.getIngrediente().getUnidadMedida().toString());
         txfCantidad.setText("1");
     }
 
@@ -59,6 +64,11 @@ public class Ingredientes extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(236, 34, 31));
         jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -85,6 +95,11 @@ public class Ingredientes extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        frame.getIngredientes().remove(ingrediente);
+        frame.mostrarIngredientes();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

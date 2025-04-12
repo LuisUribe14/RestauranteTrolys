@@ -5,6 +5,8 @@
 package control;
 
 import DTOs.IngredienteViejoDTO;
+import DTOs.ProductoIngredienteNuevoDTO;
+import Pantallas.moduloProductos.FrmAñadirIngredientes;
 import Pantallas.moduloProductos.FrmProductosRegistrados;
 import Pantallas.moduloProductos.FrmRegistrarProductos;
 import interfaces.AgregarIngrediente;
@@ -46,7 +48,11 @@ public class ControlFlujoPantallas {
         return instancia;
     }
     
-    public void abrirFrmRegistrarProducto(List<IngredienteViejoDTO> ingredientes) {
+    public void abrirFrmAñadirIngredientes(List<ProductoIngredienteNuevoDTO> ingredientes) {
+        new FrmAñadirIngredientes(ingredientes).setVisible(true);
+    }
+    
+    public void abrirFrmRegistrarProducto(List<ProductoIngredienteNuevoDTO> ingredientes) {
         new FrmRegistrarProductos(ingredientes).setVisible(true);
     }
     

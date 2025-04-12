@@ -243,5 +243,20 @@ public class ingredienteDao implements Iingrediente {
             em.close();
         }
     }
+    
+    public List<Ingrediente> obtenerIngredientesRegistrados() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT i FROM Ingrediente i";
+            TypedQuery query = em.createQuery(jpql, Ingrediente.class);
+            query.setMaxResults(5);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar la Lista de Ingredientes");
+        } finally {
+            em.close();
+        }
+    }
 
 }

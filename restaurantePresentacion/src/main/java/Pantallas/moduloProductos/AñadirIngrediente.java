@@ -1,20 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package Pantallas.moduloProductos;
+
+import DTOs.IngredienteViejoDTO;
+import DTOs.ProductoIngredienteNuevoDTO;
+import control.ControlFlujoPantallas;
+import enums.tipoProducto;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
- * @author guzman
+ * @author daniel
  */
 public class AñadirIngrediente extends javax.swing.JPanel {
 
+    private IngredienteViejoDTO ingrediente;
+    private List<ProductoIngredienteNuevoDTO> listaIngredientes;
+    
     /**
      * Creates new form AñadirIngrediente
      */
-    public AñadirIngrediente() {
+    public AñadirIngrediente(IngredienteViejoDTO ingrediente, List<ProductoIngredienteNuevoDTO> listaIngredientes) {
         initComponents();
+        
+        this.ingrediente = ingrediente;   
+        this.listaIngredientes = listaIngredientes;
+        
+        txfNombre.setText(ingrediente.getNombre());
+        txfMedida.setText(ingrediente.getUnidadMedida().toString());
     }
 
     /**
@@ -87,7 +100,11 @@ public class AñadirIngrediente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-                
+        ProductoIngredienteNuevoDTO ingredienteDTO = new ProductoIngredienteNuevoDTO(1.00, ingrediente);
+        listaIngredientes.add(ingredienteDTO);
+        ControlFlujoPantallas.getInstancia().abrirFrmRegistrarProducto(listaIngredientes);
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.dispose();
     }//GEN-LAST:event_btnAñadirActionPerformed
 
 

@@ -10,9 +10,11 @@ import DTOs.ingredienteDTO;
 import DTOs.ingredienteNuevoDTO;
 import entidades.Ingrediente;
 import enums.unidadMedida;
+import exception.NegocioException;
 import exception.PersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
+import mapper.ingredienteMapper;
 
 /**
  *
@@ -149,6 +151,22 @@ public class ingredienteBO {
         }
 
         return listaDTO;
+    }
+    
+    public List<IngredienteViejoDTO> obtenerProductosRegistrados() throws NegocioException {
+        List<IngredienteViejoDTO> productosDTO = new ArrayList();
+        try {
+            List<Ingrediente> ingredientes = ingredienteDao.getInstancia().obtenerIngredientesRegistrados();
+            
+            for (Ingrediente ingrediente: ingredientes) {
+                IngredienteViejoDTO ingredienteDTO = ingredienteMapper.toViejoDTO(ingrediente);
+                productosDTO.add(ingredienteDTO);
+            }
+            
+            return productosDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar Ingredientes.");
+        }
     }
 
 }
