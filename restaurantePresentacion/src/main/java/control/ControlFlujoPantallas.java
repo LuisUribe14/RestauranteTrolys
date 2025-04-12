@@ -80,8 +80,6 @@ public class ControlFlujoPantallas {
         formAgregarIngrediente.setVisible(true);
     }
     
-
-    
     public void abrirAgregarIngredientes(){
         RegistrarIngrediente forma = new RegistrarIngrediente();
         forma.setVisible(true);

@@ -123,6 +123,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Producto.setText("Producto");
         Producto.setBackground(new java.awt.Color(0, 0, 0));
         Producto.setForeground(new java.awt.Color(255, 255, 255));
+        Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductoActionPerformed(evt);
+            }
+        });
 
         Mesas.setText("Mesas");
         Mesas.setBackground(new java.awt.Color(0, 0, 0));
