@@ -44,8 +44,6 @@ public class ClienteFrecuenteViejoDTO {
         this.puntos = puntos;
         this.totalGastado = totalGastado;
     }
-    
-    
 
     public Long getId() {
         return id;

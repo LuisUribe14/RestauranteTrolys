@@ -30,6 +30,15 @@ public class ComandaViejaDTO {
         this.mesa = mesa;
     }
 
+    public ComandaViejaDTO(Long id, String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta, MesaViejaDTO mesa) {
+        this.id = id;
+        this.folio = folio;
+        this.estado = estado;
+        this.fechaYHora = fechaYHora;
+        this.totalVenta = totalVenta;
+        this.mesa = mesa;
+    }
+
     public Long getId() {
         return id;
     }

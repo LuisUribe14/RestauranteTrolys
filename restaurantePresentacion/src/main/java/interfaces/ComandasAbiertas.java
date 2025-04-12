@@ -4,9 +4,14 @@
  */
 package interfaces;
 
+import BOs.ComandaBO;
+import DTOs.ComandaViejaDTO;
 import control.ControlFlujoPantallas;
+import exception.NegocioException;
 import frames.comandasAbiertas;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,14 +19,30 @@ import java.util.ResourceBundle;
  */
 public class ComandasAbiertas extends javax.swing.JFrame {
 
+    private List<ComandaViejaDTO> comandas;
+    
     /**
      * Creates new form Inicio
      */
     public ComandasAbiertas() {
         initComponents();
-        comandaabierta.add(new comandasAbiertas());
+        obtenerComandasAbiertas();
+        if (comandas != null) {
+            for (ComandaViejaDTO comanda : comandas) {
+                comandaabierta.add(new comandasAbiertas(comanda));
+            }
+        }
+        
     }
 
+    private void obtenerComandasAbiertas() {
+        try {
+            comandas = ComandaBO.getInstancia().obtenerComandasAbiertas();
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            this.dispose();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -4,10 +4,15 @@
  */
 package interfaces;
 
+import BOs.MesaBO;
+import DTOs.MesaViejaDTO;
 import control.ControlFlujoPantallas;
+import exception.NegocioException;
 import frames.comandasAbiertas;
 import frames.mesasabiertas;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,12 +20,28 @@ import java.util.ResourceBundle;
  */
 public class MesasDisponibles extends javax.swing.JFrame {
 
+    private List<MesaViejaDTO> mesas;
+    
     /**
      * Creates new form Inicio
      */
     public MesasDisponibles() {
         initComponents();
-        mesasabiertas.add(new mesasabiertas());
+        obtenerMesas();
+        
+        if (mesas != null) {
+            for (MesaViejaDTO mesa : mesas) {
+                mesasabiertas.add(new mesasabiertas(mesa));
+            }
+        }
+    }
+    
+    public void obtenerMesas() {
+        try {
+            mesas = MesaBO.getInstancia().obtenerMesas();
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**

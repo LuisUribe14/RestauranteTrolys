@@ -13,6 +13,7 @@ import entidades.Comanda;
 import entidades.ComandaProducto;
 import entidades.Mesa;
 import entidades.Producto;
+import enums.estadoComanda;
 import exception.NegocioException;
 import exception.PersistenciaException;
 import interfaces.IComandaDAO;
@@ -116,6 +117,17 @@ public class ComandaBO {
     }
     
     public List<ComandaViejaDTO> obtenerComandasAbiertas() throws NegocioException {
-        return null;
+        try {
+            List<Comanda> comandas = comandaDAO.obtenerComandasPorEstado(estadoComanda.ABIERTO);
+            List<ComandaViejaDTO> comandasDTO = new ArrayList();
+            
+            for (Comanda comanda: comandas) {
+                comandasDTO.add(ComandaMapper.toViejoDTO(comanda));
+            }
+            
+            return comandasDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar comandas.");
+        }
     }
 }

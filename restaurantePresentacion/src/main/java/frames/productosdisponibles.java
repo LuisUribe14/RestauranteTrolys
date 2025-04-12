@@ -4,17 +4,30 @@
  */
 package frames;
 
+import DTOs.ProductoViejoDTO;
+import interfaces.ProductosDisponibles;
+import javax.swing.JFrame;
+
 /**
  *
  * @author multaslokas33
  */
 public class productosdisponibles extends javax.swing.JPanel {
 
+    private ProductosDisponibles frame;
+    private ProductoViejoDTO producto;
+    
     /**
      * Creates new form comandasAbiertas
      */
-    public productosdisponibles() {
+    public productosdisponibles(ProductoViejoDTO producto, ProductosDisponibles frame) {
         initComponents();
+        this.frame = frame;
+        this.producto = producto;
+        
+        folio.setText(producto.getNombre());
+        total.setText(producto.getTipo().toString());
+        fecha.setText(producto.getPrecio().toString());
     }
 
     /**
@@ -37,6 +50,11 @@ public class productosdisponibles extends javax.swing.JPanel {
         añadir.setBackground(new java.awt.Color(0, 0, 0));
         añadir.setForeground(new java.awt.Color(255, 255, 255));
         añadir.setText("Añadir");
+        añadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                añadirActionPerformed(evt);
+            }
+        });
 
         folio.setEditable(false);
 
@@ -84,6 +102,13 @@ public class productosdisponibles extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
+        frame.getProductosseleccionados().add(new productosseleccionados(producto));
+        frame.getProductos().add(producto);
+        frame.getProductosseleccionados().revalidate();
+        frame.getProductosseleccionados().repaint();
+    }//GEN-LAST:event_añadirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

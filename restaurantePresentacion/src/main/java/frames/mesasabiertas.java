@@ -4,6 +4,7 @@
  */
 package frames;
 
+import DTOs.MesaViejaDTO;
 import control.ControlFlujoPantallas;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -14,11 +15,16 @@ import javax.swing.SwingUtilities;
  */
 public class mesasabiertas extends javax.swing.JPanel {
 
+    private MesaViejaDTO mesa;
+    
     /**
      * Creates new form comandasAbiertas
      */
-    public mesasabiertas() {
+    public mesasabiertas(MesaViejaDTO mesa) {
         initComponents();
+        this.mesa = mesa;
+        
+        this.folio.setText(mesa.getNumero().toString());
     }
 
     /**
@@ -83,7 +89,7 @@ public class mesasabiertas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirProductosDisponibles();
+        ControlFlujoPantallas.getInstancia().abrirProductosDisponibles(mesa);
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
     }//GEN-LAST:event_añadirActionPerformed

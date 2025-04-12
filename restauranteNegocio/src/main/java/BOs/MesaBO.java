@@ -6,6 +6,9 @@ import entidades.Mesa;
 import exception.NegocioException;
 import exception.PersistenciaException;
 import interfaces.IMesaDAO;
+import java.util.ArrayList;
+import java.util.List;
+import mapper.MesaMapper;
 
 /**
  *
@@ -63,6 +66,21 @@ public class MesaBO {
             return mesaDAO.contarMesas();
         } catch (PersistenciaException e) {
             throw new NegocioException("No se pudo obtener la cantidad de mesas registradas.");
+        }
+    }
+    
+    public List<MesaViejaDTO> obtenerMesas() throws NegocioException {
+        try {
+            List<MesaViejaDTO> mesasDTO = new ArrayList();
+            List<Mesa> mesas = mesaDAO.obtenerMesas();
+            
+            for (Mesa mesa : mesas) {
+                mesasDTO.add(MesaMapper.toViejoDTO(mesa));
+            }
+            
+            return mesasDTO;
+        } catch (PersistenciaException e) {
+            throw new NegocioException("No se pudo obtener Lista de Mesas.");
         }
     }
 

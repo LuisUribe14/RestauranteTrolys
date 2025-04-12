@@ -4,17 +4,26 @@
  */
 package frames;
 
+import DTOs.ProductoViejoDTO;
+
 /**
  *
  * @author multaslokas33
  */
 public class productosseleccionados extends javax.swing.JPanel {
 
+    private ProductoViejoDTO producto;
+    
     /**
      * Creates new form comandasAbiertas
      */
-    public productosseleccionados() {
+    public productosseleccionados(ProductoViejoDTO producto) {
         initComponents();
+        this.producto = producto;
+        
+        folio.setText(producto.getNombre());
+        total.setText(producto.getTipo().toString());
+        fecha.setText(producto.getPrecio().toString());
     }
 
     /**
@@ -39,6 +48,11 @@ public class productosseleccionados extends javax.swing.JPanel {
         eliminar.setBackground(new java.awt.Color(0, 0, 0));
         eliminar.setForeground(new java.awt.Color(255, 255, 255));
         eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
 
         folio.setEditable(false);
 
@@ -96,6 +110,10 @@ public class productosseleccionados extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

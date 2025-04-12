@@ -5,7 +5,9 @@ import conexion.Conexion;
 import entidades.Mesa;
 import exception.PersistenciaException;
 import interfaces.IMesaDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -55,6 +57,21 @@ public class MesaDAO implements IMesaDAO {
             return total.intValue();
         } catch (Exception e) {
             throw new PersistenciaException("Error al contar mesas.");
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Mesa> obtenerMesas() throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT m FROM Mesa m";
+            TypedQuery query = em.createQuery(jpql, Mesa.class);
+            
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener Mesas.");
         } finally {
             em.close();
         }

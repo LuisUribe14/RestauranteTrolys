@@ -4,19 +4,39 @@
  */
 package frames;
 
+import BOs.ComandaBO;
+import DTOs.ComandaViejaDTO;
+import exception.NegocioException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author multaslokas33
  */
 public class comandasAbiertas extends javax.swing.JPanel {
-
+    
     /**
      * Creates new form comandasAbiertas
      */
-    public comandasAbiertas() {
+    public comandasAbiertas(ComandaViejaDTO comanda) {
         initComponents();
+        
+        folio.setText(comanda.getFolio());
+        total.setText(comanda.getTotalVenta().toString());
+        fecha.setText(formatoFecha(comanda.getFechaYHora()));
+        
     }
 
+    private String formatoFecha(LocalDateTime fecha) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        String fechaFormateada = fecha.format(formatter);
+        return fechaFormateada;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

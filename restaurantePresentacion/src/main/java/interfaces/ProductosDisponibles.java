@@ -4,10 +4,17 @@
  */
 package interfaces;
 
+import BOs.ProductoBO;
+import DTOs.MesaViejaDTO;
+import DTOs.ProductoViejoDTO;
 import control.ControlFlujoPantallas;
+import exception.NegocioException;
 import frames.productosdisponibles;
 import frames.productosseleccionados;
+import java.util.List;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,12 +22,29 @@ import java.util.ResourceBundle;
  */
 public class ProductosDisponibles extends javax.swing.JFrame {
 
+    private List<ProductoViejoDTO> productos;
+    
     /**
      * Creates new form Inicio
      */
-    public ProductosDisponibles() {
+    public ProductosDisponibles(MesaViejaDTO mesa) {
         initComponents();
-        productosseleccionados.add(new productosseleccionados());
+        obtenerProductos();
+        
+        if (productos != null) {
+            for (ProductoViejoDTO producto : productos) {
+                productosdisponibles.add(new productosdisponibles(producto, this));
+            }
+        }
+        
+    }
+    
+    public void obtenerProductos() {
+        try {
+            productos = ProductoBO.getInstancia().obtenerProductosRegistrados();
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**
@@ -280,4 +304,26 @@ public class ProductosDisponibles extends javax.swing.JFrame {
     private javax.swing.JButton siguiente;
     private javax.swing.JTextField tipo;
     // End of variables declaration//GEN-END:variables
+
+    public JPanel getProductosdisponibles() {
+        return productosdisponibles;
+    }
+
+    public void setProductosdisponibles(JPanel productosdisponibles) {
+        this.productosdisponibles = productosdisponibles;
+    }
+
+    public JPanel getProductosseleccionados() {
+        return productosseleccionados;
+    }
+
+    public void setProductosseleccionados(JPanel productosseleccionados) {
+        this.productosseleccionados = productosseleccionados;
+    }
+
+    public List<ProductoViejoDTO> getProductos() {
+        return productos;
+    }
+
+
 }

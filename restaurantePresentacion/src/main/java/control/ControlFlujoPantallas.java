@@ -5,6 +5,7 @@
 package control;
 
 import DTOs.IngredienteViejoDTO;
+import DTOs.MesaViejaDTO;
 import DTOs.ProductoIngredienteNuevoDTO;
 import Pantallas.moduloProductos.FrmAñadirIngredientes;
 import Pantallas.moduloProductos.FrmProductosRegistrados;
@@ -126,8 +127,8 @@ public class ControlFlujoPantallas {
         forma.setVisible(true);
     }
     
-    public void abrirProductosDisponibles(){
-        ProductosDisponibles forma = new ProductosDisponibles();
+    public void abrirProductosDisponibles(MesaViejaDTO mesa){
+        ProductosDisponibles forma = new ProductosDisponibles(mesa);
         forma.setVisible(true);
     }
     

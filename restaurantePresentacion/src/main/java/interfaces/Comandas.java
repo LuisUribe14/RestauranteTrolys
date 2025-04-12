@@ -20,7 +20,7 @@ public class Comandas extends javax.swing.JFrame {
      */
     public Comandas() {
         initComponents();
-        productosseleccionados.add(new productosseleccionados());
+        productosseleccionados.add(new productosseleccionados(null));
     }
 
     /**
@@ -241,7 +241,7 @@ public class Comandas extends javax.swing.JFrame {
     }//GEN-LAST:event_registrarComandaActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirProductosDisponibles();
+//        ControlFlujoPantallas.getInstancia().abrirProductosDisponibles();
         this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
 

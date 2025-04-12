@@ -76,7 +76,8 @@ public class ComandaDAO implements IComandaDAO{
         }
     }
     
-    public List<Comanda> obtenerComandasPorEstado(estadoComanda estado) throws PersistenceException {
+    @Override
+    public List<Comanda> obtenerComandasPorEstado(estadoComanda estado) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String jpql = "SELECT c FROM Comanda c WHERE c.estado = :estado";
@@ -85,7 +86,7 @@ public class ComandaDAO implements IComandaDAO{
             
             return query.getResultList();
         } catch(Exception e) {
-            throw new PersistenceException("Error al consultar las Comandas.");
+            throw new PersistenciaException("Error al consultar las Comandas.");
         } finally {
             em.close();
         }
