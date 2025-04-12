@@ -29,7 +29,7 @@ public class ClienteFrecuenteDAOTest {
 //
 //    @BeforeEach
 //    public void setUp() {
-//        
+//
 //        clienteDAO = ClienteFrecuenteDAO.getInstancia();
 //        comandaDAO = ComandaDAO.getInstancia();
 //    }
@@ -75,6 +75,52 @@ public class ClienteFrecuenteDAOTest {
 //
 //        assertEquals(200.0, gasto);
 //        assertEquals(1, visitas);
-//        assertEquals(10, puntos); 
+//        assertEquals(10, puntos);
 //    }
+//
+//    @Test
+//    public void testFiltrarClientesFrecuentes() throws PersistenciaException {
+//        ClienteFrecuente cliente1 = new ClienteFrecuente();
+//        cliente1.setNombre("fabian");
+//        cliente1.setApellidoPaterno("hinijoza");
+//        cliente1.setApellidoMaterno("moreno");
+//        cliente1.setCorreo("faian@gmail.com");
+//        cliente1.setTelefono("5151234567");
+//        clienteDAO.registrarClienteFrecuente(cliente1);
+//
+//        ClienteFrecuente cliente2 = new ClienteFrecuente();
+//        cliente2.setNombre("ramses");
+//        cliente2.setApellidoPaterno("sauseda");
+//        cliente2.setApellidoMaterno("rubio");
+//        cliente2.setCorreo("ramses@gmail.com");
+//        cliente2.setTelefono("5255761021");
+//        clienteDAO.registrarClienteFrecuente(cliente2);
+//        
+//        ClienteFrecuente cliente3 = new ClienteFrecuente();
+//        cliente3.setNombre("gael");
+//        cliente3.setApellidoPaterno("armendariz");
+//        cliente3.setApellidoMaterno("lopez");
+//        cliente3.setCorreo("gael@gmail.com");
+//        cliente3.setTelefono("6321039238");
+//        clienteDAO.registrarClienteFrecuente(cliente3);
+//
+//        List<ClienteFrecuente> resultadoNombre = clienteDAO.filtrarClientesFrecuentes("fab", null, null);
+//        assertFalse(resultadoNombre.isEmpty(), "No se encontraron clientes con nombre similar a 'fab'");
+//        assertTrue(resultadoNombre.stream().anyMatch(c -> c.getNombre().toLowerCase().startsWith("fab")), "No se encontró coincidencia en nombre");
+//
+//        // Buscar por correo
+//        List<ClienteFrecuente> resultadoCorreo = clienteDAO.filtrarClientesFrecuentes(null, null, "ramses");
+//        assertFalse(resultadoCorreo.isEmpty(), "No se encontraron clientes con correo 'ramses'");
+//
+//        // Buscar por teléfono
+//        List<ClienteFrecuente> resultadoTelefono = clienteDAO.filtrarClientesFrecuentes(null, "6321039238", null);
+//        assertEquals(1, resultadoTelefono.size(), "No se encontró al cliente con ese teléfono");
+//        assertEquals("gael", resultadoTelefono.get(0).getNombre(), "El cliente encontrado no es el esperado");
+//
+//        // Buscar combinando nombre y correo
+//        List<ClienteFrecuente> resultadoCombinado = clienteDAO.filtrarClientesFrecuentes("ramses", null, "ramses");
+//        assertEquals(1, resultadoCombinado.size(), "No se encontró el cliente esperado con nombre y correo combinados");
+//    }
+//    
+//    solo hice estos metodos pq son los que realmente uso 
 }

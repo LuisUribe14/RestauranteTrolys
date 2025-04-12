@@ -189,7 +189,7 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
                 query.setParameter("nombre", nombre.toLowerCase() + "%");
             }
             if (correo != null && correo.trim().length() >= 2) {
-                query.setParameter("correo", correo.toLowerCase() + "%");
+                query.setParameter("correo", "%" + correo.toLowerCase() + "%");
             }
             if (telefono != null && !telefono.trim().isEmpty()) {
                 try {

@@ -49,8 +49,9 @@ public class Comandas extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        productosseleccionados = new javax.swing.JPanel();
         añadirClientes = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        productosseleccionados = new javax.swing.JPanel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -125,8 +126,6 @@ public class Comandas extends javax.swing.JFrame {
 
         jLabel10.setText("Cantidad");
 
-        productosseleccionados.setLayout(new javax.swing.BoxLayout(productosseleccionados, javax.swing.BoxLayout.Y_AXIS));
-
         añadirClientes.setBackground(new java.awt.Color(0, 0, 0));
         añadirClientes.setForeground(new java.awt.Color(255, 255, 255));
         añadirClientes.setText("Añadir Clientes");
@@ -136,6 +135,9 @@ public class Comandas extends javax.swing.JFrame {
             }
         });
 
+        productosseleccionados.setLayout(new javax.swing.BoxLayout(productosseleccionados, javax.swing.BoxLayout.Y_AXIS));
+        jScrollPane2.setViewportView(productosseleccionados);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -143,7 +145,7 @@ public class Comandas extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(92, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -151,26 +153,26 @@ public class Comandas extends javax.swing.JFrame {
                         .addComponent(registrarComanda)
                         .addGap(171, 171, 171))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(productosseleccionados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(62, 62, 62)
-                                .addComponent(jLabel8)
-                                .addGap(59, 59, 59)
-                                .addComponent(jLabel9)
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel10)
-                                .addGap(139, 139, 139)))
-                        .addGap(52, 52, 52))))
+                        .addComponent(jLabel7)
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel8)
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel9)
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel10)
+                        .addGap(191, 191, 191))))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(306, 306, 306)
-                        .addComponent(jLabel5))
+                        .addGap(259, 259, 259)
+                        .addComponent(añadirClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(258, 258, 258)
-                        .addComponent(añadirClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(290, 290, 290)
+                        .addComponent(jLabel5)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -185,11 +187,11 @@ public class Comandas extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addComponent(productosseleccionados, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(añadirClientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(regresar)
                     .addComponent(registrarComanda))
@@ -244,7 +246,8 @@ public class Comandas extends javax.swing.JFrame {
     }//GEN-LAST:event_regresarActionPerformed
 
     private void añadirClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirClientesActionPerformed
-        // TODO add your handling code here:
+        ControlFlujoPantallas.getInstancia().abrirClientesComandas();
+        this.dispose();
     }//GEN-LAST:event_añadirClientesActionPerformed
 
     
@@ -265,6 +268,7 @@ public class Comandas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JPanel productosseleccionados;
     private javax.swing.JButton registrarComanda;
