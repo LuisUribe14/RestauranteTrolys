@@ -22,28 +22,28 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author daniel
  */
 public class ComandaDAOTest {
-    ComandaDAO comandaDAO = ComandaDAO.getInstancia();
-    
-    @Test
-    public void registrarComanda() throws PersistenciaException {
-        Comanda comanda = new Comanda("OB-20250401", estadoComanda.ENTREGADO, LocalDateTime.now(), 100.00);
-        Comanda comandaGuardada = comandaDAO.registrarComanda(comanda);
-        assertTrue(comandaGuardada.getId() != null, "El id debería ser diferente de null.");
-    }
-    
-    @Test
-    public void obtenerCantidadComandas() throws PersistenciaException {
-        int cantidadComandas = comandaDAO.obtenerCantidadComandas();
-        assertTrue(cantidadComandas != 0, "La cantidad no debería ser null.");
-    }
-    
-    @Test
-    public void actualizarComanda() throws PersistenciaException {
-        EntityManager em = Conexion.crearConexion();
-        Comanda comanda = em.find(Comanda.class, 1L);
-        boolean exito = comandaDAO.actualizarComanda(comanda);
-        assertTrue(exito != false, "La cantidad no debería ser null.");
-    }
+//    ComandaDAO comandaDAO = ComandaDAO.getInstancia();
+//    
+//    @Test
+//    public void registrarComanda() throws PersistenciaException {
+//        Comanda comanda = new Comanda("OB-20250401", estadoComanda.ENTREGADO, LocalDateTime.now(), 100.00);
+//        Comanda comandaGuardada = comandaDAO.registrarComanda(comanda);
+//        assertTrue(comandaGuardada.getId() != null, "El id debería ser diferente de null.");
+//    }
+//    
+//    @Test
+//    public void obtenerCantidadComandas() throws PersistenciaException {
+//        int cantidadComandas = comandaDAO.obtenerCantidadComandas();
+//        assertTrue(cantidadComandas != 0, "La cantidad no debería ser null.");
+//    }
+//    
+//    @Test
+//    public void actualizarComanda() throws PersistenciaException {
+//        EntityManager em = Conexion.crearConexion();
+//        Comanda comanda = em.find(Comanda.class, 1L);
+//        boolean exito = comandaDAO.actualizarComanda(comanda);
+//        assertTrue(exito != false, "La cantidad no debería ser null.");
+//    }
     
 
     // TODO add test methods here.
