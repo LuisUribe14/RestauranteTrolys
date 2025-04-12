@@ -4,6 +4,7 @@ import BOs.ingredienteBO;
 import DTOs.IngredienteViejoDTO;
 import DTOs.ProductoIngredienteNuevoDTO;
 import control.ControlFlujoPantallas;
+import enums.unidadMedida;
 import exception.NegocioException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlContenedor = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbUnidadMedida = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,7 +136,13 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUnidadMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GRAMOS", "PIEZAS", "MILIGRAMOS" }));
+        cbUnidadMedida.setSelectedIndex(-1);
+        cbUnidadMedida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbUnidadMedidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,7 +159,7 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,17 +177,34 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txfNombre)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txfNombre))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(cbUnidadMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
+
+        txfNombre.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                mostrarProductosFiltrados();
+            }
+
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                mostrarProductosFiltrados();
+            }
+
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                // No se necesita normalmente en JTextField
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +216,7 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 3, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,6 +226,10 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
         ControlFlujoPantallas.getInstancia().abrirFrmRegistrarProducto(ingredientes);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbUnidadMedidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUnidadMedidaActionPerformed
+        mostrarProductosFiltrados();
+    }//GEN-LAST:event_cbUnidadMedidaActionPerformed
 
     private void añadirIngredientesViejosDTO() {
         try {
@@ -214,9 +242,31 @@ public class FrmAñadirIngredientes extends javax.swing.JFrame {
         }
     }
     
+    private void mostrarProductosFiltrados() {
+        pnlContenedor.removeAll();
+        
+        String nombre = txfNombre.getText();
+        String tipoString = (String) cbUnidadMedida.getSelectedItem();
+        unidadMedida tipo = null;
+        if (tipoString != null) {
+            tipo = unidadMedida.valueOf(tipoString);
+        }
+        
+        try {
+            List<IngredienteViejoDTO> ingredientesViejosDTO = ingredienteBO.getInstancia().obtenerProductosFiltrados(nombre, tipo);
+            for (IngredienteViejoDTO ingredienteViejoDTO : ingredientesViejosDTO) {
+                pnlContenedor.add(new AñadirIngrediente(ingredienteViejoDTO, ingredientes));
+                pack();
+            }
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        pnlContenedor.repaint();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbUnidadMedida;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

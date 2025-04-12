@@ -258,5 +258,38 @@ public class ingredienteDao implements Iingrediente {
             em.close();
         }
     }
+    
+    public List<Ingrediente> obtenerIngredientesFiltrados(String nombre, unidadMedida unidadMedida) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT i FROM Ingrediente i "
+                    + "WHERE (:nombre IS NULL OR i.nombre LIKE CONCAT(:nombre, '%')) "
+                    + "AND (:unidadMedida IS NULL OR i.unidadMedida = :unidadMedida)";
+            TypedQuery query = em.createQuery(jpql, Ingrediente.class);
+            query.setParameter("nombre", nombre);
+            query.setParameter("unidadMedida", unidadMedida);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar la Lista de Productos");
+        } finally {
+            em.close();
+        }
+    }
+    
+    public List<Ingrediente> obtenerIngredientesProducto(Long id) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT i FROM Ingrediente i WHERE i.producto.id = :id";
+            TypedQuery query = em.createQuery(jpql, Ingrediente.class);
+            query.setParameter("id", id);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar la Lista de Ingredientes");
+        } finally {
+            em.close();
+        }
+    }
 
 }

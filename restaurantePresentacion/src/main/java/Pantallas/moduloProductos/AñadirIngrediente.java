@@ -6,6 +6,7 @@ import control.ControlFlujoPantallas;
 import enums.tipoProducto;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -100,11 +101,23 @@ public class AñadirIngrediente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
-        ProductoIngredienteNuevoDTO ingredienteDTO = new ProductoIngredienteNuevoDTO(1.00, ingrediente);
-        listaIngredientes.add(ingredienteDTO);
-        ControlFlujoPantallas.getInstancia().abrirFrmRegistrarProducto(listaIngredientes);
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.dispose();
+        boolean exito = true;
+        
+        for (ProductoIngredienteNuevoDTO productoDTO : listaIngredientes) {
+            if (ingrediente.getNombre() == productoDTO.getIngrediente().getNombre()) {
+                exito = false;
+            }
+        }
+        
+        if (exito) {
+            ProductoIngredienteNuevoDTO ingredienteDTO = new ProductoIngredienteNuevoDTO(1.00, ingrediente);
+            listaIngredientes.add(ingredienteDTO);
+            ControlFlujoPantallas.getInstancia().abrirFrmRegistrarProducto(listaIngredientes);
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "El producto ya se eligio", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAñadirActionPerformed
 
 

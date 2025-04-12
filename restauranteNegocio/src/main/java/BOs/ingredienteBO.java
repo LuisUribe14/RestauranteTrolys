@@ -168,5 +168,36 @@ public class ingredienteBO {
             throw new NegocioException("Error al consultar Ingredientes.");
         }
     }
+    
+    public List<IngredienteViejoDTO> obtenerProductosFiltrados(String nombre, unidadMedida tipo) throws NegocioException {
+        List<IngredienteViejoDTO> ingredientesDTO = new ArrayList();
+        try {
+            List<Ingrediente> ingredientes = dao.obtenerIngredientesFiltrados(nombre, tipo);
+            
+            for (Ingrediente ingrediente : ingredientes) {
+                IngredienteViejoDTO ingredienteDTO = ingredienteMapper.toViejoDTO(ingrediente);
+                ingredientesDTO.add(ingredienteDTO);
+            }
+            
+            return ingredientesDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar Ingredientes.");
+        }
+    }
+    
+    public List<IngredienteViejoDTO> obtenerIngredientesPorProducto(Long id) throws NegocioException {
+        List<IngredienteViejoDTO> ingredientesDTO = new ArrayList();
+        try {
+            List<Ingrediente> ingredientes = dao.obtenerIngredientesProducto(id);
+            
+            for (Ingrediente ingrediente : ingredientes) {
+                ingredientesDTO.add(ingredienteMapper.toViejoDTO(ingrediente));
+            }
+            
+            return ingredientesDTO;
+        } catch(PersistenciaException e) {
+            throw new NegocioException("Error al consultar Ingredientes.");
+        }
+    }
 
 }

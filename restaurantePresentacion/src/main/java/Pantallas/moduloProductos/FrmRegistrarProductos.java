@@ -286,7 +286,12 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
         producto.setIngredientes(ingredientes);
         
         try {
+            System.out.println(producto.getIngredientes());
             productoBO.registrarProducto(producto);
+            
+            JOptionPane.showMessageDialog(this, "Se agrego el producto.", "Advertencia", JOptionPane.YES_OPTION);
+            ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
+            this.dispose();
         } catch(NegocioException e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
@@ -310,6 +315,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
                 pnlContenedor.add(new Ingredientes(ingrediente, this));
             }
         }
+        pnlContenedor.revalidate();
         pnlContenedor.repaint();
     }
     /**
