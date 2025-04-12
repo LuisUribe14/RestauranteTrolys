@@ -38,6 +38,13 @@ public class ClienteFrecuenteBO {
         return clienteFrecuenteBO;
     }
 
+    /**
+     * 
+     * @param clienteDTO
+     * @return El clienteFrecuenteDTO actualizado
+     * @throws PersistenciaException
+     * @throws NegocioException 
+     */
     public ClienteFrecuenteDTO registrarClienteFrecuente(ClienteFrecuenteDTO clienteDTO) throws PersistenciaException, NegocioException {
 
         if (clienteDTO == null) {
@@ -125,6 +132,15 @@ public class ClienteFrecuenteBO {
         return clienteRegistradoDTO;
     }
 
+    /**
+     * 
+     * @param nombre
+     * @param telefono
+     * @param correo
+     * @return la lista de ClienteFrecuenteDTO segun los parametros.
+     * @throws PersistenciaException
+     * @throws NegocioException 
+     */
     public List<ClienteFrecuenteDTO> buscarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException, NegocioException {
 //        if (nombre != null && nombre.trim().isEmpty()) {
 //            throw new NegocioException("El nombre no puede ser vacío.");
@@ -150,6 +166,13 @@ public class ClienteFrecuenteBO {
         return clienteDTOs;
     }
 
+    /**
+     * 
+     * @param id
+     * @return El ClienteFrecuente segun el id del parametro
+     * @throws PersistenciaException
+     * @throws NegocioException 
+     */
     public ClienteFrecuenteDTO obtenerClienteFrecuentePorId(Long id) throws PersistenciaException, NegocioException {
         ClienteFrecuente cliente = clienteFrecuenteDAO.obtenerClienteFrecuentePorId(id);
         if (cliente == null) {
@@ -174,15 +197,30 @@ public class ClienteFrecuenteBO {
         return clienteDTO;
     }
 
+    /**
+     * 
+     * @param telefono
+     * @return Verdadero si cumple las condiciones, Falso si no 
+     */
     private boolean esTelefonoValido(String telefono) {
         return telefono != null && telefono.matches("\\d{10}");
     }
 
+    /**
+     * 
+     * @param correo
+     * @return Verdadero si el correo es valido, falso si no 
+     */
     private boolean esCorreoValido(String correo) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         return correo != null && correo.matches(regex);
     }
 
+    /**
+     * 
+     * @return La lista de clientesFrecuentes registrados
+     * @throws NegocioException 
+     */
     public List<ClienteFrecuenteDTO> obtenerTodosClientesFrecuentes() throws NegocioException {
         try {
             List<ClienteFrecuente> clientes = clienteFrecuenteDAO.obtenerTodosLosClientesFrecuentes();
@@ -194,6 +232,14 @@ public class ClienteFrecuenteBO {
         }
     }
 
+    /**
+     * 
+     * @param nombre
+     * @param visitasMinimas
+     * @return la lista de ClienteFrecuente segun los parametros
+     * @throws PersistenciaException
+     * @throws NegocioException 
+     */
     public List<ClienteFrecuenteDTO> obtenerClientesFrecuentesParaReporte(String nombre, Integer visitasMinimas) throws PersistenciaException, NegocioException {
         // Llamamos al DAO para obtener la lista de clientes filtrados por nombre y visitas mínimas
         List<ClienteFrecuente> clientes = clienteFrecuenteDAO.filtrarClientesPorNombreYVisitas(nombre, visitasMinimas);

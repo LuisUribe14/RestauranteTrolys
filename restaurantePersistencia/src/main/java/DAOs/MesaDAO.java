@@ -27,6 +27,12 @@ public class MesaDAO implements IMesaDAO {
         return mesaDAO;
     }
 
+    /**
+     * 
+     * @param mesaDTO
+     * @return regresa Verdadero si se agregaron las 20 mesas.
+     * @throws PersistenciaException 
+     */
     @Override
     public boolean registrarMesa(MesaViejaDTO mesaDTO) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -49,6 +55,11 @@ public class MesaDAO implements IMesaDAO {
         }
     }
 
+    /**
+     * 
+     * @return La cantidad de mesas registradas.
+     * @throws PersistenciaException 
+     */
     @Override
     public int contarMesas() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -62,6 +73,11 @@ public class MesaDAO implements IMesaDAO {
         }
     }
     
+    /**
+     * 
+     * @return Una lista Mesa de las mesas registradas.
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Mesa> obtenerMesas() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();

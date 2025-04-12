@@ -28,6 +28,12 @@ public class ComandaDAO implements IComandaDAO{
         return comandaDAO;
     }
     
+    /**
+     * 
+     * @param comanda
+     * @return Regresa la Comanda persistida
+     * @throws PersistenciaException 
+     */
     @Override
     public Comanda registrarComanda(Comanda comanda) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -45,6 +51,11 @@ public class ComandaDAO implements IComandaDAO{
         }
     }
 
+    /**
+     * 
+     * @return Regresa el número de comandas registradas
+     * @throws PersistenciaException 
+     */
     @Override
     public int obtenerCantidadComandas() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -59,6 +70,12 @@ public class ComandaDAO implements IComandaDAO{
         }
     }
 
+    /**
+     * 
+     * @param comanda
+     * @return Regresa True si se actualiza, False si no.
+     * @throws PersistenciaException 
+     */
     @Override
     public boolean actualizarComanda(Comanda comanda) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -76,6 +93,12 @@ public class ComandaDAO implements IComandaDAO{
         }
     }
     
+    /**
+     * 
+     * @param estado
+     * @return Regresa una lista de Comandas segun su estado.
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Comanda> obtenerComandasPorEstado(estadoComanda estado) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();

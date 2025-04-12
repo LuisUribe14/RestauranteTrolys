@@ -46,6 +46,12 @@ public class ComandaBO {
         return comandaBO;
     }
     
+    /**
+     * 
+     * @param comandaNuevaDTO
+     * @return Verdadero si se registro falso si no
+     * @throws NegocioException 
+     */
     public boolean registrarComanda(ComandaNuevaDTO comandaNuevaDTO) throws NegocioException {
         if (comandaNuevaDTO.getEstado() == null) {
             throw new NegocioException("Error, el estado no puede estar vacio.");
@@ -101,6 +107,13 @@ public class ComandaBO {
         }
     }
     
+    /**
+     * Genera el folio en base a la cantidad de comandas y la fecha actual
+     * 
+     * @param fechaHora
+     * @return el folio armado
+     * @throws NegocioException 
+     */
     public String generarFolio(LocalDateTime fechaHora) throws NegocioException {
         String fecha = fechaHora.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String folio = "OB-" + fecha;
@@ -112,10 +125,11 @@ public class ComandaBO {
         }
     }
     
-    public boolean actaulizarEstado(ComandaViejaDTO comandaViejaDTO) throws NegocioException {
-        return true;
-    }
-    
+    /**
+     * 
+     * @return La lista de todas las Comandas abiertas
+     * @throws NegocioException 
+     */
     public List<ComandaViejaDTO> obtenerComandasAbiertas() throws NegocioException {
         try {
             List<Comanda> comandas = comandaDAO.obtenerComandasPorEstado(estadoComanda.ABIERTO);

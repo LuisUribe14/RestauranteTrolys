@@ -34,6 +34,13 @@ public class ProductoBO {
         return productoBO;
     }
     
+    /**
+     * Regresa verdadero si el producto se registro con exito
+     * 
+     * @param productoNuevoDTO
+     * @return
+     * @throws NegocioException 
+     */
     public boolean registrarProducto(ProductoNuevoDTO productoNuevoDTO) throws NegocioException {
         if (productoNuevoDTO.getEstado() == null) {
             throw new NegocioException("El estado no puede estar vacío.");
@@ -82,6 +89,13 @@ public class ProductoBO {
         }
     }
     
+    /**
+     * Regresa verdadero si se actualiza con exito.
+     * 
+     * @param productoViejoDTO
+     * @return
+     * @throws NegocioException 
+     */
     public boolean actualizarEstado(ProductoViejoDTO productoViejoDTO) throws NegocioException {
         if (productoViejoDTO.getEstado() == null) {
             throw new NegocioException("Error, el estado no puede estar vacío.");
@@ -102,6 +116,11 @@ public class ProductoBO {
         }
     }
     
+    /**
+     * 
+     * @return la lista de ProductoViejoDTO
+     * @throws NegocioException 
+     */
     public List<ProductoViejoDTO> obtenerProductosDisponibles() throws NegocioException {
         try {
             List<Producto> productos = productoDAO.obtenerProductosDisponibles();
@@ -117,6 +136,13 @@ public class ProductoBO {
         }
     }
     
+    /**
+     * 
+     * @param nombre
+     * @param tipo
+     * @return La lista de Productos sehun los filtros
+     * @throws NegocioException 
+     */
     public List<ProductoViejoDTO> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws NegocioException {
         List<ProductoViejoDTO> productosDTO = new ArrayList();
         try {
@@ -133,6 +159,11 @@ public class ProductoBO {
         }
     }
     
+    /**
+     * 
+     * @return la lista de productos registrados
+     * @throws NegocioException 
+     */
     public List<ProductoViejoDTO> obtenerProductosRegistrados() throws NegocioException {
         List<ProductoViejoDTO> productosDTO = new ArrayList();
         try {
@@ -149,6 +180,12 @@ public class ProductoBO {
         }
     }
     
+    /**
+     * 
+     * @param productoNuevoDTO
+     * @return verdadero si los valores son adecuados
+     * @throws NegocioException 
+     */
     public boolean validarProducto(ProductoNuevoDTO productoNuevoDTO) throws NegocioException {
         if (productoNuevoDTO.getEstado() == null) {
             throw new NegocioException("El estado no puede estar vacío.");

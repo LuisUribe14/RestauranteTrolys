@@ -83,6 +83,13 @@ public class Comanda implements Serializable {
         this.mesa = mesa;
     }
 
+    public Comanda(String folio, estadoComanda estado, LocalDateTime fechaYHora, Double totalVenta) {
+        this.folio = folio;
+        this.estado = estado;
+        this.fechaYHora = fechaYHora;
+        this.totalVenta = totalVenta;
+    }
+
     public Comanda(estadoComanda estado) {
         this.estado = estado;
     }

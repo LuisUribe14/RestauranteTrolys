@@ -48,6 +48,13 @@ public class MesaBO {
 //            throw new NegocioException("Error al reistrar mesas.");
 //        }
 //    }
+    
+    /**
+     * Regitra la mesa del parametro
+     * 
+     * @param mesaDTO
+     * @throws NegocioException 
+     */
     public void registrarMesa(MesaViejaDTO mesaDTO) throws NegocioException {
         try {
             if (mesaDTO.getNumero() == null || mesaDTO.getNumero() <= 0) {
@@ -61,6 +68,11 @@ public class MesaBO {
         }
     }
 
+    /**
+     * 
+     * @return El número de mesas registradas
+     * @throws NegocioException 
+     */
     public int obtenerCantidadMesasRegistradas() throws NegocioException {
         try {
             return mesaDAO.contarMesas();
@@ -69,6 +81,11 @@ public class MesaBO {
         }
     }
     
+    /**
+     * 
+     * @return La lista de mesas registradas
+     * @throws NegocioException 
+     */
     public List<MesaViejaDTO> obtenerMesas() throws NegocioException {
         try {
             List<MesaViejaDTO> mesasDTO = new ArrayList();

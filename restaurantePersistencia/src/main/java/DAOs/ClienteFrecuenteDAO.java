@@ -34,26 +34,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         return clienteFrecuenteDAO;
     }
 
-//    @Override
-//    public void registrarComanda(Comanda comanda) throws PersistenciaException {
-//        EntityManager em = Conexion.crearConexion();
-//        try {
-//            // iniciamos la transacción
-//            em.getTransaction().begin();
-//            // guardamos al cliente en la base de datos
-//            em.persist(comanda);
-//            // ya nomas confirmamos la transacción
-//            em.getTransaction().commit();
-//        } catch (Exception e) {
-//            if (em.getTransaction().isActive()) {
-//                // y en caso de error revertimos 
-//                em.getTransaction().rollback();
-//            }
-//            throw new PersistenciaException("Error al registrar la comanda");
-//        } finally {
-//            Conexion.cerrarConexion(em);
-//        }
-//    }
+    /**
+     * 
+     * @param cliente
+     * @return Un clienteFrecuente persistido en la base
+     * @throws PersistenciaException 
+     */
     @Override
     public ClienteFrecuente registrarClienteFrecuente(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -82,6 +68,11 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @return
+     * @throws PersistenciaException 
+     */
     @Override
     public List<ClienteFrecuente> obtenerTodosLosClientesFrecuentes() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -95,6 +86,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param id
+     * @return Regresa un clienteFrecuente cuto id sea el del parametro
+     * @throws PersistenciaException 
+     */
     @Override
     public ClienteFrecuente obtenerClienteFrecuentePorId(Long id) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -107,6 +104,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return Regresa un número Integer de la cantidad de visitas de un ClienteFrecuente.
+     * @throws PersistenciaException 
+     */
     @Override
     public Integer calcularVisitas(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -123,6 +126,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return Regresa el total que el Cliente a gastado en las comandas.
+     * @throws PersistenciaException 
+     */
     @Override
     public Double calcularTotalGastado(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -142,6 +151,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return Regresa un Integer de los puntos calculados del ClienteFrecuente
+     * @throws PersistenciaException 
+     */
     @Override
     public Integer calcularPuntos(ClienteFrecuente cliente) throws PersistenciaException {
         double totalGastado = calcularTotalGastado(cliente);
@@ -150,18 +165,14 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         return puntos;
     }
 
-//    @Override
-//    public boolean compararSiYaExisteTelefono(String telefonoEncriptado) {
-//        EntityManager em = Conexion.crearConexion();
-//        try {
-//            TypedQuery<Long> query = em.createQuery(
-//                    "SELECT COUNT(c) FROM Cliente c WHERE c.telefono = :telefono", Long.class);
-//            query.setParameter("telefono", telefonoEncriptado);
-//            return query.getSingleResult() > 0;
-//        } finally {
-//            Conexion.cerrarConexion(em);
-//        }
-//    }
+    /**
+     * 
+     * @param nombre
+     * @param telefono
+     * @param correo
+     * @return La lista de ClienteFrecuente filtrados.
+     * @throws PersistenciaException 
+     */
     @Override
     public List<ClienteFrecuente> filtrarClientesFrecuentes(String nombre, String telefono, String correo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -227,6 +238,13 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param nombre
+     * @param visitasMinimas
+     * @return La lista de ClienteFrecuente segun sus nombres y visitasMinimas
+     * @throws PersistenciaException 
+     */
     @Override
     public List<ClienteFrecuente> filtrarClientesPorNombreYVisitas(String nombre, Integer visitasMinimas) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -268,6 +286,12 @@ public class ClienteFrecuenteDAO implements IClienteFrecuente {
         }
     }
 
+    /**
+     * 
+     * @param cliente
+     * @return Regresa la fecha de la última Comanda
+     * @throws PersistenciaException 
+     */
     @Override
     public LocalDateTime obtenerFechaUltimaComanda(ClienteFrecuente cliente) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();

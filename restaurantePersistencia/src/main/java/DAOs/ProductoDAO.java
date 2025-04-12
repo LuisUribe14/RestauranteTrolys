@@ -21,6 +21,10 @@ public class ProductoDAO implements IProductoDAO{
     private ProductoDAO() {
     }
     
+    /**
+     * Método para obtener el atributo del singleton
+     * @return 
+     */
     public static ProductoDAO getInstancia() {
         if (productoDAO == null) {
             productoDAO = new ProductoDAO();
@@ -28,6 +32,12 @@ public class ProductoDAO implements IProductoDAO{
         return productoDAO;
     }
 
+    /**
+     * 
+     * @param producto
+     * @return El Producto registrado
+     * @throws PersistenciaException 
+     */
     @Override
     public Producto registrarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -45,6 +55,12 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
 
+    /**
+     * 
+     * @param producto
+     * @return Verdadero si se actulizo, falso si no.
+     * @throws PersistenciaException 
+     */
     @Override
     public boolean actualizarProducto(Producto producto) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -62,6 +78,11 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
 
+    /**
+     * 
+     * @return Una lista de Productos cuyo estado es ACTIVO
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Producto> obtenerProductosDisponibles() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -78,6 +99,13 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    /**
+     * 
+     * @param nombre
+     * @param tipo
+     * @return Una lista de Productos cuyos atributos sean nombre y tipo.
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Producto> obtenerProductosFiltrados(String nombre, tipoProducto tipo) throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
@@ -97,6 +125,11 @@ public class ProductoDAO implements IProductoDAO{
         }
     }
     
+    /**
+     * 
+     * @return Una lista de Productos en general
+     * @throws PersistenciaException 
+     */
     @Override
     public List<Producto> obtenerProductosRegistrados() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
