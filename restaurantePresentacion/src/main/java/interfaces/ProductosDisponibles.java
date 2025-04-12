@@ -33,7 +33,7 @@ public class ProductosDisponibles extends javax.swing.JFrame {
         
         if (productos != null) {
             for (ProductoViejoDTO producto : productos) {
-                productosdisponibles.add(new productosdisponibles(producto, this));
+//                productosdisponibles.add(new productosdisponibles(producto, this));
             }
         }
         
@@ -305,13 +305,6 @@ public class ProductosDisponibles extends javax.swing.JFrame {
     private javax.swing.JTextField tipo;
     // End of variables declaration//GEN-END:variables
 
-    public JPanel getProductosdisponibles() {
-        return productosdisponibles;
-    }
-
-    public void setProductosdisponibles(JPanel productosdisponibles) {
-        this.productosdisponibles = productosdisponibles;
-    }
 
     public JPanel getProductosseleccionados() {
         return productosseleccionados;
