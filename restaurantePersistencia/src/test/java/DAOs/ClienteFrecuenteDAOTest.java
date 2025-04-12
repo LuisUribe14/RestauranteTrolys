@@ -5,7 +5,11 @@
 package DAOs;
 
 import entidades.ClienteFrecuente;
+import entidades.Comanda;
+import enums.estadoComanda;
 import exception.PersistenciaException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -19,37 +23,58 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author multaslokas33
  */
 public class ClienteFrecuenteDAOTest {
-    
+
 //    private ClienteFrecuenteDAO clienteDAO;
+//    private ComandaDAO comandaDAO;
 //
 //    @BeforeEach
 //    public void setUp() {
-//        // Inicializa el DAO (si es necesario, se puede simular con mocks)
+//        
 //        clienteDAO = ClienteFrecuenteDAO.getInstancia();
+//        comandaDAO = ComandaDAO.getInstancia();
 //    }
-//    
+//
 //    @Test
-//    public void testFiltrarClientesPorTelefono() {
-//        // Primero, registrar un cliente
+//    public void testRegistrarCliente() throws PersistenciaException {
 //        ClienteFrecuente cliente = new ClienteFrecuente();
-//        cliente.setNombre("Carlos");
-//        cliente.setApellidoPaterno("González");
-//        cliente.setApellidoMaterno("Perez");
-//        cliente.setCorreo("carlos.gonzalez@dominio.com");
-//        cliente.setTelefono("1234567890");
+//        cliente.setNombre("pedro");
+//        cliente.setApellidoPaterno("mclofin");
+//        cliente.setApellidoMaterno("González");
+//        cliente.setCorreo("pedro@gmail.com");
+//        cliente.setTelefono("6115282083");
+//        cliente.setFechaRegistro(LocalDate.now());
 //
-//        try {
-//            clienteDAO.registrarClienteFrecuente(cliente);
+//        cliente = clienteDAO.registrarClienteFrecuente(cliente);
 //
-//            // Filtrar clientes por teléfono
-//            List<ClienteFrecuente> clientesFiltrados = clienteDAO.filtrarClientesFrecuentes(null, "1234567890", null);
+//        assertNotNull(cliente.getId(), "El cliente 1 no fue registrado correctamente.");
+//    }
 //
-//            // Verificar que al menos un cliente ha sido encontrado
-//            assertNotNull(clientesFiltrados, "La lista de clientes no debe ser nula.");
-//            assertEquals(1, clientesFiltrados.size(), "Los teléfonos deben coincidir.");
+//    @Test
+//    public void testRegistrarComanda() throws PersistenciaException {
+//        ClienteFrecuente cliente = new ClienteFrecuente();
+//        cliente.setNombre("fernanado");
+//        cliente.setApellidoPaterno("sanchez");
+//        cliente.setApellidoMaterno("Lopez");
+//        cliente.setCorreo("fer@gmail.com");
+//        cliente.setTelefono("0009191827");
 //
-//        } catch (PersistenciaException e) {
-//            fail("Error al filtrar clientes por teléfono: " + e.getMessage());
-//        }
+//        cliente = clienteDAO.registrarClienteFrecuente(cliente);
+//
+//        Comanda c1 = new Comanda();
+//        c1.setCliente(cliente);
+//        c1.setEstado(estadoComanda.ENTREGADO);
+//        c1.setFechaYHora(LocalDateTime.now());
+//        c1.setTotalVenta(200.0);
+//        c1.setFolio("CMD-A1");
+//
+//        comandaDAO.registrarComanda(c1);
+//
+//        Double gasto = clienteDAO.calcularTotalGastado(cliente);
+//        Integer visitas = clienteDAO.calcularVisitas(cliente);
+//        Integer puntos = clienteDAO.calcularPuntos(cliente);
+//
+//        assertEquals(200.0, gasto);
+//        assertEquals(1, visitas);
+//        assertEquals(10, puntos); 
 //    }
 }

@@ -36,11 +36,13 @@ public class PDFReportGenerator {
                 .setFontSize(16)
                 .setTextAlignment(TextAlignment.CENTER));
 
-        // Crear tabla con 5 columnas
-        Table table = new Table(5);
+        // Crear tabla con 7 columnas
+        Table table = new Table(7);
 
         // Encabezados
         table.addHeaderCell(new Cell().add(new Paragraph("Nombre")));
+        table.addHeaderCell(new Cell().add(new Paragraph("Apellido Paterno")));
+        table.addHeaderCell(new Cell().add(new Paragraph("Apellido Materno")));
         table.addHeaderCell(new Cell().add(new Paragraph("Visitas")));
         table.addHeaderCell(new Cell().add(new Paragraph("Total Gastado")));
         table.addHeaderCell(new Cell().add(new Paragraph("Puntos")));
@@ -52,6 +54,8 @@ public class PDFReportGenerator {
         // Filas con los datos
         for (ClienteFrecuenteDTO dto : clientes) {
             table.addCell(new Cell().add(new Paragraph(dto.getNombre())));
+            table.addCell(new Cell().add(new Paragraph(dto.getApellidoPaterno())));
+            table.addCell(new Cell().add(new Paragraph(dto.getApellidoMaterno())));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(dto.getVisitas()))));
             table.addCell(new Cell().add(new Paragraph("$" + dto.getTotalGastado())));
             table.addCell(new Cell().add(new Paragraph(String.valueOf(dto.getPuntos()))));
