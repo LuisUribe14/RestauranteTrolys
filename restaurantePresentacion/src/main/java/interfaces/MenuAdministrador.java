@@ -119,6 +119,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Producto.setText("Producto");
         Producto.setBackground(new java.awt.Color(0, 0, 0));
         Producto.setForeground(new java.awt.Color(255, 255, 255));
+        Producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ProductoActionPerformed(evt);
+            }
+        });
 
         Mesas.setText("Mesas");
         Mesas.setBackground(new java.awt.Color(0, 0, 0));
@@ -232,6 +237,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ControlFlujoPantallas.getInstancia().abrirPantallaPrincipal();
         this.dispose();
     }//GEN-LAST:event_regresarActionPerformed
+
+    private void ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductoActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
+        this.dispose();
+    }//GEN-LAST:event_ProductoActionPerformed
 
     
 
