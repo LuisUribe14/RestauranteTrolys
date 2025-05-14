@@ -2,6 +2,7 @@ package Pantallas.moduloProductos;
 
 import BOs.ProductoBO;
 import DTOs.ProductoViejoDTO;
+import control.ControlFlujoPantallas;
 import enums.estadoProducto;
 import exception.NegocioException;
 import javax.swing.JFrame;
@@ -129,6 +130,7 @@ public class PnlProductosRegistrados extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ControlFlujoPantallas.getInstancia().abrirFrmIngredientesProducto(producto);
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

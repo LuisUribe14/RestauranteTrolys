@@ -39,6 +39,8 @@ public class Ingredientes extends javax.swing.JPanel {
         txfCantidad = new javax.swing.JTextField();
         txfMedida = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btnSumarCantidad = new javax.swing.JButton();
+        btnRestarCantidad = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(646, 29));
         setMinimumSize(new java.awt.Dimension(646, 29));
@@ -50,8 +52,8 @@ public class Ingredientes extends javax.swing.JPanel {
         txfNombre.setBorder(null);
         txfNombre.setOpaque(false);
 
-        txfCantidad.setEditable(false);
         txfCantidad.setBackground(new java.awt.Color(217, 217, 217));
+        txfCantidad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txfCantidad.setText("a");
         txfCantidad.setBorder(null);
         txfCantidad.setOpaque(false);
@@ -64,9 +66,24 @@ public class Ingredientes extends javax.swing.JPanel {
 
         jButton1.setBackground(new java.awt.Color(236, 34, 31));
         jButton1.setText("Eliminar");
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnSumarCantidad.setText("+");
+        btnSumarCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSumarCantidadActionPerformed(evt);
+            }
+        });
+
+        btnRestarCantidad.setText("-");
+        btnRestarCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestarCantidadActionPerformed(evt);
             }
         });
 
@@ -77,12 +94,16 @@ public class Ingredientes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txfMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txfMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(btnRestarCantidad)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSumarCantidad)
+                .addGap(19, 19, 19)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +112,9 @@ public class Ingredientes extends javax.swing.JPanel {
                     .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(btnSumarCantidad)
+                    .addComponent(btnRestarCantidad))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -101,8 +124,28 @@ public class Ingredientes extends javax.swing.JPanel {
         frame.mostrarIngredientes();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnRestarCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestarCantidadActionPerformed
+        int cantidad = Integer.valueOf(txfCantidad.getText());
+        if (cantidad > 1) {
+            cantidad--;
+            txfCantidad.setText(String.valueOf(cantidad));
+            ingrediente.setCantidadRequerida(Double.valueOf(txfCantidad.getText()));
+        }
+    }//GEN-LAST:event_btnRestarCantidadActionPerformed
+
+    private void btnSumarCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumarCantidadActionPerformed
+        int cantidad = Integer.valueOf(txfCantidad.getText());
+        if (cantidad <= 50) {
+            cantidad++;
+            txfCantidad.setText(String.valueOf(cantidad));
+            ingrediente.setCantidadRequerida(Double.valueOf(txfCantidad.getText()));
+        }
+    }//GEN-LAST:event_btnSumarCantidadActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRestarCantidad;
+    private javax.swing.JButton btnSumarCantidad;
     private javax.swing.JButton jButton1;
     private javax.swing.JTextField txfCantidad;
     private javax.swing.JTextField txfMedida;

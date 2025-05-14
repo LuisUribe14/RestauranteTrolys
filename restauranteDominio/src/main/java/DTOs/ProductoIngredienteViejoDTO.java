@@ -5,6 +5,7 @@ package DTOs;
  * @author daniel
  */
 public class ProductoIngredienteViejoDTO {
+    
     private Long id;
     private Double cantidadRequerida;
     private IngredienteViejoDTO ingrediente;
@@ -16,6 +17,11 @@ public class ProductoIngredienteViejoDTO {
         this.id = id;
         this.cantidadRequerida = cantidadRequerida;
         this.ingrediente = ingrediente;
+    }
+
+    public ProductoIngredienteViejoDTO(Long id, Double cantidadRequerida) {
+        this.id = id;
+        this.cantidadRequerida = cantidadRequerida;
     }
 
     public Long getId() {

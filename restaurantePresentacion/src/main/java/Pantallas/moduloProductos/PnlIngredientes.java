@@ -1,6 +1,7 @@
 package Pantallas.moduloProductos;
 
 import DTOs.IngredienteViejoDTO;
+import DTOs.ProductoIngredienteViejoDTO;
 
 /**
  *
@@ -11,10 +12,13 @@ public class PnlIngredientes extends javax.swing.JPanel {
     /**
      * Creates new form PnlIngredientes
      */
-    public PnlIngredientes(IngredienteViejoDTO ingrediente) {
+    public PnlIngredientes(ProductoIngredienteViejoDTO productoIngrediente) {
         initComponents();
+        IngredienteViejoDTO ingrediente = productoIngrediente.getIngrediente();
         
-        txfNombre1.setText(ingrediente.getNombre());
+        txfNombre.setText(ingrediente.getNombre());
+        txfMedida.setText(ingrediente.getUnidadMedida().toString());
+        txfCantidad.setText(productoIngrediente.getCantidadRequerida().toString());
     }
 
     /**
@@ -26,15 +30,18 @@ public class PnlIngredientes extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txfNombre1 = new javax.swing.JTextField();
+        txfNombre = new javax.swing.JTextField();
         txfMedida = new javax.swing.JTextField();
         txfCantidad = new javax.swing.JTextField();
 
-        txfNombre1.setEditable(false);
-        txfNombre1.setBackground(new java.awt.Color(217, 217, 217));
-        txfNombre1.setText("a");
-        txfNombre1.setBorder(null);
-        txfNombre1.setOpaque(false);
+        setMaximumSize(new java.awt.Dimension(609, 24));
+        setMinimumSize(new java.awt.Dimension(609, 24));
+
+        txfNombre.setEditable(false);
+        txfNombre.setBackground(new java.awt.Color(217, 217, 217));
+        txfNombre.setText("a");
+        txfNombre.setBorder(null);
+        txfNombre.setOpaque(false);
 
         txfMedida.setEditable(false);
         txfMedida.setBackground(new java.awt.Color(217, 217, 217));
@@ -53,7 +60,7 @@ public class PnlIngredientes extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(txfNombre1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                .addComponent(txfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(txfMedida, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -64,10 +71,10 @@ public class PnlIngredientes extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txfNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfMedida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txfCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -75,6 +82,6 @@ public class PnlIngredientes extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField txfCantidad;
     private javax.swing.JTextField txfMedida;
-    private javax.swing.JTextField txfNombre1;
+    private javax.swing.JTextField txfNombre;
     // End of variables declaration//GEN-END:variables
 }

@@ -185,7 +185,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_AdministradorActionPerformed
 
     private void MeseroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MeseroActionPerformed
-        ControlFlujoPantallas.getInstancia().abrirComandasAbiertas();
+        ControlFlujoPantallas.getInstancia().abrirFrmComandasAbiertas();
         this.dispose();
     }//GEN-LAST:event_MeseroActionPerformed
 

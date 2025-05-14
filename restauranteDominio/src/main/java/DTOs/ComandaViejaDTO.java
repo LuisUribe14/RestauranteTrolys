@@ -2,6 +2,8 @@ package DTOs;
 
 import enums.estadoComanda;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -16,6 +18,7 @@ public class ComandaViejaDTO {
     private Double totalVenta;
     private ClienteFrecuenteViejoDTO cliente;
     private MesaViejaDTO mesa;
+    private List<ComandaProductoViejaDTO> productos = new ArrayList();
 
     public ComandaViejaDTO() {
     }
@@ -93,6 +96,14 @@ public class ComandaViejaDTO {
 
     public void setMesa(MesaViejaDTO mesa) {
         this.mesa = mesa;
+    }
+
+    public List<ComandaProductoViejaDTO> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<ComandaProductoViejaDTO> productos) {
+        this.productos = productos;
     }
 
     @Override

@@ -4,12 +4,25 @@
  */
 package control;
 
-import DTOs.IngredienteViejoDTO;
+import BOs.ComandaBO;
+import DTOs.ClienteFrecuenteViejoDTO;
+import DTOs.ComandaNuevaDTO;
+import DTOs.ComandaProductoNuevaDTO;
+import DTOs.ComandaViejaDTO;
 import DTOs.MesaViejaDTO;
 import DTOs.ProductoIngredienteNuevoDTO;
+import DTOs.ProductoViejoDTO;
 import Pantallas.moduloProductos.FrmAñadirIngredientes;
+import Pantallas.moduloProductos.FrmIngredientesProducto;
 import Pantallas.moduloProductos.FrmProductosRegistrados;
 import Pantallas.moduloProductos.FrmRegistrarProductos;
+import comandas.FrmComandasAbiertas;
+import comandas.FrmMesas;
+import comandas.FrmProducto;
+import comandas.FrmProductosDisponibles;
+import comandas.FrmComanda;
+import enums.estadoComanda;
+import exception.NegocioException;
 import interfaces.AgregarIngrediente;
 import interfaces.ClientesComanda;
 import interfaces.ClientesDisponibles;
@@ -24,6 +37,7 @@ import interfaces.RegistrarIngrediente;
 import interfaces.ReporteClientes;
 import interfaces.ReporteComandas;
 import interfaces.Reportes;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +48,9 @@ import java.util.List;
 public class ControlFlujoPantallas {
 
     private static ControlFlujoPantallas instancia;
+    private ComandaNuevaDTO comandaNuevaDTO = new ComandaNuevaDTO();
+    private ComandaViejaDTO comandaViejaDTO = new ComandaViejaDTO();
+    private ComandaBO comandaBO = ComandaBO.getInstancia();
 
     /**
      * Constructor privado para impedir instanciación externa.
@@ -52,6 +69,71 @@ public class ControlFlujoPantallas {
             instancia = new ControlFlujoPantallas();
         }
         return instancia;
+    }
+    
+    public boolean registrarComandaNuevaDTO() throws NegocioException {
+        comandaNuevaDTO.setEstado(estadoComanda.ABIERTO);
+        return comandaBO.registrarComanda(comandaNuevaDTO);
+    }
+    
+    public MesaViejaDTO obtenerMesa() {
+        return comandaNuevaDTO.getMesa();
+    }
+    
+    public ClienteFrecuenteViejoDTO obtenerClienteFrecuente() {
+        return comandaNuevaDTO.getCliente();
+    }
+    
+    public void limpiarComandaNuevaDTO() {
+        comandaNuevaDTO = new ComandaNuevaDTO();
+    }
+    
+    public void removerMesaAComanda() {
+        comandaNuevaDTO.setMesa(null);
+    }
+    
+    public void agregarMesaAComanda(MesaViejaDTO mesa) {
+        comandaNuevaDTO.setMesa(mesa);
+    }
+    
+    public void removerComandaProducto(ComandaProductoNuevaDTO comandaProducto) {
+        comandaNuevaDTO.getProductos().remove(comandaProducto);
+    }
+    
+    public List<ComandaProductoNuevaDTO> obtenerComandasProductos() {
+        return this.comandaNuevaDTO.getProductos();
+    }
+    
+    public void limpiarProductosSeleccionados() {
+        this.comandaNuevaDTO.getProductos().clear();
+    }
+    
+    public void agregarProducto(ComandaProductoNuevaDTO producto) {
+        this.comandaNuevaDTO.getProductos().add(producto);
+    }
+    
+    public void abrirFrmComanda() {
+        new FrmComanda().setVisible(true);
+    }
+    
+    public void abrirFrmProductosDisponibles() {
+        new FrmProductosDisponibles().setVisible(true);
+    }
+    
+    public void abrirFrmProducto(ProductoViejoDTO producto) {
+        new FrmProducto(producto).setVisible(true);
+    }
+    
+    public void abrirFrmMesas() {
+        new FrmMesas().setVisible(true);
+    }
+    
+    public void abrirFrmComandasAbiertas() {
+        new FrmComandasAbiertas().setVisible(true);
+    }
+    
+    public void abrirFrmIngredientesProducto(ProductoViejoDTO producto) {
+        new FrmIngredientesProducto(producto).setVisible(true);
     }
     
     public void abrirFrmAñadirIngredientes(List<ProductoIngredienteNuevoDTO> ingredientes) {

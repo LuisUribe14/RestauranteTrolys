@@ -1,7 +1,9 @@
 package DAOs;
 
 import conexion.Conexion;
+import entidades.ComandaProducto;
 import entidades.Producto;
+import entidades.ProductoIngrediente;
 import static enums.estadoProducto.DISPONIBLE;
 import enums.tipoProducto;
 import exception.PersistenciaException;
@@ -49,6 +51,7 @@ public class ProductoDAO implements IProductoDAO{
             return producto;
         } catch (Exception e) {
             em.getTransaction().rollback();
+            System.out.println("Rollback en persist");
             throw new PersistenciaException("Error al registrar Producto");
         } finally {
             em.close();
@@ -72,6 +75,7 @@ public class ProductoDAO implements IProductoDAO{
             return true;
         } catch (Exception e) {
             em.getTransaction().rollback();
+            System.out.println("Rollback en merge");
             throw new PersistenciaException("Error al actualizar Producto");
         } finally {
             em.close();
@@ -116,6 +120,7 @@ public class ProductoDAO implements IProductoDAO{
             TypedQuery query = em.createQuery(jpql, Producto.class);
             query.setParameter("nombre", nombre);
             query.setParameter("tipo", tipo);
+            query.setMaxResults(5);
             
             return query.getResultList();
         } catch(Exception e) {
@@ -141,6 +146,68 @@ public class ProductoDAO implements IProductoDAO{
             return query.getResultList();
         } catch(Exception e) {
             throw new PersistenciaException("Error al consultar la Lista de Productos");
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<ProductoIngrediente> obtenerProductosIngredientes(Long id) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT new entidades.ProductoIngrediente("
+                    + "pi.id, pi.cantidadRequerida, pi.ingrediente) "
+                    + "FROM ProductoIngrediente pi WHERE pi.producto.id = :id";
+            TypedQuery query = em.createQuery(jpql, ProductoIngrediente.class);
+            query.setParameter("id", id);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar la Lista de ProductosIngredientes");
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Producto obtenerProducto(String nombre) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT pi FROM Producto pi WHERE "
+                    + "pi.nombre = :nombre";
+            TypedQuery<Producto> query = em.createQuery(jpql, Producto.class);
+            query.setParameter("nombre", nombre);
+            query.setMaxResults(1);
+            List<Producto> producto = query.getResultList();
+            
+            if (producto.isEmpty()) {
+                return null;
+            } else {
+                return producto.getFirst();
+            }
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar Producto.");
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public List<Producto> obtenerProductosDisponibles(String nombre, tipoProducto tipo) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT p FROM Producto p "
+                    + "WHERE (:nombre IS NULL OR p.nombre LIKE CONCAT(:nombre, '%')) "
+                    + "AND (:tipo IS NULL OR p.tipo = :tipo) "
+                    + "AND p.estado LIKE 'DISPONIBLE'";
+            TypedQuery query = em.createQuery(jpql, Producto.class);
+            query.setParameter("nombre", nombre);
+            query.setParameter("tipo", tipo);
+            query.setMaxResults(5);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("Error al consultar Productos.");
         } finally {
             em.close();
         }

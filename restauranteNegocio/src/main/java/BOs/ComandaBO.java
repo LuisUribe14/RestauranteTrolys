@@ -86,18 +86,21 @@ public class ComandaBO {
             productos.add(comandaProducto);
         }
         
-        cliente.getComandas().add(comanda);
+        if (cliente != null) {
+            cliente.getComandas().add(comanda);
+        }
         
         comanda.setMesa(mesa);
         comanda.setCliente(cliente);
         comanda.setProductos(productos);
         comanda.setFechaYHora(LocalDateTime.now());
         comanda.setFolio(generarFolio(comanda.getFechaYHora()));
+        comanda.setTotalVenta(calcularTotalVenta(comandaNuevaDTO));
         
         try {
             Comanda comandaGuardada = comandaDAO.registrarComanda(comanda);
             
-            if (comandaGuardada.getId() == null) {
+            if (comandaGuardada.getId() != null) {
                 return true;
             } else {
                 return false;
@@ -114,7 +117,7 @@ public class ComandaBO {
      * @return el folio armado
      * @throws NegocioException 
      */
-    public String generarFolio(LocalDateTime fechaHora) throws NegocioException {
+    private String generarFolio(LocalDateTime fechaHora) throws NegocioException {
         String fecha = fechaHora.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         String folio = "OB-" + fecha;
         try {
@@ -143,5 +146,30 @@ public class ComandaBO {
         } catch(PersistenciaException e) {
             throw new NegocioException("Error al consultar comandas.");
         }
+    }
+    
+    public Double calcularTotalVenta(ComandaNuevaDTO comanda) {
+        Double totalVenta = 0.0;
+        int cantidadRequerida = 0;
+        Double precioProducto = 0.0;
+        
+        List<ComandaProductoNuevaDTO> comandaProductos = comanda.getProductos();
+        
+        for (ComandaProductoNuevaDTO comandaProducto : comandaProductos) {
+            cantidadRequerida = comandaProducto.getCantidadRequerida();
+            precioProducto = comandaProducto.getPrecioProducto();
+            
+            totalVenta = totalVenta + (cantidadRequerida * precioProducto);
+        }
+        
+        return totalVenta;
+    }
+    
+    public boolean validarComentario(String comentario) throws NegocioException {
+        if (comentario.length() > 200) {
+            throw new NegocioException("El comentario no puede tener más de 200 caracteres.");
+        }
+        
+        return true;
     }
 }

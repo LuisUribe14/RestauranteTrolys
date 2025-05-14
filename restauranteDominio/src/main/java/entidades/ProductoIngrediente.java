@@ -59,6 +59,12 @@ public class ProductoIngrediente implements Serializable {
         this.ingrediente = ingrediente;
     }
 
+    public ProductoIngrediente(Long id, Double cantidadRequerida, Ingrediente ingrediente) {
+        this.id = id;
+        this.cantidadRequerida = cantidadRequerida;
+        this.ingrediente = ingrediente;
+    }
+
     public Long getId() {
         return id;
     }
@@ -113,7 +119,7 @@ public class ProductoIngrediente implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductoIngrediente{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", producto=" + producto.getId() + ", ingrediente=" + ingrediente.getId() + '}';
+        return "ProductoIngrediente{" + "id=" + id + ", cantidadRequerida=" + cantidadRequerida + ", producto=" + producto + ", ingrediente=" + ingrediente + '}';
     }
     
 }

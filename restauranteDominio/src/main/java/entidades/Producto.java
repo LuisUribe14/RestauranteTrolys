@@ -44,7 +44,7 @@ public class Producto implements Serializable {
     @Column(name = "estado", nullable = false, length = 100)
     private estadoProducto estado;
 
-    @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
+    @OneToMany(mappedBy = "producto", cascade = {CascadeType.PERSIST})
     private List<ProductoIngrediente> ingredientes;
 
     @OneToMany(mappedBy = "producto")
@@ -79,6 +79,11 @@ public class Producto implements Serializable {
         this.estado = estado;
         this.ingredientes = new ArrayList();
         this.comandas = new ArrayList();
+    }
+
+    public Producto(String nombre, tipoProducto tipo) {
+        this.nombre = nombre;
+        this.tipo = tipo;
     }
 
     public estadoProducto getEstado() {

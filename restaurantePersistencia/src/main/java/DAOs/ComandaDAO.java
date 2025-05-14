@@ -2,6 +2,7 @@ package DAOs;
 
 import conexion.Conexion;
 import entidades.Comanda;
+import entidades.ComandaProducto;
 import enums.estadoComanda;
 import exception.PersistenciaException;
 import interfaces.IComandaDAO;
@@ -57,12 +58,12 @@ public class ComandaDAO implements IComandaDAO{
      * @throws PersistenciaException 
      */
     @Override
-    public int obtenerCantidadComandas() throws PersistenciaException {
+    public Long obtenerCantidadComandas() throws PersistenciaException {
         EntityManager em = Conexion.crearConexion();
         try {
             String jpql = "SELECT COUNT(c.id) FROM Comanda c";
-            TypedQuery query = em.createQuery(jpql, Comanda.class);
-            return query.getFirstResult();
+            TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+            return query.getSingleResult();
         } catch(Exception e) {
             throw new PersistenciaException("Error al consultar cantidad de Comandas");
         } finally {
@@ -114,4 +115,35 @@ public class ComandaDAO implements IComandaDAO{
             em.close();
         }
     }
+    
+    public List<ComandaProducto> obtenerComandasProductosPorIdComanda(Long idComanda) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            String jpql = "SELECT cp FROM ComandaProducto cp WHERE cp.comanda.id = :id";
+            TypedQuery query = em.createQuery(jpql, ComandaProducto.class);
+            query.setParameter("id", idComanda);
+            
+            return query.getResultList();
+        } catch(Exception e) {
+            throw new PersistenciaException("No se pudo consultar la lista de ComandaProducto.");
+        } finally {
+            em.close();
+        }
+    }
+    
+    public boolean removerComandaProducto(ComandaProducto comandaProducto) throws PersistenciaException {
+        EntityManager em = Conexion.crearConexion();
+        try {
+            em.getTransaction().begin();
+            em.remove(comandaProducto);
+            em.getTransaction().commit();
+            
+            return true;
+        } catch(Exception e) {
+            throw new PersistenciaException("");
+        } finally {
+            em.close();
+        }
+    }
+    
 }

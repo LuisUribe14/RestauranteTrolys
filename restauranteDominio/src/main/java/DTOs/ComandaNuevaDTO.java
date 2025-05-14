@@ -1,6 +1,7 @@
 package DTOs;
 
 import enums.estadoComanda;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class ComandaNuevaDTO {
     private estadoComanda estado;
     private ClienteFrecuenteViejoDTO cliente;
     private MesaViejaDTO mesa;
-    private List<ComandaProductoNuevaDTO> productos;
+    private List<ComandaProductoNuevaDTO> productos = new ArrayList();
 
     public ComandaNuevaDTO() {
     }

@@ -1,6 +1,11 @@
 package comandas;
 
+import BOs.ComandaBO;
+import DTOs.ComandaProductoNuevaDTO;
 import DTOs.ProductoViejoDTO;
+import control.ControlFlujoPantallas;
+import exception.NegocioException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -8,11 +13,15 @@ import DTOs.ProductoViejoDTO;
  */
 public class FrmProducto extends javax.swing.JFrame {
 
+    private ProductoViejoDTO producto;
+    private ComandaBO comandaBO = ComandaBO.getInstancia();
+    
     /**
      * Creates new form FrmProducto
      */
     public FrmProducto(ProductoViejoDTO producto) {
         initComponents();
+        this.producto = producto;
         
         if (producto != null) {
             txfNombre.setText(producto.getNombre());
@@ -20,6 +29,7 @@ public class FrmProducto extends javax.swing.JFrame {
             txfPrecio.setText(producto.getPrecio().toString());
         }
         
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -73,9 +83,9 @@ public class FrmProducto extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(160, 160, 160)
                 .addComponent(jLabel2)
@@ -116,17 +126,16 @@ public class FrmProducto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(30, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(87, 87, 87)
-                        .addComponent(txfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))))
+                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addComponent(txfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(txfPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(82, 82, 82))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,6 +157,8 @@ public class FrmProducto extends javax.swing.JFrame {
         txaComentario.setRows(5);
         jScrollPane1.setViewportView(txaComentario);
 
+        btnAñadir.setBackground(new java.awt.Color(44, 165, 0));
+        btnAñadir.setForeground(new java.awt.Color(255, 255, 255));
         btnAñadir.setText("Añadir");
         btnAñadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,6 +166,8 @@ public class FrmProducto extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(128, 143, 180));
+        btnRegresar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,11 +239,39 @@ public class FrmProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        ControlFlujoPantallas.getInstancia().abrirFrmProductosDisponibles();
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirActionPerformed
+        try {
+            comandaBO.validarComentario(txaComentario.getText());
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Crear y asignar valores a ComandaProductoNuevaDTO
+        ComandaProductoNuevaDTO comandaProducto = new ComandaProductoNuevaDTO();
+        comandaProducto.setProducto(producto);
+        
         String comentario = txaComentario.getText();
+        if(comentario.isBlank()) {
+            comandaProducto.setComentario(null);
+        } else {
+            comandaProducto.setComentario(comentario);
+        }
+        
+        comandaProducto.setPrecioProducto(producto.getPrecio());
+        comandaProducto.setCantidadRequerida(1);
+        
+        // Añadir el producto a ComandaNuevaDTO en ControlFlujoPantallas
+        ControlFlujoPantallas control = ControlFlujoPantallas.getInstancia();
+        control.agregarProducto(comandaProducto);
+        
+        // Abrir FrmProductosDisponibles y cerrar el Frame actual
+        control.abrirFrmProductosDisponibles();
+        this.dispose();
     }//GEN-LAST:event_btnAñadirActionPerformed
 
     /**

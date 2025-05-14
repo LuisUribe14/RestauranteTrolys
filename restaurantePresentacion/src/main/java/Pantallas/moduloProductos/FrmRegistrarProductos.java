@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
 public class FrmRegistrarProductos extends javax.swing.JFrame {
 
     private ProductoBO productoBO = ProductoBO.getInstancia();
-    private List<ProductoIngredienteNuevoDTO> ingredientes = new ArrayList();
+    private List<ProductoIngredienteNuevoDTO> ingredientes;
     
     /**
      * Creates new form FrmRegistrarProductos
@@ -140,9 +140,9 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(192, 192, 192)
+                .addGap(201, 201, 201)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(94, 94, 94)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -243,7 +243,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAñadirProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,10 +261,7 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -273,8 +270,21 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
     private void btnAñadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductoActionPerformed
         ProductoNuevoDTO producto = new ProductoNuevoDTO();
         
-        producto.setNombre(txfNombre.getText());
-        producto.setTipo(tipoProducto.valueOf((String) cbTipo.getSelectedItem()));
+        String nombre = txfNombre.getText();
+        tipoProducto tipo = tipoProducto.valueOf((String) cbTipo.getSelectedItem());
+        
+        try {
+            boolean existeProducto = productoBO.verificarExistenciaProducto(nombre);
+            if (existeProducto) {
+                JOptionPane.showMessageDialog(this, "El Producto ya existe.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else {
+                producto.setNombre(nombre);
+                producto.setTipo(tipo);
+            }
+        } catch(NegocioException e) {
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
         
         if (txfPrecio.getText().matches("\\d+")) {
             producto.setPrecio(Double.valueOf(txfPrecio.getText()));
@@ -286,10 +296,9 @@ public class FrmRegistrarProductos extends javax.swing.JFrame {
         producto.setIngredientes(ingredientes);
         
         try {
-            System.out.println(producto.getIngredientes());
             productoBO.registrarProducto(producto);
             
-            JOptionPane.showMessageDialog(this, "Se agrego el producto.", "Advertencia", JOptionPane.YES_OPTION);
+            JOptionPane.showMessageDialog(this, "Se agrego el producto.", "Advertencia", JOptionPane.INFORMATION_MESSAGE);
             ControlFlujoPantallas.getInstancia().abrirFrmProductosRegistrados();
             this.dispose();
         } catch(NegocioException e) {

@@ -26,6 +26,11 @@ public class ProductoViejoDTO {
         this.estado = estado;
     }
 
+    public ProductoViejoDTO(String nombre, tipoProducto tipo) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+    }
+
     public Long getId() {
         return id;
     }

@@ -1,7 +1,10 @@
 package com.mycompany.restaurantepersistencia;
 
+import DAOs.ComandaDAO;
 import DAOs.ProductoDAO;
 import conexion.Conexion;
+import entidades.Comanda;
+import entidades.ComandaProducto;
 import entidades.Ingrediente;
 import entidades.Producto;
 import entidades.ProductoIngrediente;
@@ -51,7 +54,23 @@ public class PruebasDaniel {
 //        producto.setEstado(estadoProducto.DISPONIBLE);
 //        ProductoDAO.getInstancia().actualizarProducto(producto);
 
-        System.out.println(ProductoDAO.getInstancia().obtenerProductosRegistrados());
+//        System.out.println(ProductoDAO.getInstancia().obtenerProductosRegistrados());
+//        System.out.println(ProductoDAO.getInstancia().obtenerProductosIngredientes(13L));
+    
+//        System.out.println(ProductoDAO.getInstancia().obtenerProducto("h"));
+//        System.out.println(ProductoDAO.getInstancia().obtenerProductosDisponibles(null, null));
+//        System.out.println(ComandaDAO.getInstancia().obtenerCantidadComandas());
+//        Comanda c = em.find(Comanda.class, 1L);
+//        c.setTotalVenta(100.0);
+//        ComandaDAO.getInstancia().actualizarComanda(c);
+
+//        Comanda c = em.find(Comanda.class, 7L);
+//        System.out.println(c.getProductos());
+//        ComandaProducto cp = new ComandaProducto(1, 80.0, "comentario", 80.0, c, em.find(Producto.class, 1L));
+//        c.getProductos().add(cp);
+//        ComandaDAO.getInstancia().actualizarComanda(c);
+
+        System.out.println(ComandaDAO.getInstancia().removerComandaProducto(new ComandaProducto()));
     }
     
 }
